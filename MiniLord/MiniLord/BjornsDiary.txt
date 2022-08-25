@@ -1,0 +1,31 @@
+///*
+// structure of my diary. 
+// count when i work: noon/day/night. add a count. also at the date
+// write my goal NOW and FUTURE.
+// WORK, write what im doing and fixes when finding bugs.
+// PROBLEMS, frustrations,issues, etc, stuff i should bother other people about(teachers...)
+// this my recording,log,dairy and rubber ducky, /emo
+///*
+
+// Night 0: 25/08/2022
+
+Decided to Restart from scratch from the minigin assigment i got from school. the goal is to aim to make 9 old school arcade games. And 1 large complex game using... wel this..
+Future, looking at how the rasterizer worked again. also looking at overlord.
+
+// WORK
+figure out whats up with a PCh. : DONE/HOW? i set the config to /yc create pre-comp-header, had to add the class manually before it works(spelling was also wrong). then set it back to yu/use
+created the github.
+SDL2 3rd party libs added.  imp.
+PropSheets file + copied SDL.props,VDL.props from herex2 copied 
+PCH is being anoying again, did not like me writhing in it. 
+fixed PCH, every cpp needed it apperantly.
+
+SDL include works, using the _SDL2#def to turn it on and off.
+
+
+//PROBLEM
+github in visual studio still thinks i got a minilord repo someweare even thou i renamed them al to hex.
+ C2857.. pch
+
+ //NOTICE
+ sdl2 renames the main function using a macro >_>,, why ??

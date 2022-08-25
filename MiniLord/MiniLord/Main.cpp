@@ -1,11 +1,14 @@
 // MiniLord.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include "MiniLordPCH.h"
-#include <iostream>
 
-int main()
+
+#include "MiniLord.h"
+int main(int, char* [])
 {
-    std::cout << "Hello World!\n";
+    MiniLord engine;
+    engine.run();
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
