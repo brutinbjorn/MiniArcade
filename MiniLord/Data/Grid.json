@@ -1,0 +1,153 @@
+{
+  "Horizontal": [
+    {
+      "ID": 0,
+      "xPos": 28,
+      "yPos": 32,
+      "width": 664,
+      "height": 5
+    },
+    {
+      "ID": 1,
+      "xPos": 28,
+      "yPos": 147,
+      "width": 166,
+      "height": 5
+    },
+    {
+      "ID": 2,
+      "xPos": 28,
+      "yPos": 263,
+      "width": 166,
+      "height": 5
+    },
+    {
+      "ID": 3,
+      "xPos": 28,
+      "yPos": 437,
+      "width": 498,
+      "height": 5
+    },
+    {
+      "ID": 4,
+      "xPos": 28,
+      "yPos": 551,
+      "width": 664,
+      "height": 5
+    },
+    {
+      "ID": 5,
+      "xPos": 194,
+      "yPos": 206,
+      "width": 166,
+      "height": 5
+    },
+    {
+      "ID": 6,
+      "xPos": 194,
+      "yPos": 321,
+      "width": 332,
+      "height": 5
+    },
+    {
+      "ID": 7,
+      "xPos": 360,
+      "yPos": 147,
+      "width": 332,
+      "height": 5
+    },
+    {
+      "ID": 8,
+      "xPos": 526,
+      "yPos": 263,
+      "width": 166,
+      "height": 5
+    },
+    {
+      "ID": 9,
+      "xPos": 526,
+      "yPos": 379,
+      "width": 166,
+      "height": 5
+    }
+  ],
+  "Vertical": [
+    {
+      "ID": 0,
+      "xPos": 28,
+      "yPos": 32,
+      "width": 5,
+      "height": 116
+    },
+    {
+      "ID": 1,
+      "xPos": 28,
+      "yPos": 264,
+      "width": 5,
+      "height": 290
+    },
+    {
+      "ID": 2,
+      "xPos": 111,
+      "yPos": 147,
+      "width": 5,
+      "height": 290
+    },
+    {
+      "ID": 3,
+      "xPos": 194,
+      "yPos": 31,
+      "width": 5,
+      "height": 520
+    },
+    {
+      "ID": 4,
+      "xPos": 277,
+      "yPos": 32,
+      "width": 5,
+      "height": 175
+    },
+    {
+      "ID": 5,
+      "xPos": 360,
+      "yPos": 32,
+      "width": 5,
+      "height": 520
+    },
+    {
+      "ID": 6,
+      "xPos": 443,
+      "yPos": 146,
+      "width": 5,
+      "height": 175
+    },
+    {
+      "ID": 7,
+      "xPos": 526,
+      "yPos": 32,
+      "width": 5,
+      "height": 520
+    },
+    {
+      "ID": 8,
+      "xPos": 609,
+      "yPos": 263,
+      "width": 5,
+      "height": 288
+    },
+    {
+      "ID": 9,
+      "xPos": 692,
+      "yPos": 32,
+      "width": 5,
+      "height": 234
+    },
+    {
+      "ID": 10,
+      "xPos": 692,
+      "yPos": 379,
+      "width": 5,
+      "height": 172
+    }
+  ]
+}

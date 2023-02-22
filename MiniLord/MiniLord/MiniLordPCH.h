@@ -12,10 +12,11 @@
 
 #define USE_SDL2
 
+
 #pragma warning(push, 0)
 #pragma warning(disable:26812)
 #pragma warning(disable:26819)
 #pragma warning(disable:26495)
-//#include <glm/glm.hpp>
+#include <glm/glm.hpp>
 #include <SDL.h>
 #pragma warning (pop)

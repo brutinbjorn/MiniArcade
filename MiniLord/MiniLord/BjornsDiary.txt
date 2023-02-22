@@ -15,17 +15,35 @@ Future, looking at how the rasterizer worked again. also looking at overlord.
 // WORK
 figure out whats up with a PCh. : DONE/HOW? i set the config to /yc create pre-comp-header, had to add the class manually before it works(spelling was also wrong). then set it back to yu/use
 created the github.
-SDL2 3rd party libs added.  imp.
-PropSheets file + copied SDL.props,VDL.props from herex2 copied 
-PCH is being anoying again, did not like me writhing in it. 
+SDL2 3rd party libs added.  implemented.
+PropSheets file + copied SDL.props,VDL.props from herex2. 
+PCH is being annoying again, did not like me writhing in it. 
 fixed PCH, every cpp needed it apperantly.
-
 SDL include works, using the _SDL2#def to turn it on and off.
+adding the fucntions back off the engine, wrapping relevent code USE_SDL.
+going to sleep.
 
 
 //PROBLEM
 github in visual studio still thinks i got a minilord repo someweare even thou i renamed them al to hex.
- C2857.. pch
+C2857.. pch
 
- //NOTICE
- sdl2 renames the main function using a macro >_>,, why ??
+//NOTICE
+sdl2 renames the main function using a macro >_>,, why ??
+
+// Night 1: 29/08/2022
+
+//TODO
+Continue on inporting the original engine.
+
+//WORK
+Added timeManager and SceneManager
+reworking the scenemanger to actually have a active Scene.
+
+
+
+Day 6/02/2023
+should make use of the namespace MiniLord::....
+
+
+
