@@ -28,6 +28,9 @@
     <Filter Include="GameObjects">
       <UniqueIdentifier>{647e1957-f5cb-46d7-91c8-9471283ecff7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers\Input">
+      <UniqueIdentifier>{86aa8af1-e43f-463c-abfe-e28cc394d1d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -80,6 +83,24 @@
     </ClCompile>
     <ClCompile Include="ObjectConstructor.cpp">
       <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SquareComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSRenderComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Managers\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="XBoxController.cpp">
+      <Filter>Managers\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Managers\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +163,24 @@
     </ClInclude>
     <ClInclude Include="ObjectConstructor.h">
       <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSRenderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Managers\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="XBoxController.h">
+      <Filter>Managers\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Managers\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

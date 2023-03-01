@@ -40,10 +40,7 @@ void MiniLord::TextComponent::Update(float)
 	}
 }
 
-void MiniLord::TextComponent::Render() const
-{
 
-}
 
 void MiniLord::TextComponent::SetText(const std::string& text)
 {

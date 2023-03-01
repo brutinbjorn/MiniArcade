@@ -18,15 +18,19 @@ namespace MiniLord
 			const std::shared_ptr<Font>& font,
 			RenderComponent* RendComp);
 		~TextComponent() override = default;
-		
-		void Update(float deltaTime) override;
-		void Render() const override;
+
+		void Initialize() override {};
+		void FixedUpdate(const float ) override {};
+		void Update(float ) override ;
+		void LateUpdate(const float ) override {};
+		void Render() const override {};
 
 		void SetText(const std::string& text);
 		void SetColor(const SDL_Color& color);
 	
 	protected:
 		bool m_NeedsUpdate;
+		//RECONS DIRECT LINK??
 		RenderComponent* nm_pRenderComponent;
 		std::string m_Text;
 		std::shared_ptr<Font> m_Font;

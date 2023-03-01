@@ -50,14 +50,42 @@ void GameObject::Render() const
 	}
 }
 
+void GameObject::SetPosition(float x, float y)
+{
+	m_Transform.SetPosition(x, y, 0);
+}
+
 void GameObject::AddComponent(BaseComponent* ToAdd)
 {
+	if (ToAdd->m_pParent != nullptr && ToAdd->m_pParent != this)
+		ToAdd->m_pParent->RemoveComponent(ToAdd);
+
+	ToAdd->m_pParent = this;
 	m_pComponents.push_back(ToAdd);
 }
 
-void GameObject::AddChildGameObject(std::shared_ptr<GameObject> newChild)
+void GameObject::RemoveComponent(BaseComponent* ToRemove)
 {
-	newChild->m_spParentGameObject = this;
-	m_pChildObjects.push_back(newChild);
+	//RECONS, deleting a component can break dependency of other comps if: InterLinked.
+	//TODO swap with erase,remove.
+	//RECONS swap to smart pointers.
+
+	for (auto i = m_pComponents.begin(); i != m_pComponents.end(); i++)
+	{
+		if (*i == ToRemove)
+		{
+			i.operator*()->m_pParent = nullptr;
+			m_pComponents.erase(i);
+			delete *i;
+			break;
+		}
+	}
 
 }
+
+//void GameObject::AddChildGameObject(std::shared_ptr<GameObject> newChild)
+//{
+//	newChild->m_pParentGameObject = this;
+//	m_pChildObjects.push_back(newChild);
+//
+//}

@@ -6,6 +6,14 @@ namespace MiniLord
 	{
 		std::shared_ptr<GameObject> RenderObject(const std::string& TexturePath, float Xpos = 0, float Ypos = 0);
 
+		std::shared_ptr<GameObject> FPSCounter(const SDL_Color& color, const glm::ivec2 position, const std::string& FontLocation, const int size);
+
+		std::shared_ptr<GameObject> Text(const std::string& Text, const std::string& fontLocation, const int size = 20, const SDL_Color& color = {255,255,255,255});
+
+		std::shared_ptr<GameObject> Button(const SDL_Rect& rect);
+
+
+
 	}
 }
 

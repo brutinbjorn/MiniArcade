@@ -1,6 +1,7 @@
 #include "RenderComponent.h"
 #include "MiniLordPCH.h"
 
+#include "GameObject.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "Texture2D.h"
@@ -22,7 +23,7 @@ void RenderComponent::Render() const
 	if (m_pTexture)
 	{
 		//printf("rendering");
-		const glm::vec3& pos = m_transform.GetPosition() + glm::vec3(m_offset, 0);
+		const glm::vec3& pos = m_pParent->GetTransform()->GetPosition() + glm::vec3(m_offset, 0);
 		testRect.x = int(pos.x);
 		testRect.y = int(pos.y);
 		testRect.w = int(m_Size.x);
@@ -37,16 +38,17 @@ void RenderComponent::Render() const
 	}
 
 }
-
-void RenderComponent::SetPosition(float x, float y, float z)
-{
-	m_transform.SetPosition(x, y, z);
-}
-
-void RenderComponent::SetPosition(glm::vec3 pos)
-{
-	SetPosition(pos.x, pos.y,pos.z);
-}
+//
+//void RenderComponent::SetPosition(float x, float y, float z)
+//{
+//
+//	m_transform.SetPosition(x, y, z);
+//}
+//
+//void RenderComponent::SetPosition(glm::vec3 pos)
+//{
+//	SetPosition(pos.x, pos.y,pos.z);
+//}
 
 
 void RenderComponent::SetSize(int x, int y)

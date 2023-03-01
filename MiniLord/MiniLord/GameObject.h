@@ -8,7 +8,6 @@ namespace MiniLord
 	class GameObject final
 	{
 	public:
-
 		//construct/destruct
 		GameObject() = default;
 		~GameObject();
@@ -25,47 +24,32 @@ namespace MiniLord
 		void LateUpdate(const float lt);
 		void Render() const;
 
-		//void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
 		Transform* GetTransform() { return &m_Transform; };
-
 
 		//component logic.
 		template <typename T>
 		T* GetComponent();
 		void AddComponent(BaseComponent* ToAdd);
+		void RemoveComponent(BaseComponent* ToRemove);
 
-		//child/parent logic.
-		void AddChildGameObject(std::shared_ptr<GameObject> newChild);
-		std::shared_ptr<GameObject> GetParentGameOBject();
-
-			
 		void SetMarkForDeletion(bool mark = true) { m_MarkForDeletion = mark; }
 		bool IsMarkedForDeletion() const { return  m_MarkForDeletion; }
 
 		//REDUNDENT send function, cleanup, change or remove.
-
-		bool Send(BaseComponent* sender, const std::string& msg);
-		bool Recieve(BaseComponent* sender, const std::string& msg);
+		//bool Send(BaseComponent* sender, const std::string& msg);
+		//bool Recieve(BaseComponent* sender, const std::string& msg);
 
 	private:
-		void RemoveComponent(BaseComponent* child);
-
-
 
 		std::vector<BaseComponent*> m_pComponents = std::vector<BaseComponent*>();
+
+		//parent/child relationship
+		std::shared_ptr<GameObject> m_pParentGameObject = nullptr;
 		std::vector<std::shared_ptr<GameObject>> m_pChildObjects = std::vector<std::shared_ptr<GameObject>>();
-
-		GameObject* m_spParentGameObject = nullptr;
-
 
 		Transform m_Transform;
 		bool m_MarkForDeletion = false;
-
-
-
-
-
 	};
 
 	template <typename T>

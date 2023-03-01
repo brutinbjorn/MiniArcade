@@ -8,7 +8,7 @@
 //#pragma warning(disable:26495)
 //#include "imgui.h"
 //#include <backends/imgui_impl_sdl.h>
-//#include "backends/imgui_impl_opengl2.h"
+//#include "backends/imgui_impl_opengl2.h" 
 //#pragma warning(pop)
 
 
@@ -33,6 +33,9 @@ void Renderer::Init(SDL_Window* window)
 
 	std::printf("Render init\n");
 	m_pWindow = window;
+
+	//TODO think if vsync is fucking up you physics or update time.
+
 	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (m_Renderer == nullptr)
 	{
@@ -113,7 +116,7 @@ void MiniLord::Renderer::RenderTexture(const Texture2D& texture, float x, float 
 	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dst, angle, nullptr, SDL_FLIP_NONE);
 }
 
-void Renderer::RenderRect(const struct SDL_Rect* rectangle) const
+void Renderer::RenderRect(const SDL_Rect* rectangle) const
 {
 	SDL_SetRenderDrawColor(m_Renderer, 100, 100, 100, 255);
 	SDL_RenderDrawRect(m_Renderer, rectangle);
@@ -121,7 +124,7 @@ void Renderer::RenderRect(const struct SDL_Rect* rectangle) const
 
 
 }
-void Renderer::RenderRect(const struct SDL_Rect* rectangle, const SDL_Color color) const
+void Renderer::RenderRect(const SDL_Rect* rectangle, const SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderDrawRect(m_Renderer, rectangle);
@@ -129,10 +132,10 @@ void Renderer::RenderRect(const struct SDL_Rect* rectangle, const SDL_Color colo
 
 }
 
-void Renderer::RenderFullRect(const struct SDL_Rect* rect, const SDL_Color color) const
+void Renderer::RenderFullRect(const SDL_Rect& rect, const SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderFillRect(m_Renderer, rect);
+	SDL_RenderFillRect(m_Renderer, &rect);
 	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
 
 }

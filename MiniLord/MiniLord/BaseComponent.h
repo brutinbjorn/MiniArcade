@@ -1,7 +1,9 @@
 #pragma once
 
 #include <string>
-namespace dae
+
+
+namespace MiniLord
 {
 	class GameObject;
 }
@@ -9,24 +11,27 @@ namespace dae
 class BaseComponent
 {
 public:
-	virtual ~BaseComponent() = default;
+	friend class MiniLord::GameObject;
 
+	virtual ~BaseComponent() = default;
 	virtual void Initialize() = 0;
-	virtual void FixedUpdate(const float ft) = 0;
-	virtual void Update(const float dt) = 0;
-	virtual void LateUpdate(const float lt) = 0;
+	virtual void FixedUpdate(const float ) = 0;
+	virtual void Update(const float ) = 0;
+	virtual void LateUpdate(const float ) = 0;
 	virtual void Render() const = 0;
-	virtual void GuiRender() const {};
+
+	#if _DEBUG
+	virtual void GuiRender() {};
+	#endif
+
 
 	//messages
 	virtual bool Recieve(BaseComponent* ,const std::string&) {return false; };
 
 protected:
-	dae::GameObject* GetParent() const {return m_pParent; }
+	MiniLord::GameObject* GetParent() const {return m_pParent; }
 	BaseComponent() = default;
+	MiniLord::GameObject* m_pParent = nullptr;
 
-private:
-	friend class dae::GameObject;
-	dae::GameObject* m_pParent = nullptr;
 };
 

@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "TimeManager.h"
 #include "EngineMenu.h"
+#include "InputManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 
@@ -78,7 +79,7 @@ void MiniEngine::run()
 
 	LoadGame();
 	{
-	//	auto& input = //InputManager::GetInstance();
+		auto& input = InputManager::GetInstance();
 		auto& time = TimeManager::GetInstance();
 
 	//	SceneManager::GetInstance().PostInitialize();
@@ -87,8 +88,7 @@ void MiniEngine::run()
 		{
 			//SteamAPI_RunCallbacks();
 			time.Update();
-
-	//		doContinue = input.ProcessInput();
+			doContinue = input.ProcessInput();
 			while (time.ShouldDoFixedUpdateAndLowerLag())
 			{
 				float ft = time.GetMsPerUpdate();
@@ -98,6 +98,10 @@ void MiniEngine::run()
 			Update(dt);
 			LateUpdate(dt);
 			Render();
+
+
+
+			//TODO ADD this_Thread::Sleep_for(sleeptime) om aan een target FPS te geraken, anders gaat de game aan MAX_FPS draaien, en ook de CPU pushen, denk aan bordelands 2 die da probeerde.
 
 		}
 	}

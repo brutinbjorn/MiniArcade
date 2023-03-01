@@ -1,7 +1,6 @@
 #include "MiniLordPCH.h"
 #include "Scene.h"
 #include "GameObject.h"
-
 //using namespace dae;
 
 using namespace MiniLord;
@@ -52,20 +51,20 @@ void Scene::LateUpdate(const float lt)
 	}
 
 	if (m_RunCleanUp)
-	{
-		for (int i = 0; i < int(m_Objects.size()); ++i)
-		{
-			if (m_Objects[i]->IsMarkedForDeletion())
-			{
-				m_Objects[i].swap(m_Objects.back());
-				m_Objects.pop_back();
-			}
-		}
-		m_RunCleanUp = false;
-	}
+		for(auto object : m_Objects)
+			m_Objects.erase(std::remove(m_Objects.begin(),m_Objects.end(),object), m_Objects.end());
+		
 
-
-
+		// TODO Replace with erase,remove;
+		//for (int i = 0; i < int(m_Objects.size()); ++i)
+		//{
+		//	if (m_Objects[i]->IsMarkedForDeletion())
+		//	{
+		//		m_Objects[i].swap(m_Objects.back());
+		//		m_Objects.pop_back();
+		//	}
+		//}
+		//m_RunCleanUp = false;
 }
 
 void Scene::Render() const

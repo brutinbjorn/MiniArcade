@@ -10,6 +10,7 @@ namespace MiniLord
 	public:
 		//adds the gameobject to the scene, so it gets its updates,render, etc.
 		void AddGameObject(const std::shared_ptr<GameObject>& object);
+
 		//place the game objects you want to add to the scene here.
 		virtual void Initialize() {};
 		//initailizes the gameobjects.

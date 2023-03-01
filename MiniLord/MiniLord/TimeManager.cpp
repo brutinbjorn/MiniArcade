@@ -38,7 +38,7 @@ void TimeManager::Update()
 		m_lag += m_DeltaTime;
 
 
-		m_FPSTimer += m_DeltaTime;
+		m_FPSTimer += m_DeltaTime; //RECONS you can just 1 / m_DeltaTime and get the current FPS;
 		++m_FPSCount;
 
 		if (m_FPSTimer >= 1.0f)
