@@ -19,7 +19,7 @@ std::shared_ptr<GameObject> MiniLord::ObjectConstructor::RenderObject(const std:
 	newObject->AddComponent(rendercomp);
 
 
-	newObject->SetPosition(Xpos, Ypos);
+	newObject->GetTransform().SetPosition(Xpos, Ypos, 0);
 	return newObject;
 
 }
@@ -63,7 +63,7 @@ std::shared_ptr<GameObject> ObjectConstructor::FPSCounter(const SDL_Color& color
 	TextComp->SetColor(color);
 
 	newFPSCounter->AddComponent(TextComp);
-	newFPSCounter->SetPosition(static_cast<float>(position.x), static_cast<float>(position.y));
+	newFPSCounter->GetTransform().SetPosition(static_cast<float>(position.x), static_cast<float>(position.y),0);
 	auto FPSLogic = new FPSRenderComponent(TextComp);
 	newFPSCounter->AddComponent(FPSLogic);
 	return newFPSCounter;

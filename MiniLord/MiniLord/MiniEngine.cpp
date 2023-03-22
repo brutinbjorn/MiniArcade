@@ -1,10 +1,13 @@
 #include "MiniLordPCH.h"
 #include "MiniEngine.h"
 
+#include "EngineMenu.h"
+#include "ImGuiScene.h"
 #include "Scene.h"
+
 #include "SceneManager.h"
 #include "TimeManager.h"
-#include "EngineMenu.h"
+
 #include "InputManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
@@ -82,7 +85,7 @@ void MiniEngine::run()
 		auto& input = InputManager::GetInstance();
 		auto& time = TimeManager::GetInstance();
 
-	//	SceneManager::GetInstance().PostInitialize();
+		SceneManager::GetInstance().PostInitialize();
 		bool doContinue = true;
 		while (doContinue)
 		{
@@ -101,7 +104,7 @@ void MiniEngine::run()
 
 
 
-			//TODO ADD this_Thread::Sleep_for(sleeptime) om aan een target FPS te geraken, anders gaat de game aan MAX_FPS draaien, en ook de CPU pushen, denk aan bordelands 2 die da probeerde.
+			//TODO ADD this_Thread::Sleep_for(sleeptime) om aan een target FPS te geraken, anders gaat de game aan MAX_FPS draaien, en ook de CPU pushen, denk aan bordelands 2 die da probeerde. nu is er die limiet door de SDL
 
 		}
 	}
@@ -110,9 +113,15 @@ void MiniEngine::run()
 
 void MiniEngine::LoadGame()
 {
-	auto startScene = std::shared_ptr<Scene>(new EngineMenu("StartMenu"));
-	SceneManager::GetInstance().AddScene(startScene);
-	startScene->Initialize();
+	//auto startScene = std::shared_ptr<Scene>(new EngineMenu("StartMenu"));
+	//SceneManager::GetInstance().AddScene(startScene);
+
+	//startScene->Initialize();
+	//SceneManager::GetInstance().CreateScene();
+	auto GuiScene = std::shared_ptr<Scene>(new ImGuiScene("ImGuiMenu"));
+	SceneManager::GetInstance().AddScene(GuiScene);
+	GuiScene->Initialize();
+
 
 }
 

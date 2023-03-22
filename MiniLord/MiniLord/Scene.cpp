@@ -35,7 +35,7 @@ void Scene::FixedUpdate(const float ft)
 
 void Scene::Update(const float dt)
 {
-	for (auto& object : m_Objects)
+	for (auto& object : m_Objects) //TODO This ignores the parent/child Relationship, make the scene the parent, or make the parent responcible for updating the children.
 	{
 		object->Update(dt);
 	}
@@ -47,14 +47,18 @@ void Scene::LateUpdate(const float lt)
 	{
 		object->LateUpdate(lt);
 		if (object->IsMarkedForDeletion())
-			m_RunCleanUp = true;
+			m_ObjectsToDelete.push_back(object);
 	}
 
-	if (m_RunCleanUp)
-		for(auto object : m_Objects)
-			m_Objects.erase(std::remove(m_Objects.begin(),m_Objects.end(),object), m_Objects.end());
-		
 
+
+//	if (m_ObjectsToDelete.size() > 0) // TODO check if this works as needed.
+//	{
+//		m_Objects.erase(std::remove(m_Objects.begin(),m_Objects.end(),m_ObjectsToDelete), m_Objects.end());
+//		m_ObjectsToDelete.clear();
+
+//	}
+		
 		// TODO Replace with erase,remove;
 		//for (int i = 0; i < int(m_Objects.size()); ++i)
 		//{
@@ -72,6 +76,14 @@ void Scene::Render() const
 	for (const auto& object : m_Objects)
 	{
 		object->Render();
+	}
+}
+
+void MiniLord::Scene::GuiRender() const
+{
+	for (const auto& object : m_Objects)
+	{
+		object->GuiRender();
 	}
 }
 

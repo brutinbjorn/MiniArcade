@@ -41,7 +41,8 @@ namespace MiniLord
 		float m_ElapsedTime = 0.f;
 		float m_PrintTimer = 0.f;
 
-		int m_DesiredFPS = 120; // TODO implement this.
+		const int m_DesiredFPS = 120; // TODO implement this.
+		float  m_frameTimeInMs ;
 		bool m_IsRunning = false;
 		bool m_PrintTimeConsole = false;
 	};

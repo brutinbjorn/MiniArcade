@@ -23,7 +23,9 @@ void RenderComponent::Render() const
 	if (m_pTexture)
 	{
 		//printf("rendering");
-		const glm::vec3& pos = m_pParent->GetTransform()->GetPosition() + glm::vec3(m_offset, 0);
+		//const Transform = Transform();
+
+		const glm::vec3& pos = GetGameObject()->GetTransform().GetWorldPosition() + glm::vec3(m_offset, 0);
 		testRect.x = int(pos.x);
 		testRect.y = int(pos.y);
 		testRect.w = int(m_Size.x);

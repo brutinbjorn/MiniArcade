@@ -4,11 +4,6 @@
 #define IMGUI_DEFINE_MATH_OPERATORS
 #endif
 #include <imgui_internal.h>
-#pragma warning(push)
-
-#pragma warning(disable:4244)
-#pragma warning(disable:4018)
-
 
 namespace ImGui {
 // [0..1] -> [0..1]
@@ -266,5 +261,3 @@ PlotStatus Plot(const char* label, const PlotConfig& conf) {
     return status;
 }
 }
-
-#pragma warning(pop)

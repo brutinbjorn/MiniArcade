@@ -108,7 +108,7 @@ bool InputManager::ProcessInput()
 				iter->pCommand->Execute();
 			}
 		}
-		//ImGui_ImplSDL2_ProcessEvent(&e);
+		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
 	m_OldEvent = e;

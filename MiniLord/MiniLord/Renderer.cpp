@@ -4,12 +4,12 @@
 #include "SceneManager.h"
 #include "Texture2D.h"
 
-//#pragma warning(push)
-//#pragma warning(disable:26495)
-//#include "imgui.h"
-//#include <backends/imgui_impl_sdl.h>
-//#include "backends/imgui_impl_opengl2.h" 
-//#pragma warning(pop)
+#pragma warning(push)
+#pragma warning(disable:26495)
+#include "imgui.h"
+#include <backends/imgui_impl_sdl.h>
+#include "backends/imgui_impl_opengl2.h" 
+#pragma warning(pop)
 
 
 using namespace MiniLord;
@@ -42,10 +42,10 @@ void Renderer::Init(SDL_Window* window)
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 
-	//IMGUI_CHECKVERSION();
-	//ImGui::CreateContext();
-	//ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
-	//ImGui_ImplOpenGL2_Init();
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
+	ImGui_ImplOpenGL2_Init();
 }
 
 void Renderer::Render()
@@ -55,28 +55,30 @@ void Renderer::Render()
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
 	SceneManager::GetInstance().Render();
+
+#ifdef _DEBUG
 	ImGuiRender();
+#endif // _DEBUG
 	SDL_RenderPresent(m_Renderer);
 }
 
 void Renderer::ImGuiRender()
 {
-	//ImGui_ImplOpenGL2_NewFrame();
-	//ImGui_ImplSDL2_NewFrame(m_pWindow);
+	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplSDL2_NewFrame(m_pWindow);
+	ImGui::NewFrame();
 
-	//ImGui::NewFrame();
-	//ImGui::ShowDemoWindow();
-	//ImGui::Render();
+	SceneManager::GetInstance().GuiRender();
 
-	//ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-	//SDL_RenderPresent(m_Renderer);
+	ImGui::Render();
+	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 }
 
 void Renderer::Destroy()
 {
-	//ImGui_ImplOpenGL2_Shutdown();
-	//ImGui_ImplSDL2_Shutdown();
-	//ImGui::DestroyContext();
+	ImGui_ImplOpenGL2_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
 	if (m_Renderer != nullptr)
 	{
 		SDL_DestroyRenderer(m_Renderer);

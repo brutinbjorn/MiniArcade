@@ -27,6 +27,14 @@ void SceneManager::Render()
 	}
 }
 
+void MiniLord::SceneManager::GuiRender()
+{
+	for (const auto& scene : m_Scenes)
+	{
+		scene->GuiRender();
+	}
+}
+
 
 //Creates a Base Scene in the SceneManager
 Scene& SceneManager::CreateScene(const std::string& name)

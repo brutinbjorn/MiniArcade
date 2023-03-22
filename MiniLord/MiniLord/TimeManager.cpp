@@ -7,6 +7,7 @@ void TimeManager::init()
 	m_HClock = std::chrono::high_resolution_clock();
 	m_currentTime = m_HClock.now();
 	m_lastTime = m_HClock.now();
+	m_frameTimeInMs = static_cast<float>(1000 / m_DesiredFPS);
 	m_DeltaTime = 0;
 	m_ElapsedTime = 0;
 	m_FPSTimer = 0.0f;

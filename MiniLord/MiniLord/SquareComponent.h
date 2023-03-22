@@ -17,6 +17,9 @@ public:
 	void LateUpdate(const float) override {};
 	void Render() const override;
 
+	const SDL_Color& GetColor() { return m_color;};
+	void SetColor(const SDL_Color& color) { m_color = color; };
+
 private:
 	SDL_Rect m_Rect = SDL_Rect{};
 	SDL_Color m_color = SDL_Color{};

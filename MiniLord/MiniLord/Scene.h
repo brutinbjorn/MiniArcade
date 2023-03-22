@@ -24,7 +24,7 @@ namespace MiniLord
 		//Render the objects.
 		void Render() const;
 
-
+		void GuiRender() const;
 
 		bool IsActive() { return m_IsActive; };
 		bool SetActive(bool active = true) { m_IsActive = active; };
@@ -43,7 +43,7 @@ namespace MiniLord
 		bool m_RunCleanUp = false;
 		std::string m_Name;
 		std::vector <std::shared_ptr<GameObject>> m_Objects{};
-
+		std::vector <std::shared_ptr<GameObject>> m_ObjectsToDelete{};
 		static unsigned int m_IdCounter;
 	};
 }

@@ -2,6 +2,11 @@
 #include "GameObject.h"
 
 using namespace MiniLord;
+MiniLord::GameObject::GameObject()
+{
+	m_Transform = new Transform();
+	AddComponent(m_Transform);
+}
 GameObject::~GameObject()
 {
 	for (uint32_t i = 0; i < m_pComponents.size(); ++i)
@@ -50,10 +55,19 @@ void GameObject::Render() const
 	}
 }
 
-void GameObject::SetPosition(float x, float y)
+void MiniLord::GameObject::GuiRender() const
 {
-	m_Transform.SetPosition(x, y, 0);
+	for (const auto& component : m_pComponents)
+	{
+		component->GuiRender();
+	}
 }
+
+
+//void GameObject::SetPosition(float x, float y)
+//{
+//	m_Transform.SetPosition(x, y, 0);
+//}
 
 void GameObject::AddComponent(BaseComponent* ToAdd)
 {
@@ -82,6 +96,56 @@ void GameObject::RemoveComponent(BaseComponent* ToRemove)
 	}
 
 }
+//FEEDBACK
+//TODO static assert is aangeraden.
+// ook zit meschien? met de raar geval dat er shit messed up geraakt door de parent/child tree?? 
+void MiniLord::GameObject::SetParentGameObject(GameObject* ParentGameobject)
+{
+	if (m_pParentGameObject) // if the object already has a parent?
+	{
+		m_pParentGameObject->m_pChildObjects.erase( // remove this object from the list of its former parent.
+			std::remove(m_pParentGameObject->m_pChildObjects.begin(), m_pParentGameObject->m_pChildObjects.end(), this),
+			m_pParentGameObject->m_pChildObjects.end());
+
+		m_pParentGameObject = nullptr;
+	}
+
+	if(ParentGameobject != nullptr) // if the parent is a thing. (Not Scene).
+		ParentGameobject->m_pChildObjects.emplace_back(ParentGameobject); // add to children
+	m_pParentGameObject = ParentGameobject; // set parent
+
+}
+
+
+
+//void GameObject::SetParentObject(GameObject* newParent, bool keepWorldPosition)
+//{
+//	if (m_pParentGameObject && m_pParentGameObject != newParent) // former parent must be removed
+//		m_pParentGameObject->RemoveChildObject(this); // former parent removes the (this) child.
+//
+//	AddChildObject(this, keepWorldPosition);
+//	//TODO Update transforms
+//}
+//
+//void GameObject::AddChildObject(GameObject* newChildObject, bool keepWorldPosition)
+//{
+//	newChildObject->SetParentObject(this,keepWorldPosition);
+//	m_pChildObjects.push_back(newChildObject);
+//}
+//
+//// erases the childobject 
+//void GameObject::RemoveChildObject(GameObject* childObject)
+//{
+//
+//	auto result = std::find(m_pChildObjects.begin(), m_pChildObjects.end(), childObject);
+//	if (result != m_pChildObjects.end())
+//	{
+//		m_pChildObjects.erase(std::remove(m_pChildObjects.begin(),m_pChildObjects.end(),result), m_pChildObjects.end());
+//	}
+//	childObject->m_pParentGameObject = nullptr;
+//	// remove parent relation from the child.
+//}
+
 
 //void GameObject::AddChildGameObject(std::shared_ptr<GameObject> newChild)
 //{

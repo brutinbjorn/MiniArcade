@@ -13,6 +13,7 @@ namespace MiniLord
 
 		void Update(const float) override;
 		void Render() const override;
+		void GuiRender() override {};
 		
 		void AddScore(int score)
 		{

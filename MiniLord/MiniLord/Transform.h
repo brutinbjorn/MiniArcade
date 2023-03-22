@@ -1,23 +1,60 @@
 #pragma once
-
+#include "BaseComponent.h"
 #include <glm/glm.hpp>
 
 namespace MiniLord
 {
-	class Transform final
+	//class GameObject;
+	class Transform : public BaseComponent
 	{
 	public:
+		//RECONS move the entire transform into the gameobject? prevents copies from transforms, if it is a entire seperate object it can be copied, but needs the link to the game object
+		//Transform(const GameObject* relatedGameObject) : m_parent(relatedGameObject){};
+		Transform();
+
 		//get current world position
-		const glm::vec3& GetPosition() const { return m_Position; }
+		//const glm::fvec3& GetRelativePosition() const { return m_Position; }
+		//const glm::ivec3& GetWorldPosition() const { return { }; };
+		const glm::fvec3& GetLocalPosition() { return m_LocalPosition; };
+		const glm::fvec3& GetLocalRotation() { return m_LocalRotation; };
+		const glm::fvec3& GetLocalScale() { return m_LocalScale; }
+
+		const glm::fvec3& GetWorldPosition();
+		const glm::fvec3& GetWorldRotation();
+		const glm::fvec3& GetWorldScale();
 
 		void SetPosition(float x, float y, float z);
-		void SetPosition(const glm::vec3& pos);
+		void SetPosition(const glm::fvec3& pos);
 
-		// add to current position.
+		void SetRotation(const glm::fvec3& newRotation);
+		void SetRotation(float XRotation, float YRotation, float ZRotation);
+
+		void SetScale(const glm::fvec3& newScale);
+		void SetScale(float XScale, float YScale, float ZScale);
+
+		// add too current position.
 		void Translate(float x, float y, float z);
-		void Translate(const glm::vec3& Translate);
+		void Translate(const glm::fvec3& Translate);
+
+
 	private:
-		glm::vec3 m_Position;
+		//const GameObject* m_parent = nullptr;
+		glm::fvec3 m_LocalPosition;
+		glm::fvec3 m_LocalRotation;
+		glm::fvec3 m_LocalScale;
+
+		void UpdateWorld();
+		bool m_IsDirty = false;
+		glm::fvec3 m_WorldPosition;
+		glm::fvec3 m_WorldRotation;
+		glm::fvec3 m_WorldScale;
+
+		// Inherited via BaseComponent
+		virtual void Initialize() override;
+		virtual void FixedUpdate(const float) override;
+		virtual void Update(const float) override;
+		virtual void LateUpdate(const float) override;
+		virtual void Render() const override;
 	};
 }
 

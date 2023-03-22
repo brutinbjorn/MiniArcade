@@ -1,4 +1,6 @@
 #pragma once
+#include "SquareComponent.h"
+
 class Command
 {
 public:
@@ -19,7 +21,10 @@ private:
 class SwapSquareColor final : public Command
 {
 public:
-	SwapSquareColor(const SquareComponent)
+	SwapSquareColor(SquareComponent* square, const SDL_Color& colorToSwapTo):m_pSquare(square),m_ColorOn(colorToSwapTo),m_ColorOff (square->GetColor()){};
+	SwapSquareColor(SquareComponent* square, const SDL_Color& colorWhenOff,const SDL_Color& colorWhenOn):m_pSquare(square),m_ColorOff(colorWhenOff),m_ColorOn(colorWhenOn){};
 private:
-	SwapSquareColor* m_pSquare;
+	SquareComponent* m_pSquare = nullptr;
+	SDL_Color m_ColorOn = {};
+	SDL_Color m_ColorOff = {};
 };

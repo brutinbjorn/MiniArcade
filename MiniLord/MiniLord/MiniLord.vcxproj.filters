@@ -31,6 +31,9 @@
     <Filter Include="Managers\Input">
       <UniqueIdentifier>{86aa8af1-e43f-463c-abfe-e28cc394d1d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ExternalIncludes">
+      <UniqueIdentifier>{315fc729-6fbe-4926-8006-7647ce0b6878}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -101,6 +104,45 @@
     </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Managers\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateGameObject.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_demo.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_draw.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_plot.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_tables.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_widgets.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.cpp">
+      <Filter>ExternalIncludes</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoImguiComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CacheTest1.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CacheTest2.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +223,48 @@
     </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>Managers\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateGameObject.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imconfig.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imgui.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imgui_internal.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imgui_plot.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_rectpack.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_textedit.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_truetype.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoImguiComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CacheTest1.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CacheTest2.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
