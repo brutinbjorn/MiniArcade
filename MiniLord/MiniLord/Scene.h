@@ -13,6 +13,7 @@ namespace MiniLord
 
 		//place the game objects you want to add to the scene here.
 		virtual void Initialize() {};
+
 		//initailizes the gameobjects.
 		void PostInitialize();
 		//fixed update for objects.
@@ -23,11 +24,11 @@ namespace MiniLord
 		void LateUpdate(const float lt);
 		//Render the objects.
 		void Render() const;
-
+		//Gui Render;
 		void GuiRender() const;
 
-		bool IsActive() { return m_IsActive; };
-		bool SetActive(bool active = true) { m_IsActive = active; };
+		[[nodiscard]] bool IsActive() { return m_IsActive; } ;
+		void SetActive(bool active = true) { m_IsActive = active; };
 
 		std::string GetName() { return m_Name; };
 
@@ -39,7 +40,7 @@ namespace MiniLord
 		explicit Scene(const std::string& name);
 
 	protected:
-		bool m_IsActive = false;
+		bool m_IsActive = true;
 		bool m_RunCleanUp = false;
 		std::string m_Name;
 		std::vector <std::shared_ptr<GameObject>> m_Objects{};

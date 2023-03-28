@@ -34,6 +34,9 @@
     <Filter Include="ExternalIncludes">
       <UniqueIdentifier>{315fc729-6fbe-4926-8006-7647ce0b6878}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\Factory">
+      <UniqueIdentifier>{831c32fe-487c-4961-ac63-3e8e01929c81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -53,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineMenu.cpp">
-      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp">
       <Filter>Components</Filter>
@@ -132,17 +132,23 @@
     <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.cpp">
       <Filter>ExternalIncludes</Filter>
     </ClCompile>
-    <ClCompile Include="ImGuiScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="DemoImguiComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="CacheTest1.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="SceneFactory.cpp">
+      <Filter>Scenes\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="CacheTest2.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="MiniEngine.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Managers</Filter>
@@ -173,17 +176,11 @@
     <ClInclude Include="GameObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="EngineMenu.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AllComponents.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
       <Filter>Resource</Filter>
@@ -257,14 +254,26 @@
     <ClInclude Include="DemoImguiComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="ImGuiScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="CacheTest1.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="SceneFactory.h">
+      <Filter>Scenes\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AllComponents.h">
+      <Filter>Components</Filter>
+    </ClInclude>
     <ClInclude Include="CacheTest2.h">
-      <Filter>Header Files</Filter>
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ namespace MiniLord
 {
 	class Texture2D;
 
-	class Renderer : public Singleton<Renderer>
+	class Renderer : public MiniLord::Singleton<Renderer>
 	{
 	public:
 		void Init(SDL_Window* window);

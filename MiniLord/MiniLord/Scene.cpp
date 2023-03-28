@@ -52,12 +52,12 @@ void Scene::LateUpdate(const float lt)
 
 
 
-//	if (m_ObjectsToDelete.size() > 0) // TODO check if this works as needed.
-//	{
-//		m_Objects.erase(std::remove(m_Objects.begin(),m_Objects.end(),m_ObjectsToDelete), m_Objects.end());
-//		m_ObjectsToDelete.clear();
+	if (m_ObjectsToDelete.size() > 0) // TODO check if this works as needed.
+	{
+		//m_Objects.erase(std::remove(m_Objects.begin(),m_Objects.end(),m_ObjectsToDelete), m_Objects.end());
+		//m_ObjectsToDelete.clear();
 
-//	}
+	}
 		
 		// TODO Replace with erase,remove;
 		//for (int i = 0; i < int(m_Objects.size()); ++i)

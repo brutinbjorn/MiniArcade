@@ -9,6 +9,7 @@ namespace MiniLord
 	public:
 		enum class ControllerButton
 		{
+			None = 0x0000,
 			DPadUp = 0x0001,
 			DPadDown = 0x0002,
 			DPadLeft = 0x0004,

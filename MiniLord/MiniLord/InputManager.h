@@ -4,8 +4,6 @@
 #include "Command.h"
 #include "Singleton.h"
 #include "XBoxController.h"
-
-
 #include "SDL.h"
 
 
@@ -19,10 +17,12 @@ namespace MiniLord
 
 	struct Action
 	{
-		XBoxController::ControllerButton XButton;
-		SDL_Scancode key = SDL_SCANCODE_UNKNOWN;
+		XBoxController::ControllerButton XButton = XBoxController::ControllerButton::None;
+		SDL_KeyCode key = SDLK_UNKNOWN;
 		Command* pCommand = nullptr;
 		InputType type = InputType::wentDown;
+
+		bool isPressed = false;
 	};
 
 	class InputManager : public Singleton<InputManager>
@@ -38,13 +38,17 @@ namespace MiniLord
 		void CheckForController();
 		void AddAction(const Action& ac);
 		bool ProcessInput();
+		const glm::fvec2& GetMousePosition() const { return m_MousePosition; };
 
 	private:
 		InputManager();
-		friend class Singleton;
-		SDL_Event m_OldEvent;
+
+		glm::fvec2 m_MousePosition {};
+		//friend class Singleton;
 		XBoxController* m_pXboxController;
 		std::list<Action> m_Actions;
+		friend class Singleton;
+
 
 	};
 }

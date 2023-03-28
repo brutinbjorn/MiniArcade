@@ -45,5 +45,15 @@ reworking the scenemanger to actually have a active Scene.
 Day 6/02/2023
 should make use of the namespace MiniLord::....
 
+22/03/23
+lesson on implementing the inputmanager, need to start on the actual game right now. running out of time.
+
+class feedback.
+if you use a function var, its okey to copy if plan on doing grand changes to the copy anyway and keep it/return it.
+dont use int* buffer[]; when you can use std::vector. it is better for RAII.
+
+good tip, this auto creates a buffer of size 2to26 and all are filled with 3;
+const int buffer length {1 << 26};
+auto buffer {vector<int>(bufferlength,3)};
 
 

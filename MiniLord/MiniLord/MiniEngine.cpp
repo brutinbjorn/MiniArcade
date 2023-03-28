@@ -1,9 +1,9 @@
 #include "MiniLordPCH.h"
 #include "MiniEngine.h"
 
-#include "EngineMenu.h"
-#include "ImGuiScene.h"
+
 #include "Scene.h"
+#include "SceneFactory.h"
 
 #include "SceneManager.h"
 #include "TimeManager.h"
@@ -104,7 +104,8 @@ void MiniEngine::run()
 
 
 
-			//TODO ADD this_Thread::Sleep_for(sleeptime) om aan een target FPS te geraken, anders gaat de game aan MAX_FPS draaien, en ook de CPU pushen, denk aan bordelands 2 die da probeerde. nu is er die limiet door de SDL
+			//TODO ADD this_Thread::Sleep_for(sleeptime) om aan een target FPS te geraken, anders gaat de game aan MAX_FPS draaien, en ook de CPU pushen,
+			// denk aan bordelands 2 die da probeerde. nu is er die limiet door de SDL
 
 		}
 	}
@@ -113,14 +114,14 @@ void MiniEngine::run()
 
 void MiniEngine::LoadGame()
 {
-	//auto startScene = std::shared_ptr<Scene>(new EngineMenu("StartMenu"));
-	//SceneManager::GetInstance().AddScene(startScene);
+	auto& sceneManager = SceneManager::GetInstance();
 
-	//startScene->Initialize();
-	//SceneManager::GetInstance().CreateScene();
-	auto GuiScene = std::shared_ptr<Scene>(new ImGuiScene("ImGuiMenu"));
-	SceneManager::GetInstance().AddScene(GuiScene);
-	GuiScene->Initialize();
+
+	auto startScene = SceneFactory::DefaultDAEScene();
+	sceneManager.AddScene(startScene);
+
+	auto TwoPlayerScenes = SceneFactory::MovingGameObjects();
+	sceneManager.AddScene(TwoPlayerScenes);
 
 
 }

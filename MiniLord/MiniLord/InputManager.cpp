@@ -11,10 +11,8 @@
 #pragma comment(lib,"xinput.lib")
 
 #pragma warning(push)
-
 #pragma warning(disable:26812)
 #pragma warning(disable:26819)
-
 #include "backends/imgui_impl_sdl.h"
 #include "SDL.h"
 #pragma warning(pop)
@@ -24,7 +22,7 @@ using namespace MiniLord;
 using ControllerCommandMap = std::map<XBoxController::ControllerButton, Command*>;
 using KeyBoardCommandMap = std::map<XBoxController::KeyBoardButton, Command*>;
 
-InputManager::InputManager() : m_OldEvent { 0 }
+InputManager::InputManager()
 {
 
 }
@@ -83,35 +81,55 @@ void InputManager::AddAction(const Action& ac)
 
 bool InputManager::ProcessInput()
 {
-	const Uint8* keyState = SDL_GetKeyboardState(NULL);
-
-	SDL_Event e;
-
+	//const Uint8* keyState = SDL_GetKeyboardState(NULL);
+	SDL_Event e{};
+	//KEYBOARD LOOP
+	//TODO might want to use a map with th keycode as key, and the action as var
 	while (SDL_PollEvent(&e)) {
 
+		//e.type == 
 
+		if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP)
+		{
+			auto xpos = e.button.x;
+			auto ypos = e.button.y;
+			std::cout << "mouse position: " << xpos << ":" << ypos << std::endl;
+
+		}
 		if (e.type == SDL_QUIT || e.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
 			return false;
 		}
-		for (std::list<Action>::iterator iter = m_Actions.begin(); iter != m_Actions.end(); ++iter)
+		for (auto iter = m_Actions.begin(); iter != m_Actions.end(); iter++)
 		{
-			if (e.type == SDL_KEYDOWN && iter->type == InputType::wentDown && e.key.keysym.scancode == iter->key)
+			if (e.key.keysym.sym == iter->key)
 			{
-				iter->pCommand->Execute();
-			}
-			if (e.type == SDL_KEYUP && iter->type == InputType::wentUp && e.key.keysym.scancode == iter->key)
-			{
-				iter->pCommand->Execute();
-			} //TODO still need to fix this.
-			if (keyState[iter->key] && iter->type == InputType::IsPressed)
-			{
-				iter->pCommand->Execute();
+				if (e.type == SDL_KEYDOWN)
+				{
+
+					if (iter->type == InputType::wentDown)
+						iter->pCommand->Execute();
+					else if (iter->type == InputType::IsPressed)
+						iter->isPressed = true;
+				}
+
+				if (e.type == SDL_KEYUP )
+				{
+					if (iter->type == InputType::wentUp)
+						iter->pCommand->Execute();
+					else if (iter->type == InputType::IsPressed)
+						iter->isPressed = false;
+				} 
 			}
 		}
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
+	for (auto actionIterator = m_Actions.begin(); actionIterator!= m_Actions.end(); actionIterator++)
+	{
+		if (actionIterator->isPressed && actionIterator->type == InputType::IsPressed)
+			actionIterator->pCommand->Execute();
+	}
 
-	m_OldEvent = e;
+
 
 
 	if (!m_pXboxController || !m_pXboxController->IsValid())
@@ -146,4 +164,5 @@ bool InputManager::ProcessInput()
 
 	return true;
 }
+
 

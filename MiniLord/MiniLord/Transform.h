@@ -4,7 +4,7 @@
 
 namespace MiniLord
 {
-	//class GameObject;
+	//class TransformGameObject;
 	class Transform : public BaseComponent
 	{
 	public:
@@ -15,9 +15,9 @@ namespace MiniLord
 		//get current world position
 		//const glm::fvec3& GetRelativePosition() const { return m_Position; }
 		//const glm::ivec3& GetWorldPosition() const { return { }; };
-		const glm::fvec3& GetLocalPosition() { return m_LocalPosition; };
-		const glm::fvec3& GetLocalRotation() { return m_LocalRotation; };
-		const glm::fvec3& GetLocalScale() { return m_LocalScale; }
+		[[nodiscard]] const glm::fvec3& GetLocalPosition() const { return m_LocalPosition; };
+		[[nodiscard]] const glm::fvec3& GetLocalRotation() const { return m_LocalRotation; };
+		[[nodiscard]] const glm::fvec3& GetLocalScale() const { return m_LocalScale; }
 
 		const glm::fvec3& GetWorldPosition();
 		const glm::fvec3& GetWorldRotation();
