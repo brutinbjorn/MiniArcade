@@ -13,29 +13,50 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Managers">
-      <UniqueIdentifier>{fb1968ec-faf0-45c4-8c1b-62347792c93b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{8c7ec6e5-6c62-4460-8d34-a8a9b5cca55f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes">
-      <UniqueIdentifier>{d92ed56a-cbe2-4540-a8c3-8b9f185d5176}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components">
-      <UniqueIdentifier>{0c285f30-32bf-4b66-805a-35c3b6a46c3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects">
-      <UniqueIdentifier>{647e1957-f5cb-46d7-91c8-9471283ecff7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Managers\Input">
-      <UniqueIdentifier>{86aa8af1-e43f-463c-abfe-e28cc394d1d6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ExternalIncludes">
       <UniqueIdentifier>{315fc729-6fbe-4926-8006-7647ce0b6878}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scenes\Factory">
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{d92ed56a-cbe2-4540-a8c3-8b9f185d5176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Factory">
       <UniqueIdentifier>{831c32fe-487c-4961-ac63-3e8e01929c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resource">
+      <UniqueIdentifier>{8c7ec6e5-6c62-4460-8d34-a8a9b5cca55f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{fb1968ec-faf0-45c4-8c1b-62347792c93b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers\Input">
+      <UniqueIdentifier>{86aa8af1-e43f-463c-abfe-e28cc394d1d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{647e1957-f5cb-46d7-91c8-9471283ecff7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{0c285f30-32bf-4b66-805a-35c3b6a46c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Observer">
+      <UniqueIdentifier>{e81d1706-cd7a-45f4-ba64-af54e41d44cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Visual_RenderComps">
+      <UniqueIdentifier>{60f22299-6bcb-4fb5-abab-e1976618940e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\TestComponents">
+      <UniqueIdentifier>{935e505c-897a-4fe4-acc7-f4f8642caf4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resource\Steam">
+      <UniqueIdentifier>{91e74191-7354-4d6e-9588-2b10974444d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ServiceLocator">
+      <UniqueIdentifier>{11b68015-e718-4c55-847c-2bbb5a6a5e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ServiceLocator\SoundSystem">
+      <UniqueIdentifier>{14f38525-d64a-4716-8190-f3b60be8b08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalIncludes\ImGui">
+      <UniqueIdentifier>{5d66d7fd-aaeb-44ba-92f5-16eaedce40c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,109 +67,136 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Scenes</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>GameObjects</Filter>
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Source Files\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Source Files\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Resource</Filter>
     </ClCompile>
     <ClCompile Include="ScoreComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="ObjectConstructor.cpp">
-      <Filter>GameObjects</Filter>
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="ButtonComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="SquareComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSRenderComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Managers\Input</Filter>
+      <Filter>Source Files\Managers\Input</Filter>
     </ClCompile>
     <ClCompile Include="XBoxController.cpp">
-      <Filter>Managers\Input</Filter>
+      <Filter>Source Files\Managers\Input</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Managers\Input</Filter>
+      <Filter>Source Files\Managers\Input</Filter>
     </ClCompile>
     <ClCompile Include="RotateGameObject.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_demo.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_draw.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_plot.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_tables.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_widgets.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.cpp">
-      <Filter>ExternalIncludes</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoImguiComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CacheTest1.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="SceneFactory.cpp">
-      <Filter>Scenes\Factory</Filter>
+      <Filter>Source Files\Scenes\Factory</Filter>
     </ClCompile>
     <ClCompile Include="ActorComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Source Files\Components\Visual_RenderComps</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSRenderComponent.cpp">
+      <Filter>Source Files\Components\Visual_RenderComps</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Source Files\Components\Visual_RenderComps</Filter>
+    </ClCompile>
+    <ClCompile Include="CacheTest1.cpp">
+      <Filter>Source Files\Components\TestComponents</Filter>
     </ClCompile>
     <ClCompile Include="CacheTest2.cpp">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components\TestComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoImguiComponent.cpp">
+      <Filter>Source Files\Components\TestComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesDisplayComp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SteamAchievments.cpp">
+      <Filter>Source Files\Resource\Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>Source Files\ServiceLocator</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesDisplayText.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>Source Files\ServiceLocator\SoundSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_demo.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_draw.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_plot.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_tables.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_widgets.cpp">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Box2DComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,121 +207,268 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Managers</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
-      <Filter>Managers</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Scenes</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="BaseComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>GameObjects</Filter>
+      <Filter>Source Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Resource</Filter>
+      <Filter>Source Files\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>Resource</Filter>
+      <Filter>Source Files\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ScoreComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Managers</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="ObjectConstructor.h">
-      <Filter>GameObjects</Filter>
+      <Filter>Source Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="ButtonComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="SquareComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSRenderComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Managers\Input</Filter>
+      <Filter>Source Files\Managers\Input</Filter>
     </ClInclude>
     <ClInclude Include="XBoxController.h">
-      <Filter>Managers\Input</Filter>
+      <Filter>Source Files\Managers\Input</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
-      <Filter>Managers\Input</Filter>
+      <Filter>Source Files\Managers\Input</Filter>
     </ClInclude>
     <ClInclude Include="RotateGameObject.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imconfig.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imgui.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imgui_internal.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imgui_plot.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_rectpack.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_textedit.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_truetype.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.h">
-      <Filter>ExternalIncludes</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoImguiComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CacheTest1.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="SceneFactory.h">
-      <Filter>Scenes\Factory</Filter>
+      <Filter>Source Files\Scenes\Factory</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Resource</Filter>
+      <Filter>Source Files\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ActorComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="AllComponents.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Source Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Source Files\Components\Visual_RenderComps</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSRenderComponent.h">
+      <Filter>Source Files\Components\Visual_RenderComps</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Source Files\Components\Visual_RenderComps</Filter>
+    </ClInclude>
+    <ClInclude Include="CacheTest1.h">
+      <Filter>Source Files\Components\TestComponents</Filter>
     </ClInclude>
     <ClInclude Include="CacheTest2.h">
-      <Filter>Components</Filter>
+      <Filter>Source Files\Components\TestComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoImguiComponent.h">
+      <Filter>Source Files\Components\TestComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Source Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesDisplayComp.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamAchievments.h">
+      <Filter>Source Files\Resource\Steam</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Source Files\ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesDisplayText.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Source Files\ServiceLocator\SoundSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imconfig.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imgui.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imgui_internal.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imgui_plot.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_rectpack.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_textedit.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_truetype.h">
+      <Filter>ExternalIncludes\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_api.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_block_allocator.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_body.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_broad_phase.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_chain_shape.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_circle_shape.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_collision.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_common.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_contact.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_contact_manager.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_distance.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_distance_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_draw.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_dynamic_tree.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_edge_shape.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_fixture.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_friction_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_gear_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_growable_stack.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_math.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_motor_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_mouse_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_polygon_shape.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_prismatic_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_pulley_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_revolute_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_rope.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_settings.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_shape.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_stack_allocator.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_time_of_impact.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_time_step.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_timer.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_types.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_weld_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_wheel_joint.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_world.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\b2_world_callbacks.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\Box2D\include\box2d\box2d.h">
+      <Filter>ExternalIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonManager.h">
+      <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Box2DComponent.h">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

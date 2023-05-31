@@ -8,9 +8,12 @@
 #include "SceneManager.h"
 #include "TimeManager.h"
 
+
 #include "InputManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 
 using namespace MiniLord;
 
@@ -62,11 +65,16 @@ void MiniEngine::Initialize()
 
 void MiniEngine::Cleanup()
 {
+	SceneManager::GetInstance().Destroy();
+	Renderer::GetInstance().Destroy();
+	ServiceLocator::CleanUpSoundSystem();
+
 #ifdef USE_SDL2
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();
 #endif
+
 
 }
 
@@ -89,7 +97,10 @@ void MiniEngine::run()
 		bool doContinue = true;
 		while (doContinue)
 		{
+
 			//SteamAPI_RunCallbacks();
+
+
 			time.Update();
 			doContinue = input.ProcessInput();
 			while (time.ShouldDoFixedUpdateAndLowerLag())
@@ -102,7 +113,10 @@ void MiniEngine::run()
 			LateUpdate(dt);
 			Render();
 
-
+#ifdef STEAMWORKS
+			if(SteamAPI_IsSteamRunning())
+				SteamAPI_RunCallbacks();
+#endif
 
 			//TODO ADD this_Thread::Sleep_for(sleeptime) om aan een target FPS te geraken, anders gaat de game aan MAX_FPS draaien, en ook de CPU pushen,
 			// denk aan bordelands 2 die da probeerde. nu is er die limiet door de SDL
@@ -120,10 +134,14 @@ void MiniEngine::LoadGame()
 	auto startScene = SceneFactory::DefaultDAEScene();
 	sceneManager.AddScene(startScene);
 
-	auto TwoPlayerScenes = SceneFactory::MovingGameObjects();
-	sceneManager.AddScene(TwoPlayerScenes);
+	//auto TwoPlayerScenes = SceneFactory::MovingGameObjects();
+	//sceneManager.AddScene(TwoPlayerScenes);
 
+	//auto ObserverTest = SceneFactory::ObserverTest();
+	//sceneManager.AddScene(ObserverTest);
 
+	//auto ButtonTest = SceneFactory::ButtonScene();
+	//sceneManager.AddScene(ButtonTest);
 }
 
 void MiniEngine::FixedUpdate(const float ft)

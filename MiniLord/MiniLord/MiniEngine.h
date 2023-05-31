@@ -1,5 +1,5 @@
 #pragma once
-//#include "MiniLordPCH.h"
+#include "MiniLordPCH.h"
 
 namespace MiniLord
 {

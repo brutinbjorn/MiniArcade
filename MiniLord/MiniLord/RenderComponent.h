@@ -30,6 +30,9 @@ namespace MiniLord
 		void SetTexture(Texture2D* texture2D, bool QuarryTexture = true);
 		void SetSourceRect(SDL_Rect rect);
 
+		glm::fvec2 GetTextureSize() const;
+
+
 	protected:
 		Texture2D* m_pTexture = nullptr;
 		SDL_Rect* m_pSrcRect = nullptr;

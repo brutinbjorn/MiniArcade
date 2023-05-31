@@ -30,6 +30,7 @@ namespace MiniLord
 	
 	protected:
 		bool m_NeedsUpdate;
+
 		//RECONS DIRECT LINK??
 		RenderComponent* nm_pRenderComponent;
 		std::string m_Text;

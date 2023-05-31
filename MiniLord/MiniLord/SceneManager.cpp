@@ -47,6 +47,12 @@ void MiniLord::SceneManager::GuiRender()
 	}
 }
 
+void SceneManager::Destroy()
+{
+// TODO? finish destroyer?
+	m_Scenes.clear();
+}
+
 //Creates a Base Scene in the SceneManager
 Scene& SceneManager::CreateScene(const std::string& name)
 {
@@ -79,3 +85,5 @@ void SceneManager::PostInitialize()
 		scene->PostInitialize();
 	}
 }
+
+

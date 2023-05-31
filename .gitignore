@@ -362,3 +362,24 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /MiniLord/3rdParty/SDL2/docs
+/MiniLord/3rdParty/Box2D/unit-test
+/MiniLord/3rdParty/Box2D/testbed
+/MiniLord/3rdParty/Box2D/README.md
+/MiniLord/3rdParty/Box2D/LICENSE
+/MiniLord/3rdParty/Box2D/extern
+/MiniLord/3rdParty/Box2D/docs
+/MiniLord/3rdParty/Box2D/deploy_docs.sh
+/MiniLord/3rdParty/Box2D/CMakeLists.txt
+/MiniLord/3rdParty/Box2D/CHANGELOG.md
+/MiniLord/3rdParty/Box2D/build_docs.sh
+/MiniLord/3rdParty/Box2D/build.sh
+/MiniLord/3rdParty/Box2D/build.bat
+/MiniLord/3rdParty/Box2D/.gitignore
+/MiniLord/3rdParty/Box2D/.github
+/MiniLord/3rdParty/steamworks/tools
+/MiniLord/3rdParty/steamworks/Readme.txt
+/MiniLord/3rdParty/steamworks/Keys
+/MiniLord/3rdParty/steamworks/glmgr
+/MiniLord/3rdParty/Box2D/src
+/2DAE15_Programming4_05_Brutin_Bjorn.zip
+/2DAE15_Programming4_04_Brutin_Bjorn.zip

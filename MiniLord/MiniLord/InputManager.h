@@ -21,8 +21,6 @@ namespace MiniLord
 		SDL_KeyCode key = SDLK_UNKNOWN;
 		Command* pCommand = nullptr;
 		InputType type = InputType::wentDown;
-
-		bool isPressed = false;
 	};
 
 	class InputManager : public Singleton<InputManager>
@@ -36,14 +34,26 @@ namespace MiniLord
 
 
 		void CheckForController();
+
+		//old way...
 		void AddAction(const Action& ac);
+
+
+		void AddOnKeyDownEvent(Command* command, SDL_KeyCode key,XBoxController::ControllerButton xboxbutton);
+		void AddOnkeyUpEvent(Command* command, SDL_KeyCode key, XBoxController::ControllerButton xboxbutton);
+		void AddOnKeyHeldEvent(Command* command, SDL_KeyCode key, XBoxController::ControllerButton xboxbutton);
+
+
 		bool ProcessInput();
 		const glm::fvec2& GetMousePosition() const { return m_MousePosition; };
-
+		bool MouseWentDown() const { return m_MouseWentDown; }
 	private:
 		InputManager();
 
 		glm::fvec2 m_MousePosition {};
+		bool m_MouseWentDown = false;
+
+
 		//friend class Singleton;
 		XBoxController* m_pXboxController;
 		std::list<Action> m_Actions;

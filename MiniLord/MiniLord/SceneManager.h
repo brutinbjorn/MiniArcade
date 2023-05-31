@@ -18,6 +18,7 @@ namespace MiniLord
 		void Render();
 		void GuiRender();
 
+		void Destroy();
 
 	private:
 		friend class Singleton<SceneManager>;

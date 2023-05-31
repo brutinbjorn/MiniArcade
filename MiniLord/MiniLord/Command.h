@@ -1,6 +1,7 @@
 #pragma once
 #include "ActorComponent.h"
 #include "GameObject.h"
+#include "PlayerComponent.h"
 #include "SquareComponent.h"
 #include "TimeManager.h"
 
@@ -66,7 +67,7 @@ namespace MiniLord
 
 		void Execute() override
 		{
-			m_pActor->Move(m_Direction);
+			m_pActor->AddVelocity(m_Direction);
 		}
 	private:
 		
@@ -79,4 +80,47 @@ namespace MiniLord
 	{
 		
 	};
+
+	class LoseLifeCommand : public Command
+	{
+	public:
+		LoseLifeCommand(PlayerComponent* player):m_Player(player)
+		{};
+
+		void Execute() override
+		{
+			std::cout << "apply damage" << std::endl;
+			m_Player->ApplyDamage(1);
+		};
+	private:
+		PlayerComponent* m_Player = nullptr;
+	};
+
+	class AddPointsCommand : public Command
+	{
+	public:
+		AddPointsCommand(PlayerComponent* player) :m_Player(player) {};
+
+		void Execute() override
+		{
+			std::cout << "score schould update" << std::endl;
+			m_Player->AddScore(50);
+		};
+	private:
+		PlayerComponent* m_Player = nullptr;
+	};
+
+	class TestPrintCommand : public Command
+	{
+	public:
+		TestPrintCommand(const std::string& text) : m_textToPrint(text) {};
+
+		void Execute() override
+		{
+			std::cout << m_textToPrint << std::endl;
+		};
+	private:
+		std::string m_textToPrint ;
+	};
+
 }

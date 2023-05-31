@@ -44,9 +44,10 @@ namespace MiniLord
 		void SetMarkForDeletion(bool mark = true) { m_MarkForDeletion = mark; }
 		bool IsMarkedForDeletion() const { return  m_MarkForDeletion; }
 
-		void SetParentGameObject(GameObject* ParentGameobject);
-		GameObject* GetParentGameObject() const { return m_pParentGameObject; };
+		void SetParentGameObject(GameObject* newParent,bool worldPositionStays);
 
+		GameObject* GetParentGameObject() const { return m_pParentGameObject; };
+		std::vector<std::unique_ptr<GameObject>>& GetChildren() { return m_pChildObjects; };
 		//void SetParentObject(GameObject* newParent, bool keepWorldPosition);
 		//void AddChildObject(GameObject* newChildObject, bool keepWorldPosition);
 		//void RemoveChildObject(GameObject* childObject);
@@ -57,11 +58,11 @@ namespace MiniLord
 
 	private:
 
-		std::vector<BaseComponent*> m_pComponents = std::vector<BaseComponent*>();
+		std::vector<BaseComponent*> m_pComponents = {};
 
 		//parent/child relationship
 		GameObject* m_pParentGameObject = nullptr;
-		std::vector<GameObject*> m_pChildObjects = std::vector<GameObject*>();
+		std::vector<std::unique_ptr<GameObject>> m_pChildObjects = {};
 
 		Transform* m_Transform;
 		bool m_MarkForDeletion = false;

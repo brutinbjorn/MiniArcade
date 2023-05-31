@@ -1,5 +1,8 @@
 #include "MiniLordPCH.h"
 #include "Transform.h"
+
+#include <functional>
+
 #include "GameObject.h"
 
 const glm::fvec3& MiniLord::Transform::GetWorldPosition()
@@ -28,7 +31,10 @@ const glm::fvec3& MiniLord::Transform::GetWorldScale()
 	}
 	return m_WorldScale;
 }
-//TODO Dirty flag normally needs to update the children, instead of  having the children ask the parent.	
+//TODO Dirty flag normally needs to update the children, instead of  having the children ask the parent.
+//
+//
+//
 // moet nog eens kijken naar lambdas auto l = [](){}
 //forward declaration is best als het alleen een pointer returned in header files.
 //als het een object nodig heeft is het best om het te includen in de header.
@@ -93,6 +99,19 @@ void MiniLord::Transform::Translate(const glm::fvec3& Translate)
 	m_LocalPosition += Translate;
 }
 
+void MiniLord::Transform::SetDirty() // moet de children zijn
+{
+	m_IsDirty = true;
+	if (auto parent = GetGameObject())
+	{
+		auto& children = parent->GetChildren();
+		for (int i = 0; i < children.size(); ++i)
+		{
+			children[i]->GetTransform().SetDirty();
+		}
+	}
+}
+
 void MiniLord::Transform::UpdateWorld()
 {
 	if (m_IsDirty)
@@ -117,27 +136,6 @@ void MiniLord::Transform::UpdateWorld()
 		}
 	}
 	m_IsDirty = false;
-}
-
-
-void MiniLord::Transform::Initialize()
-{
-}
-
-void MiniLord::Transform::FixedUpdate(const float)
-{
-}
-
-void MiniLord::Transform::Update(const float)
-{
-}
-
-void MiniLord::Transform::LateUpdate(const float)
-{
-}
-
-void MiniLord::Transform::Render() const
-{
 }
 
 

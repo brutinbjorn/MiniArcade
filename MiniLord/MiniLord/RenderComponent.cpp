@@ -40,17 +40,6 @@ void RenderComponent::Render() const
 	}
 
 }
-//
-//void RenderComponent::SetPosition(float x, float y, float z)
-//{
-//
-//	m_transform.SetPosition(x, y, z);
-//}
-//
-//void RenderComponent::SetPosition(glm::vec3 pos)
-//{
-//	SetPosition(pos.x, pos.y,pos.z);
-//}
 
 
 void RenderComponent::SetSize(int x, int y)
@@ -63,8 +52,8 @@ void RenderComponent::SetSize(int x, int y)
 
 void RenderComponent::SetOffset(int x, int y)
 {
-	m_offset.x = float(x);
-	m_offset.y = float(y);
+	m_offset.x = static_cast<float>(x);
+	m_offset.y = static_cast<float>(y);
 }
 
 void RenderComponent::SetTexture(const std::string& filename, bool QuarryTexture)
@@ -94,4 +83,16 @@ void RenderComponent::SetSourceRect(SDL_Rect rect)
 {
 	delete m_pSrcRect;
 	m_pSrcRect = new SDL_Rect{rect.x,rect.y,rect.w,rect.h};
+}
+
+glm::fvec2 RenderComponent::GetTextureSize() const
+{
+	int x =0 , y = 0;
+	int errorValue = SDL_QueryTexture(m_pTexture->GetSDLTexture(),nullptr,nullptr,&x,&y);
+	if (errorValue) {
+		SDL_GetError();
+		return glm::fvec2{};
+	}
+	glm::fvec2 size = glm::fvec2(x, y);
+	return size;
 }

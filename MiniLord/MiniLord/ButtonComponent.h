@@ -4,12 +4,15 @@
 
 namespace MiniLord
 {
+	class SquareComponent;
+	class Command;
+
 	class ButtonComponent :
 	    public BaseComponent
 	{
 	public:
-		ButtonComponent() = default;
-		~ButtonComponent() override = default;
+		ButtonComponent(SquareComponent* ButtonSquare,Command* Command);
+		~ButtonComponent() override;
 		ButtonComponent(const ButtonComponent& other) = delete;
 		ButtonComponent(ButtonComponent&& other) noexcept = delete;
 		ButtonComponent& operator=(const ButtonComponent& other) = delete;
@@ -17,7 +20,7 @@ namespace MiniLord
 
 		void Initialize() override {};
 		void FixedUpdate(const float) override {};
-		void Update(const float ) override {};
+		void Update(const float ) override;
 		void LateUpdate(const float ) override {};
 		void Render() const override;
 
@@ -25,14 +28,14 @@ namespace MiniLord
 		void GuiRender() override {};
 #endif
 
-		void SetSquare(const SDL_Rect& newRect) { m_ButtonSize = newRect; }
 	protected:
 
 	private:
-		SDL_Rect m_ButtonSize;
+		Command* m_pCommand = nullptr;
+		SquareComponent* m_pSquareComp = nullptr;
 
 #if _DEBUG
-		SDL_Color m_debugColor;
+		SDL_Color m_debugColor = {255,0,255,255};
 #endif
 	};
 	

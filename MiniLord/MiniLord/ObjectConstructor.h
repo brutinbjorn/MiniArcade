@@ -1,6 +1,7 @@
 
 namespace MiniLord
 {
+	class Command;
 	class GameObject;
 	namespace ObjectConstructor
 	{
@@ -10,8 +11,8 @@ namespace MiniLord
 
 		std::shared_ptr<GameObject> Text(const std::string& Text, const std::string& fontLocation, const int size = 20, const SDL_Color& color = {255,255,255,255});
 
-		std::shared_ptr<GameObject> Button(const SDL_Rect& rect);
-
+		std::shared_ptr<GameObject> Button(const SDL_Rect& rect, Command* Command);
+		 
 
 
 	}

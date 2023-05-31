@@ -8,7 +8,7 @@ namespace MiniLord
 {
 	class Texture2D;
 
-	class Renderer : public MiniLord::Singleton<Renderer>
+	class Renderer : public Singleton<Renderer>
 	{
 	public:
 		void Init(SDL_Window* window);
@@ -34,7 +34,8 @@ namespace MiniLord
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }
 
 	private:
-
+		friend class Singleton<Renderer>;
+		Renderer() = default;
 		SDL_Renderer* m_Renderer{};
 		SDL_Window* m_pWindow = nullptr;
 		SDL_Color m_clearColor = {0,0,120};

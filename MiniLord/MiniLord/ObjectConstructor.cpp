@@ -2,6 +2,8 @@
 #include "ObjectConstructor.h"
 #include "GameObject.h"
 //#include "BaseComponent.h"
+#include "ButtonComponent.h"
+#include "Command.h"
 #include "Font.h"
 #include "RenderComponent.h"
 #include "ResourceManager.h"
@@ -31,7 +33,7 @@ std::shared_ptr<GameObject> ObjectConstructor::Text(const std::string& text,
 	auto RenderComp = new RenderComponent;
 
 	TextObject->AddComponent(RenderComp);
-	auto font = std::make_shared<Font>(fontLocation, size);
+	auto font = ResourceManager::GetInstance().LoadFont(fontLocation, size);
 	auto TextComp = new TextComponent(text,font,RenderComp);
 	TextComp->SetColor(color);
 	TextObject->AddComponent(TextComp);
@@ -41,13 +43,15 @@ std::shared_ptr<GameObject> ObjectConstructor::Text(const std::string& text,
 
 
 //TODO Finish button.
-std::shared_ptr<GameObject> ObjectConstructor::Button(const SDL_Rect& rect)
+std::shared_ptr<GameObject> ObjectConstructor::Button(const SDL_Rect& rect, Command* command)
 {
-	auto ButtonObject = std::shared_ptr<GameObject>();
-
+	auto ButtonObject = std::make_shared<GameObject>();
 	auto SquareComp = new SquareComponent(rect);
 	ButtonObject->AddComponent(SquareComp);
 
+
+	auto ButtonComp = new ButtonComponent(SquareComp,command);
+	ButtonObject->AddComponent(ButtonComp);
 	return ButtonObject;
 
 }

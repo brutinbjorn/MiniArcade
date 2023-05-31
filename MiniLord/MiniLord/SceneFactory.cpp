@@ -8,10 +8,14 @@
 #include "DemoImguiComponent.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "LivesDisplayComp.h"
+#include "LivesDisplayText.h"
 #include "ObjectConstructor.h"
+#include "PlayerComponent.h"
 #include "RenderComponent.h"
 #include "Renderer.h"
 #include "RotateGameObject.h"
+#include "ScoreComponent.h"
 
 using namespace MiniLord;
 
@@ -22,12 +26,12 @@ using namespace MiniLord;
 std::shared_ptr<Scene> SceneFactory::DefaultDAEScene(const std::string& name)
 {
 	auto defaultScene = std::make_shared<Scene>(name);
-	auto windowSize = Renderer().GetInstance().GetWindowSize();
-	auto Background = ObjectConstructor::RenderObject("Background.jpg");
+	auto windowSize = Renderer::GetInstance().GetWindowSize();
+	auto Background = ObjectConstructor::RenderObject("Common/Background.jpg");
 	Background->GetComponent<RenderComponent>()->SetSize(windowSize.x, windowSize.y);
 	defaultScene->AddGameObject(Background);
 
-	auto DAELogo = ObjectConstructor::RenderObject("logo.png");
+	auto DAELogo = ObjectConstructor::RenderObject("Common/logo.png");
 	DAELogo->GetTransform().SetPosition(static_cast<float>(windowSize.x / 2), static_cast<float>(windowSize.y / 2), 0);
 	defaultScene->AddGameObject(DAELogo);
 
@@ -36,7 +40,7 @@ std::shared_ptr<Scene> SceneFactory::DefaultDAEScene(const std::string& name)
 
 std::shared_ptr<Scene> SceneFactory::OrbitingGameObjects(const std::string& name)
 {
-	auto windowSize = Renderer().GetInstance().GetWindowSize();
+	auto windowSize = Renderer::GetInstance().GetWindowSize();
 
 	auto newScene = std::make_shared<Scene>(name);
 
@@ -48,13 +52,13 @@ std::shared_ptr<Scene> SceneFactory::OrbitingGameObjects(const std::string& name
 	auto FirstPlanetRotatingObject = ObjectConstructor::RenderObject("Digger/Digger_Player_Front.jpg");
 	auto Rotation1 = new RotateGameObject(-1, 30);
 	FirstPlanetRotatingObject->AddComponent(Rotation1);
-	FirstPlanetRotatingObject->SetParentGameObject(CenterRotatingObject.get());
+	FirstPlanetRotatingObject->SetParentGameObject(CenterRotatingObject.get(),true);
 	newScene->AddGameObject(FirstPlanetRotatingObject);
 
 	auto SecondPlanetRotatingObject = ObjectConstructor::RenderObject("Digger/Digger_Skull.jpg");
 	auto Rotation2 = new RotateGameObject(3, 30);
 	SecondPlanetRotatingObject->AddComponent(Rotation2);
-	SecondPlanetRotatingObject->SetParentGameObject(FirstPlanetRotatingObject.get());
+	SecondPlanetRotatingObject->SetParentGameObject(FirstPlanetRotatingObject.get(),true);
 	newScene->AddGameObject(SecondPlanetRotatingObject);
 
 	auto FPSTimer = ObjectConstructor::FPSCounter(SDL_Color{ 250,0,0 }, glm::ivec2(5, 5), "lingua.otf", 20);
@@ -132,7 +136,7 @@ std::shared_ptr<Scene> SceneFactory::MovingGameObjects(const std::string& name)
 
 
 	//set positions;
-	auto windowSize = Renderer().GetInstance().GetWindowSize();
+	auto windowSize = Renderer::GetInstance().GetWindowSize();
 
 
 
@@ -144,6 +148,110 @@ std::shared_ptr<Scene> SceneFactory::MovingGameObjects(const std::string& name)
 	return MovingScene;
 
 }
+
+std::shared_ptr<Scene> SceneFactory::ObserverTest(const std::string& name)
+{
+	auto newScene = std::make_shared<Scene>(name);
+
+
+	auto Player = std::make_shared<GameObject>();
+	newScene->AddGameObject(Player);
+	auto ActorComp = new ActorComponent();
+	Player->AddComponent(ActorComp);
+	auto PlayerComp = new PlayerComponent(ActorComp);
+	Player->AddComponent(PlayerComp);
+
+	auto UI = std::make_shared<GameObject>();
+	newScene->AddGameObject(UI);
+
+	auto playerOneHealthBar = new LivesDisplayComp("Common/HeartSymbol.png",PlayerComp->GetLives());
+	UI->AddComponent(playerOneHealthBar);
+	PlayerComp->GetSubject().AddObserver(playerOneHealthBar);
+	
+
+	auto playerTwo = std::make_shared<GameObject>();
+	newScene->AddGameObject(playerTwo);
+	auto ActorPlayerTwo = new ActorComponent();
+	playerTwo->AddComponent(ActorPlayerTwo);
+	auto playerTwoComp = new PlayerComponent(ActorPlayerTwo);
+	playerTwo->AddComponent(playerTwoComp);
+
+
+	auto UITwo = std::make_shared<GameObject>();
+	auto LiveBarPlayerTwo = new LivesDisplayComp("Common/HeartSymbol.png", playerTwoComp->GetLives());
+	UITwo->GetTransform().SetPosition(glm::fvec3{ 40,0,0 });
+	UITwo->AddComponent(LiveBarPlayerTwo);
+
+	//Commands
+	Command* loseLife = new LoseLifeCommand{PlayerComp};
+	Action loselifeaction = Action{ XBoxController::ControllerButton::None,SDL_KeyCode::SDLK_x,loseLife,InputType::wentDown };
+	InputManager::GetInstance().AddAction(loselifeaction);
+
+	Command* GetSomePoints = new AddPointsCommand(PlayerComp);
+	Action GetPointsAction = Action{ XBoxController::ControllerButton::None,SDL_KeyCode::SDLK_z,GetSomePoints,InputType::wentDown };
+	InputManager::GetInstance().AddAction(GetPointsAction);
+
+	Command* loseLife2 = new LoseLifeCommand(playerTwoComp);
+	Action loseLifeAction2 = Action{ XBoxController::ControllerButton::None,SDL_KeyCode::SDLK_b,loseLife2,InputType::wentDown };
+	InputManager::GetInstance().AddAction(loseLifeAction2);
+
+	Command* GetSomePointsTwo = new AddPointsCommand(playerTwoComp);
+	Action GetPointsTwo = Action{ XBoxController::ControllerButton::None,SDLK_v,GetSomePointsTwo,InputType::wentDown };
+	InputManager::GetInstance().AddAction(GetPointsTwo);
+
+	std::cout << "Controls:" << std::endl;
+	std::cout <<
+		"player 1 get 50 points = z\n" <<
+		"player 1 lose life = x\n" << 
+		"player 2 get 50 points = v\n" <<
+		"player 2 lose life = b" << std::endl;
+
+
+	//auto scoreText = std::make_shared<GameObject>();
+
+	auto scoretext = ObjectConstructor::Text("Score player 1 :","Lingua.otf");
+	scoretext->GetTransform().SetPosition(100, 100, 0);
+	newScene->AddGameObject(scoretext);
+
+	auto scorelogic = new ScoreComponent(scoretext->GetComponent<TextComponent>());
+	scoretext->AddComponent(scorelogic);
+	PlayerComp->GetSubject().AddObserver(scorelogic);
+
+	auto scoretext2 = ObjectConstructor::Text("Score player 2 :", "Lingua.otf");
+	scoretext2->GetTransform().SetPosition(100, 150, 0);
+	newScene->AddGameObject(scoretext2);
+
+	auto scoreLogic2 = new ScoreComponent(scoretext2->GetComponent<TextComponent>());
+	scoretext2->AddComponent(scoreLogic2);
+	playerTwoComp->GetSubject().AddObserver(scoreLogic2);
+
+
+	auto livestext = ObjectConstructor::Text("lives player 1 :","Lingua.otf");
+	livestext->GetTransform().SetPosition(100, 120, 0);
+	newScene->AddGameObject(livestext);
+
+	auto livesLogic = new LivesDisplayText(livestext->GetComponent<TextComponent>(), "lives player 1: ");
+	livestext->AddComponent(livesLogic);
+	PlayerComp->GetSubject().AddObserver(livesLogic);
+
+	auto livestext2 = ObjectConstructor::Text("lives player 2 :","Lingua.otf");
+	livestext2->GetTransform().SetPosition(100, 170, 0);
+	newScene->AddGameObject(livestext2);
+	 
+	auto livesLogic2 = new LivesDisplayText(livestext2->GetComponent<TextComponent>(),"lives player 2: ");
+	livestext2->AddComponent(livesLogic2);
+	playerTwoComp->GetSubject().AddObserver(livesLogic2);
+
+
+
+
+	return newScene;
+
+}
+
+
+
+
 
 std::shared_ptr<Scene> SceneFactory::GuiSceneTest(const std::string& name)
 {
@@ -166,3 +274,21 @@ std::shared_ptr<Scene> SceneFactory::GuiSceneTest(const std::string& name)
 
 
 }
+
+std::shared_ptr<Scene> SceneFactory::ButtonScene(const std::string& name)
+{
+	auto newScene = std::make_shared<Scene>(name);
+
+	Command* TestChangeColor = new TestPrintCommand("The command triggerd");
+	SDL_Rect testSize = SDL_Rect{-100,-50,200,100};
+	std::shared_ptr<GameObject> TestButton = ObjectConstructor::Button(testSize, TestChangeColor);
+	newScene->AddGameObject(TestButton);
+
+	TestButton->GetTransform().SetPosition(100,300,0);
+	
+
+	return newScene;
+
+}
+
+

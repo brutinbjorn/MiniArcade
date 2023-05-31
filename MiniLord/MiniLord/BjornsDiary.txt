@@ -57,3 +57,31 @@ const int buffer length {1 << 26};
 auto buffer {vector<int>(bufferlength,3)};
 
 
+les_06 29/03/2023
+c++ coding standards.
+implement observer pattern
+https://refactoring.guru/design-patterns/observer
+https://en.wikipedia.org/wiki/Observer_pattern
+https://incusdata.com/blog/design-patterns-observer-pattern
+https://gameprogrammingpatterns.com/observer.html
+
+
+les_07 19/04/2023
+fouten feedback.
+this niet echt de speler die de punten zou moeten bijhouden, maar de score zelf...?
+achviement zou niet in de scorecompoent mogen zitten.
+achievements moeten in appparte observer/singleton zitten best.
+achievement mag ook maar lokaal 1 keer poppen.
+teach uses template <typename... args> voor de observers. kan dan basicly iedere value meegeven.
+BOX 2D physics engine 
+
+static var die echt gewoon class specific zijn kunnen gewoon in de cpp & in plaats van de header. // bespaart compile time.
+
+feedback allocators.
+oppassen met: Object* ob = new (allocoter) object();
+de constructor wordt aangeroepen mqaar de destructor gaat daarom niet af bij release.
+vergeet daarom niet delete aan te roepen.
+de stack en fixedSize kunnen niet fragmenteren. als ze fragmentat
+
+de reden dat die 16 erin zat is om zowiezo als je data aavraagt is de dat "block" minsten 16 bytes niet bits.
+Interesting!!! dia = zit fout in alex zijn allocator/ infinite loop.

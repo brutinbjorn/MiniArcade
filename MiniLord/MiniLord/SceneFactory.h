@@ -11,7 +11,11 @@ namespace MiniLord
 
 		std::shared_ptr<Scene> MovingGameObjects(const std::string& name = "movingGameObjects");
 
+		std::shared_ptr<Scene> ObserverTest(const std::string& name = "ObserverTest");
+
 		std::shared_ptr<Scene> GuiSceneTest(const std::string& name = "ImGuiScene");
+
+		std::shared_ptr<Scene> ButtonScene(const std::string& name = "ButtonTest");
 
 	};
 	

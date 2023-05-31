@@ -19,7 +19,8 @@ namespace MiniLord
 		void Render() const override {};
 		void Update(const float) override;
 		void GuiRender() override {};
-		void Move(glm::fvec2& move) { m_Velocity += move; };
+		void AddVelocity(glm::fvec2& move) { m_Velocity += move; };
+
 
 
 	private:

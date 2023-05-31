@@ -36,25 +36,28 @@ namespace MiniLord
 		void Translate(float x, float y, float z);
 		void Translate(const glm::fvec3& Translate);
 
+		void SetDirty();
+
 
 	private:
 		//const GameObject* m_parent = nullptr;
+		void UpdateWorld();
+		bool m_IsDirty = false;
+
 		glm::fvec3 m_LocalPosition;
 		glm::fvec3 m_LocalRotation;
 		glm::fvec3 m_LocalScale;
 
-		void UpdateWorld();
-		bool m_IsDirty = false;
 		glm::fvec3 m_WorldPosition;
 		glm::fvec3 m_WorldRotation;
 		glm::fvec3 m_WorldScale;
 
 		// Inherited via BaseComponent
-		virtual void Initialize() override;
-		virtual void FixedUpdate(const float) override;
-		virtual void Update(const float) override;
-		virtual void LateUpdate(const float) override;
-		virtual void Render() const override;
+		virtual void Initialize() override {};
+		virtual void FixedUpdate(const float) override {};
+		virtual void Update(const float) override {};
+		virtual void LateUpdate(const float) override {};
+		virtual void Render() const override {};
 	};
 }
 
