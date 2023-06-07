@@ -7,9 +7,9 @@ namespace MiniLord
 	{
 	public:
 		void Init(const std::string& Data);
-		nlohmann::json LoadJsonDoc(const std::string& file);
+		nlohmann::json LoadJsonDoc(const std::string& file) const;
 	private:
-		friend class Singleton< JsonManager>;
+		friend class Singleton;
 		JsonManager() = default;
 		std::string m_DataPath;
 	};

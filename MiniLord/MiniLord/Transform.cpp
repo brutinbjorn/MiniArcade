@@ -42,7 +42,7 @@ const glm::fvec3& MiniLord::Transform::GetWorldScale()
 
 void MiniLord::Transform::SetPosition(float x, float y, float z)
 {
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalPosition.x = x;
 	m_LocalPosition.y = y;
 	m_LocalPosition.z = z;
@@ -50,19 +50,19 @@ void MiniLord::Transform::SetPosition(float x, float y, float z)
 
 void MiniLord::Transform::SetPosition(const glm::fvec3& pos)
 {
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalPosition = pos;
 }
 
 void MiniLord::Transform::SetRotation(const glm::fvec3& newRotation)
 { 
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalRotation = newRotation;
 }
 
 void MiniLord::Transform::SetRotation(float XRotation, float YRotation, float ZRotation)
 {
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalRotation.x = XRotation;
 	m_LocalRotation.y = YRotation;
 	m_LocalRotation.z = ZRotation;
@@ -71,13 +71,13 @@ void MiniLord::Transform::SetRotation(float XRotation, float YRotation, float ZR
 
 void MiniLord::Transform::SetScale(const glm::fvec3& newScale)
 {
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalScale = newScale;
 }
 
 void MiniLord::Transform::SetScale(float XScale, float YScale, float ZScale)
 {
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalScale.x = XScale;
 	m_LocalScale.y = YScale;
 	m_LocalScale.z = ZScale;
@@ -86,7 +86,7 @@ void MiniLord::Transform::SetScale(float XScale, float YScale, float ZScale)
 
 void MiniLord::Transform::Translate(float x, float y, float z)
 {
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalPosition.x += x;
 	m_LocalPosition.y += y;
 	m_LocalPosition.z += z;
@@ -95,7 +95,7 @@ void MiniLord::Transform::Translate(float x, float y, float z)
 
 void MiniLord::Transform::Translate(const glm::fvec3& Translate)
 {
-	m_IsDirty = true;
+	SetDirty();
 	m_LocalPosition += Translate;
 }
 

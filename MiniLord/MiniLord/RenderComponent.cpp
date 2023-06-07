@@ -30,7 +30,7 @@ void RenderComponent::Render() const
 		testRect.y = int(pos.y);
 		testRect.w = int(m_Size.x);
 		testRect.h = int(m_Size.y);
-		Renderer::GetInstance().RenderRect(&testRect, SDL_Color{ 255,0,0,255 });
+		//Renderer::GetInstance().RenderRect(&testRect, SDL_Color{ 255,255,255,255 });
 		if (!m_IsSizeSet)
 			Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y, m_Rotation);
 		else if (!m_pSrcRect)

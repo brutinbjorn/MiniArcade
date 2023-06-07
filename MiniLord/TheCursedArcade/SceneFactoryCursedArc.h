@@ -6,4 +6,5 @@ namespace SceneFactoryCursedArc
 
 	std::shared_ptr<MiniLord::Scene> Digger();
 
+
 }

@@ -17,7 +17,7 @@ namespace MiniLord
 		void Update(const float) override;
 		void FixedUpdate(const float) override {};
 		void LateUpdate(const float) override {};
-		void Render() const override;
+		void Render() const override {};
 		void GuiRender() override {};
 		
 		void AddScore(int score)

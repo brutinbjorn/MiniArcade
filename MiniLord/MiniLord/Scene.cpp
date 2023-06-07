@@ -10,7 +10,6 @@ unsigned int Scene::m_IdCounter = 0;
 Scene::Scene(const std::string& name)
 	: m_Name(name)
 {}
-Scene::~Scene() = default;
 
 void Scene::AddGameObject(const std::shared_ptr<GameObject>&object)
 {
@@ -47,16 +46,20 @@ void Scene::LateUpdate(const float lt)
 	{
 		object->LateUpdate(lt);
 		if (object->IsMarkedForDeletion())
-			m_ObjectsToDelete.push_back(object);
+			m_RunCleanUp = true;
 	}
 
-
-
-	if (m_ObjectsToDelete.size() > 0) // TODO check if this works as needed.
+	if (m_RunCleanUp)
 	{
-		//m_Objects.erase(std::remove(m_Objects.begin(),m_Objects.end(),m_ObjectsToDelete), m_Objects.end());
-		//m_ObjectsToDelete.clear();
-
+		for (int i = 0; i < int(m_Objects.size()); ++i)
+		{
+			if (m_Objects[i]->IsMarkedForDeletion())
+			{
+				m_Objects[i].swap(m_Objects.back());
+				m_Objects.pop_back();
+			}
+		}
+		m_RunCleanUp = false;
 	}
 		
 		// TODO Replace with erase,remove;
@@ -79,11 +82,12 @@ void Scene::Render() const
 	}
 }
 
-void MiniLord::Scene::GuiRender() const
+void Scene::GuiRender() const
 {
 	for (const auto& object : m_Objects)
 	{
 		object->GuiRender();
 	}
 }
+
 

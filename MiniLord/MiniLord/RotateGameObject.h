@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 
-class RotateGameObject : public BaseComponent
+class RotateGameObject : public MiniLord::BaseComponent
 {
 public:
 	

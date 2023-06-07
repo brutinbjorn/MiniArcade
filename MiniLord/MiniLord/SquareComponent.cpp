@@ -26,7 +26,7 @@ void SquareComponent::Render() const
 		rectToRender.y = m_Rect.y + static_cast<int>(GetGameObject()->GetTransform().GetWorldPosition().y) + m_offset.y;
 		if(m_RenderFullRect)
 		{
-			Renderer::GetInstance().RenderFullRect(rectToRender, m_color);
+			Renderer::GetInstance().RenderFullRect(&rectToRender, m_color);
 		}
 		else
 		{
@@ -50,7 +50,7 @@ bool SquareComponent::IsPointOverlapping(glm::fvec2 pointPos)
 
 }
 
-SDL_Rect MiniLord::SquareComponent::GetSquareInWorld()
+SDL_Rect SquareComponent::GetSquareInWorld()
 {
 	auto rectToRender = m_Rect;
 	rectToRender.x = m_Rect.x + static_cast<int>(GetGameObject()->GetTransform().GetWorldPosition().x) + m_offset.x;

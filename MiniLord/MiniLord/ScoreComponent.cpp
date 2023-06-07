@@ -36,10 +36,6 @@ void MiniLord::ScoreComponent::Update(const float)
 	  
 }
 
-void MiniLord::ScoreComponent::Render() const
-{
-}
-
 void MiniLord::ScoreComponent::OnNotify(ObserverMessage msg, void* argPointer, int ArgLength)
 {
 	if(msg == ObserverMessage::Msg_SCORE_CHANGED && ArgLength == sizeof(int) && argPointer != nullptr)

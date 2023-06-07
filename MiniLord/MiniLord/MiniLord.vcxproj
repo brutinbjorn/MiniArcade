@@ -64,8 +64,8 @@
     <Import Project="ImGui187.props" />
     <Import Project="sdl.props" />
     <Import Project="Steamworks_32.props" />
-    <Import Project="Box2D.props" />
     <Import Project="nlohmann_json.props" />
+    <Import Project="Box2DDebug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -74,8 +74,8 @@
     <Import Project="Glm_XInput.props" />
     <Import Project="ImGui187.props" />
     <Import Project="Steamworks_32.props" />
-    <Import Project="Box2D.props" />
     <Import Project="nlohmann_json.props" />
+    <Import Project="box2DRelease.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -84,8 +84,8 @@
     <Import Project="ImGui187.props" />
     <Import Project="sdl.props" />
     <Import Project="Steamworks_64.props" />
-    <Import Project="Box2D.props" />
     <Import Project="nlohmann_json.props" />
+    <Import Project="Box2DDebug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -94,8 +94,8 @@
     <Import Project="Glm_XInput.props" />
     <Import Project="ImGui187.props" />
     <Import Project="Steamworks_64.props" />
-    <Import Project="Box2D.props" />
     <Import Project="nlohmann_json.props" />
+    <Import Project="box2DRelease.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -292,11 +292,12 @@
     </ClCompile>
     <ClCompile Include="ActorComponent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
-    <ClCompile Include="Box2DComponent.cpp" />
+    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="ButtonComponent.cpp" />
     <ClCompile Include="CacheTest1.cpp" />
     <ClCompile Include="CacheTest2.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="DemoImguiComponent.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSRenderComponent.cpp" />
@@ -309,6 +310,10 @@
     <ClCompile Include="MiniEngine.cpp" />
     <ClCompile Include="ObjectConstructor.cpp" />
     <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="OverlapComp.cpp" />
+    <ClCompile Include="OverlapManager.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PhysicsEvents.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -382,11 +387,12 @@
     <ClInclude Include="ActorComponent.h" />
     <ClInclude Include="AllComponents.h" />
     <ClInclude Include="BaseComponent.h" />
-    <ClInclude Include="Box2DComponent.h" />
+    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="ButtonComponent.h" />
     <ClInclude Include="CacheTest1.h" />
     <ClInclude Include="CacheTest2.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="ContactListener.h" />
     <ClInclude Include="DemoImguiComponent.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSRenderComponent.h" />
@@ -399,6 +405,11 @@
     <ClInclude Include="MiniLordPCH.h" />
     <ClInclude Include="ObjectConstructor.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="OverlapComp.h" />
+    <ClInclude Include="OverlapEvent.h" />
+    <ClInclude Include="OverlapManager.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="PhysicsEvents.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />

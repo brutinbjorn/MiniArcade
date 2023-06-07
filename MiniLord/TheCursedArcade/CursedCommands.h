@@ -1,7 +1,9 @@
 #pragma once
 #include "Command.h"
+#include "Grid.h"
 #include "Scene.h"
 #include "ServiceLocator.h"
+#include "CellLogic.h"
 namespace MiniLord
 {
 	class SwitchSceneCommand: public Command
@@ -79,5 +81,76 @@ namespace MiniLord
 		ActorComponent* m_ActorToMove;
 		glm::fvec2 m_DirectionAndSpeed;
 	};
+
+	class GridLockedMoveCommand : public Command
+	{
+	public:
+		GridLockedMoveCommand(GameObject* objectToMove, const glm::fvec2& directionAndSpeed, Grid* grid, float PaddingForAxisSwitch) :
+			m_pGrid(grid), m_GameObjectToMove(objectToMove), m_DirectionAndSpeed(directionAndSpeed), m_PaddingForAxesSwitch(PaddingForAxisSwitch)
+		{};
+
+		void Execute() override
+		{
+
+
+			auto position = m_GameObjectToMove->GetTransform().GetWorldPosition();
+			auto cell = m_pGrid->GetCellAtPosition(glm::fvec2{position.x,position.y});
+
+			
+			if(cell != nullptr)
+			{
+
+				CellLogic* cellLogic = cell->GetComponent<CellLogic>();
+				auto var = cellLogic->GetDirections();
+				auto Cellpos = cell->GetTransform().GetWorldPosition();
+
+				//auto distance = glm::distance(position, Cellpos);
+	//			if(distance <= m_PaddingForAxesSwitch)
+				{
+					auto& currentTransform = m_GameObjectToMove->GetTransform();
+					auto oldPos = currentTransform.GetLocalPosition();
+					if (var & Cell_Up && m_DirectionAndSpeed.y < 0)
+					{
+						currentTransform.SetPosition(Cellpos.x, oldPos.y, oldPos.z); // align
+						currentTransform.Translate(0, m_DirectionAndSpeed.y * TimeManager::GetInstance().GetDeltaTime(), 0);
+					}
+
+					if (var & Cell_Down && m_DirectionAndSpeed.y > 0)
+					{
+						currentTransform.SetPosition(Cellpos.x, oldPos.y, oldPos.z); // align
+						currentTransform.Translate(0, m_DirectionAndSpeed.y * TimeManager::GetInstance().GetDeltaTime(), 0);
+					}
+
+					if (var & Cell_Right && m_DirectionAndSpeed.x > 0)
+					{
+						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
+						currentTransform.Translate(m_DirectionAndSpeed.x * TimeManager::GetInstance().GetDeltaTime(),0,0);
+					}
+
+					if (var & Cell_Left && m_DirectionAndSpeed.x < 0)
+					{
+						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
+						currentTransform.Translate(m_DirectionAndSpeed.x * TimeManager::GetInstance().GetDeltaTime(), 0, 0);
+					}
+					
+				}
+
+			}
+			else
+			{
+				std::cout <<"no cell found" << std::endl;
+			}
+
+		}
+
+	private:
+		Grid* m_pGrid;
+		//ActorComponent* m_pActorComp;
+		GameObject* m_GameObjectToMove;
+		glm::fvec2 m_DirectionAndSpeed;
+		float m_PaddingForAxesSwitch;
+
+	};
+
 }
 

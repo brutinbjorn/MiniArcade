@@ -134,10 +134,10 @@ void Renderer::RenderRect(const SDL_Rect* rectangle, const SDL_Color color) cons
 
 }
 
-void Renderer::RenderFullRect(const SDL_Rect& rect, const SDL_Color color) const
+void Renderer::RenderFullRect(const SDL_Rect* rect, const SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderFillRect(m_Renderer, &rect);
+	SDL_RenderFillRect(m_Renderer, rect);
 	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
 
 }

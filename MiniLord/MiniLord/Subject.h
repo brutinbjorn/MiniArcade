@@ -10,8 +10,9 @@ namespace MiniLord
 		Subject() = default;
 		~Subject()
 		{
-			for (auto& observer : m_observers)
-				observer->OnNotifyDestruction(ObserverMessage::Msg_DESTROYER_FIRED);
+			//for (auto observer : m_observers)
+			//	if(observer != nullptr)
+			//		observer->OnNotifyDestruction(ObserverMessage::Msg_DESTROYER_FIRED);
 		}
 
 		Subject(const Subject& other) = delete;

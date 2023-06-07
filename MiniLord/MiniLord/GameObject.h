@@ -38,6 +38,8 @@ namespace MiniLord
 		//component logic.
 		template <typename T>
 		T* GetComponent();
+		std::vector<BaseComponent*>& GetComponents() { return m_pComponents; }
+
 		void AddComponent(BaseComponent* ToAdd);
 		void RemoveComponent(BaseComponent* ToRemove);
 

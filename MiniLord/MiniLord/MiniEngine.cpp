@@ -10,10 +10,12 @@
 
 
 #include "InputManager.h"
+#include "JsonManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "ServiceLocator.h"
 #include "SoundSystem.h"
+#include "OverlapManager.h"
 
 using namespace MiniLord;
 
@@ -67,7 +69,7 @@ void MiniEngine::Cleanup()
 {
 	SceneManager::GetInstance().Destroy();
 	Renderer::GetInstance().Destroy();
-	ServiceLocator::CleanUpSoundSystem();
+	ServiceLocator::CleanUpServices();
 
 #ifdef USE_SDL2
 	SDL_DestroyWindow(m_Window);
@@ -83,11 +85,12 @@ void MiniEngine::run()
 	Initialize();
 	// tell the resource managers where he can find the game data
 	ResourceManager::GetInstance().Init("../Data/");
-	//JsonManager::GetInstance().Init("../Data/");
+	JsonManager::GetInstance().Init("../Data/");
 	TimeManager::GetInstance().init();
 	TimeManager::GetInstance().PrintTime(true);
 	TimeManager::GetInstance().start();
 
+	
 	LoadGame();
 	{
 		auto& input = InputManager::GetInstance();
@@ -107,11 +110,13 @@ void MiniEngine::run()
 			{
 				float ft = time.GetMsPerUpdate();
 				FixedUpdate(ft);
+				//ServiceLocator::GetPhysics().GetWorld()->Step(ft,1,1);
 			}
 			float dt = time.GetDeltaTime();
 			Update(dt);
 			LateUpdate(dt);
 			Render();
+			OverlapManager::GetInstance().CheckForOverlaps();
 
 #ifdef STEAMWORKS
 			if(SteamAPI_IsSteamRunning())
@@ -129,7 +134,6 @@ void MiniEngine::run()
 void MiniEngine::LoadGame()
 {
 	auto& sceneManager = SceneManager::GetInstance();
-
 
 	auto startScene = SceneFactory::DefaultDAEScene();
 	sceneManager.AddScene(startScene);

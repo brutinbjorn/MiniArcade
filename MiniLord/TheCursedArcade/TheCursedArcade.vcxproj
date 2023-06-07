@@ -63,7 +63,8 @@
     <Import Project="..\MiniLord\Glm_XInput.props" />
     <Import Project="..\MiniLord\ImGui187.props" />
     <Import Project="..\MiniLord\sdl.props" />
-    <Import Project="..\MiniLord\Box2D.props" />
+    <Import Project="..\MiniLord\nlohmann_json.props" />
+    <Import Project="..\MiniLord\Box2DDebug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -71,7 +72,8 @@
     <Import Project="..\MiniLord\Glm_XInput.props" />
     <Import Project="..\MiniLord\ImGui187.props" />
     <Import Project="..\MiniLord\sdl.props" />
-    <Import Project="..\MiniLord\Box2D.props" />
+    <Import Project="..\MiniLord\nlohmann_json.props" />
+    <Import Project="..\MiniLord\box2DRelease.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -79,7 +81,8 @@
     <Import Project="..\MiniLord\Glm_XInput.props" />
     <Import Project="..\MiniLord\ImGui187.props" />
     <Import Project="..\MiniLord\sdl.props" />
-    <Import Project="..\MiniLord\Box2D.props" />
+    <Import Project="..\MiniLord\nlohmann_json.props" />
+    <Import Project="..\MiniLord\Box2DDebug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -87,7 +90,8 @@
     <Import Project="..\MiniLord\Glm_XInput.props" />
     <Import Project="..\MiniLord\ImGui187.props" />
     <Import Project="..\MiniLord\sdl.props" />
-    <Import Project="..\MiniLord\Box2D.props" />
+    <Import Project="..\MiniLord\nlohmann_json.props" />
+    <Import Project="..\MiniLord\box2DRelease.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -175,20 +179,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="BagLogic.cpp" />
+    <ClCompile Include="CellLogic.cpp" />
     <ClCompile Include="CursedEngine.cpp" />
+    <ClCompile Include="DiggerManager.cpp" />
+    <ClCompile Include="GemLogic.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Lanes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectConstructorCursedArc.cpp" />
+    <ClCompile Include="PlayerDiggerLogic.cpp" />
     <ClCompile Include="SceneFactoryCursedArc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cell.h" />
+    <ClInclude Include="BagLogic.h" />
+    <ClInclude Include="CellLogic.h" />
     <ClInclude Include="CursedArcadePCH.h" />
     <ClInclude Include="CursedCommands.h" />
     <ClInclude Include="CursedEngine.h" />
+    <ClInclude Include="DiggerManager.h" />
+    <ClInclude Include="GemLogic.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Lanes.h" />
     <ClInclude Include="ObjectConstructorCursedArc.h" />
+    <ClInclude Include="PlayerDiggerLogic.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SceneFactoryCursedArc.h" />
   </ItemGroup>

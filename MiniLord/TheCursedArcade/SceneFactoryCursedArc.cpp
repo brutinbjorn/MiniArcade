@@ -1,13 +1,21 @@
 #include "CursedArcadePCH.h"
 #include "SceneFactoryCursedArc.h"
+
+#include "CollisionComponent.h"
 #include "ObjectConstructor.h"
 #include "CursedCommands.h"
+#include "DiggerManager.h"
+#include "GemLogic.h"
 #include "Grid.h"
 #include "InputManager.h"
 #include "RenderComponent.h"
 #include "Renderer.h"
 #include "ObjectConstructorCursedArc.h"
+#include "OverlapComp.h"
+#include "PlayerDiggerLogic.h"
+#include "ScoreComponent.h"
 #include "ServiceLocator.h"
+#include "TextComponent.h"
 
 using namespace MiniLord;
 
@@ -18,23 +26,21 @@ std::shared_ptr<Scene> SceneFactoryCursedArc::GameMenu()
 	
 	std::shared_ptr<Scene> MenuScene = std::make_shared<Scene>("MainMenu");
 
-
 	auto HeadText = ObjectConstructor::Text("The Cursed Arcade", "lingua.otf");
 	HeadText->GetTransform().SetPosition(static_cast<float>(windowsize.x / 2), 40, 0);
 	MenuScene->AddGameObject(HeadText);
 
 
-//	SDL_Rect commonButtonSize = {-50,-20,100,40};
-
-//	SwitchSceneCommand* SwapToSinglePlayerGame = new SwitchSceneCommand(nullptr,MenuScene.get());
-//	auto GoToSinglePlayer = ObjectConstructor::Button(commonButtonSize,SwapToSinglePlayerGame);
-//	MenuScene->AddGameObject(GoToSinglePlayer);
+	SDL_Rect commonButtonSize = {-50,-20,100,40};
+	SwitchSceneCommand* SwapToSinglePlayerGame = new SwitchSceneCommand(nullptr,MenuScene.get());
+	auto GoToSinglePlayer = ObjectConstructor::Button(commonButtonSize,SwapToSinglePlayerGame);
+	MenuScene->AddGameObject(GoToSinglePlayer);
 	return MenuScene;
 
 
 }
 
-std::shared_ptr<MiniLord::Scene> SceneFactoryCursedArc::Digger()
+std::shared_ptr<MiniLord::Scene> SceneFactoryCursedArc:: Digger()
 {
 	//int bgSoundID;
 	//ServiceLocator::GetSoundSystem().LoadSound(bgSoundID,"LevelMusic1.mp3");
@@ -43,28 +49,52 @@ std::shared_ptr<MiniLord::Scene> SceneFactoryCursedArc::Digger()
 	glm::fvec2 windowsize = Renderer::GetInstance().GetWindowSize();
 
 	auto MainGame = std::make_shared<Scene>("DiggerMainGame");
-	auto GameField = ObjectConstructor::RenderObject("DirtBackground.png");
+
+
+	//EventManager
+	auto DiggerEventManager = std::make_shared<GameObject>();
+	auto scoreObject = ObjectConstructor::Text("score:", "Lingua.otf");
+	scoreObject->SetParentGameObject(DiggerEventManager.get(), true);
+
+	auto diggerManager = new DiggerManager(scoreObject.get());
+	DiggerEventManager->AddComponent(diggerManager);
+	MainGame->AddGameObject(DiggerEventManager);
+	//End EventManager
+	
+
 
 	//Grid
-	auto bgRender = GameField->GetComponent<RenderComponent>();
-	GameField->GetComponent<BaseComponent>();
-	auto size = bgRender->GetTextureSize();
+	auto GameField = std::make_shared<GameObject>();
+	//auto GameField = ObjectConstructor::RenderObject("DirtBackground.png");
+	//auto bgRender = GameField->GetComponent<RenderComponent>();
+	//auto size = bgRender->GetTextureSize();
+
+	GameField->GetTransform().SetPosition((windowsize.x/2) ,(windowsize.y / 2),0);
+
+
+	auto SizeOffObjects = glm::ivec2{ 32,32 };
+	ObjectConstructorCursedArc::GameGridDigger(GameField, "Digger/Digger_Level01.json");
 	MainGame->AddGameObject(GameField);
-	GameField->GetTransform().SetPosition(
-		(windowsize.x/2) - (size.x/2),
-		(windowsize.y / 2) - (size.y/2),0);
-
-	ObjectConstructorCursedArc::GameGridDigger(
-		GameField,"DiggerMainGame", 15, 9, size);
-
-	auto currentGird = GameField->GetComponent<Grid>();
-	auto cells = currentGird->CreateAndGetCells();
-
-	for (int i = 0; i < cells.size(); ++i)
+	auto gridManager = GameField->GetComponent<Grid>();
+	auto ObjectsToAdd = gridManager->CreateCellsAndLanesFromJSONFile(SizeOffObjects);
+	for (int i = 0; i < ObjectsToAdd.size(); ++i)
 	{
-		MainGame->AddGameObject(cells[i]);
+		MainGame->AddGameObject(ObjectsToAdd[i]);
+		if (auto gem = ObjectsToAdd[i]->GetComponent<GemLogic>())
+			gem->AddToObserver(diggerManager);
 	}
-	//end Grid.
+	//end Grid
+
+
+	//scoreComponent
+	auto scoretext = ObjectConstructor::Text("Score:", "Lingua.otf");
+	scoretext->GetTransform().SetPosition(0, 0, 0);
+	MainGame->AddGameObject(scoretext);
+
+	auto scorelogic = new ScoreComponent(scoretext->GetComponent<TextComponent>());
+	scoretext->AddComponent(scorelogic);
+	//End ScorObject
+
 
 	//measurements
 	auto testCubeSide = std::make_shared<GameObject>();
@@ -84,61 +114,65 @@ std::shared_ptr<MiniLord::Scene> SceneFactoryCursedArc::Digger()
 	MainGame->AddGameObject(testCubeTop);
 	// end measurements
 
-	//int loseLifeID;
-	//ServiceLocator::GetSoundSystem().LoadSoundEffect(loseLifeID,"Piano2.wav");
-	//auto soundeffect = new PlaySoundEffect(loseLifeID);
-	//InputManager::GetInstance().AddOnKeyDownEvent(soundeffect,SDLK_z,XBoxController::ControllerButton::None);
 
 	//player
-	SDL_Rect testSize{ 0,0,32,32 };
 	auto Player = std::make_shared<GameObject>();
 	{
 		auto actorComp = new ActorComponent();
 		Player->AddComponent(actorComp);
 
-		auto MoveUp = new BasicMoveCommand(actorComp, glm::fvec2(0, -10.f));
-		InputManager::GetInstance().AddOnKeyHeldEvent(MoveUp, SDLK_w, XBoxController::ControllerButton::DPadUp);
-		auto MoveDown = new BasicMoveCommand(actorComp, glm::fvec2(0, 10.f));
-		InputManager::GetInstance().AddOnKeyHeldEvent(MoveDown, SDLK_s, XBoxController::ControllerButton::DPadDown);
-		auto MoveLeft = new BasicMoveCommand(actorComp, glm::fvec2(-10.f,0.f));
-		InputManager::GetInstance().AddOnKeyHeldEvent(MoveLeft, SDLK_a, XBoxController::ControllerButton::DPadLeft);
-		auto MoveRight = new BasicMoveCommand(actorComp,glm::fvec2(10,0));
-		InputManager::GetInstance().AddOnKeyHeldEvent(MoveRight, SDLK_d, XBoxController::ControllerButton::DPadRight);
+		//Commands;
+		auto MoveUpOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(0.f,-100.f), GameField->GetComponent<Grid>(),10);
+		InputManager::GetInstance().AddOnKeyDownEvent(MoveUpOnGrid,SDLK_w, XBoxController::ControllerButton::DPadUp);
+		auto MoveDownOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(0.f, 100.f), GameField->GetComponent<Grid>(),10);
+		InputManager::GetInstance().AddOnKeyDownEvent(MoveDownOnGrid, SDLK_s, XBoxController::ControllerButton::DPadDown);
+		auto MoveLeftOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(-100.f, 0.f), GameField->GetComponent<Grid>(),10);
+		InputManager::GetInstance().AddOnKeyDownEvent(MoveLeftOnGrid, SDLK_a, XBoxController::ControllerButton::DPadLeft);
+		auto MoveRightOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(100.f, 0.f), GameField->GetComponent<Grid>(),10);
+		InputManager::GetInstance().AddOnKeyDownEvent(MoveRightOnGrid, SDLK_d,XBoxController::ControllerButton::DPadRight);
 
-		//auto box = new SquareComponent(testSize);
-
+		//playerRenderer
 		auto Render = new RenderComponent();
-		Render->SetTexture("Digger/Digger_Player_Front.jpg");
-		Render->SetSize(32, 32);
-		Player->GetTransform().SetPosition(windowsize.x/2,windowsize.y/2,0);
-
-		//Player->AddComponent(box);
+		Render->SetTexture("Digger/Digger_Player_Front.png");
+		Render->SetSize(SizeOffObjects.x,SizeOffObjects.y);
+		Render->SetOffset(-SizeOffObjects.x / 2, -SizeOffObjects.y / 2);
 		Player->AddComponent(Render);
+
+		//position
+		auto startPos = gridManager->GetPlayerStartPosition();
+		Player->GetTransform().SetPosition(startPos.x,startPos.y,0);
+
+		//overlap event
+		auto overlapComp = new OverlapComp(SDL_Rect(-16, -16, 32, 32));
+		Player->AddComponent(overlapComp);
+
+		//PlayerComponent
+		auto PlayerLogic = new PlayerDiggerLogic();
+		Player->AddComponent(PlayerLogic);
 	}
+
 	MainGame->AddGameObject(Player);
 	//end player
 
 	//test Enemy
 	auto enemy = std::make_shared<GameObject>();
 	{
+		//
 		enemy->AddComponent(new ActorComponent());
+
 		auto Render = new RenderComponent();
 		Render->SetTexture("Digger/Digger_Skull.jpg");
-		Render->SetSize(64, 64);
-		enemy->GetTransform().SetPosition((windowsize.x / 2) + 100, windowsize.y / 2, 0);
-		//auto box = new SquareComponent(testSize);
-		//Player->AddComponent(box);
+		Render->SetSize(SizeOffObjects.x,SizeOffObjects.y);
+
 		enemy->AddComponent(Render);
 
+		//startPosition.
+		auto enemyStartPos = gridManager->GetEnemySpawnPosition();
+		enemy->GetTransform().SetPosition(enemyStartPos.x,enemyStartPos.y,0);
 	}
 	MainGame->AddGameObject(enemy);
 	//end test Enemy
 
-	//Control info
-	std::string controlMessage = "controls:\nZ to play sound.\nP to print controls.";
-	auto Controls = new PrintDebugMessage(controlMessage);
-	InputManager::GetInstance().AddOnKeyDownEvent(Controls, SDLK_p, XBoxController::ControllerButton::None);
-	Controls->Execute();
-
 	return MainGame;
 }
+

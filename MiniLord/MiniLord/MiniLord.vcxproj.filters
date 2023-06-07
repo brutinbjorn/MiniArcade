@@ -58,6 +58,12 @@
     <Filter Include="ExternalIncludes\ImGui">
       <UniqueIdentifier>{5d66d7fd-aaeb-44ba-92f5-16eaedce40c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ServiceLocator\Physics">
+      <UniqueIdentifier>{ec597aaf-cbda-4016-99e9-e0919cc29dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers\Overlap">
+      <UniqueIdentifier>{534d370e-7adc-46dd-9494-f4e990d0d137}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -195,8 +201,23 @@
     <ClCompile Include="JsonManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Box2DComponent.cpp">
+    <ClCompile Include="CollisionComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source Files\ServiceLocator\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEvents.cpp">
+      <Filter>Source Files\ServiceLocator\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactListener.cpp">
+      <Filter>Source Files\ServiceLocator\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="OverlapManager.cpp">
+      <Filter>Source Files\Managers\Overlap</Filter>
+    </ClCompile>
+    <ClCompile Include="OverlapComp.cpp">
+      <Filter>Source Files\Managers\Overlap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -467,8 +488,26 @@
     <ClInclude Include="JsonManager.h">
       <Filter>Source Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Box2DComponent.h">
+    <ClInclude Include="CollisionComponent.h">
       <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Source Files\ServiceLocator\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEvents.h">
+      <Filter>Source Files\ServiceLocator\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="ContactListener.h">
+      <Filter>Source Files\ServiceLocator\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlapManager.h">
+      <Filter>Source Files\Managers\Overlap</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlapComp.h">
+      <Filter>Source Files\Managers\Overlap</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlapEvent.h">
+      <Filter>Source Files\Managers\Overlap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

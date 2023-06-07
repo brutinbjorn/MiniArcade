@@ -39,11 +39,26 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Cell.cpp">
+    <ClCompile Include="CellLogic.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="ObjectConstructorCursedArc.cpp">
       <Filter>Source Files\ObjConstructor</Filter>
+    </ClCompile>
+    <ClCompile Include="Lanes.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GemLogic.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DiggerManager.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDiggerLogic.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BagLogic.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,7 +77,7 @@
     <ClInclude Include="CursedCommands.h">
       <Filter>Source Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="Cell.h">
+    <ClInclude Include="CellLogic.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
@@ -70,6 +85,21 @@
     </ClInclude>
     <ClInclude Include="ObjectConstructorCursedArc.h">
       <Filter>Source Files\ObjConstructor</Filter>
+    </ClInclude>
+    <ClInclude Include="Lanes.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GemLogic.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DiggerManager.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDiggerLogic.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BagLogic.h">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,6 +13,10 @@ GameObject::~GameObject()
 	{
 		delete m_pComponents[i];
 	}
+	for (int i = 0; i < m_pChildObjects.size(); ++i)
+	{
+		m_pChildObjects[i].release();
+	};
 }
 
 void GameObject::Initialize() const
@@ -21,6 +25,8 @@ void GameObject::Initialize() const
 	{
 		m_pComponents[i]->Initialize();
 	}
+	for (auto& child : m_pChildObjects)
+		child->Initialize();
 }
 
 void GameObject::FixedUpdate(const float ft)
@@ -29,6 +35,9 @@ void GameObject::FixedUpdate(const float ft)
 	{
 		m_pComponents[i]->FixedUpdate(ft);
 	}
+	for (auto& child: m_pChildObjects)
+		child->FixedUpdate(ft);
+	
 };
 
 void GameObject::Update(const float dt)
@@ -37,22 +46,28 @@ void GameObject::Update(const float dt)
 	{
 		m_pComponents[i]->Update(dt);
 	}
+	for (auto& child : m_pChildObjects)
+		child->Update(dt);
+
 }
 
 void GameObject::LateUpdate(const float lt)
 {
 	for (uint32_t i = 0; i < m_pComponents.size(); i++)
-	{
 		m_pComponents[i]->LateUpdate(lt);
-	}
+	for (uint32_t i= 0; i < m_pChildObjects.size(); i++ )
+		m_pChildObjects[i]->LateUpdate(lt);
+	
 }
 
 void GameObject::Render() const
 {
 	for (uint32_t i = 0; i < m_pComponents.size(); i++)
-	{
 		m_pComponents[i]->Render();
-	}
+
+	for (int i = 0; i < m_pChildObjects.size(); i++)
+		m_pChildObjects[i]->Render();
+	
 }
 
 void MiniLord::GameObject::GuiRender() const
@@ -61,13 +76,11 @@ void MiniLord::GameObject::GuiRender() const
 	{
 		component->GuiRender();
 	}
+	for (auto& child : m_pChildObjects)
+		child->GuiRender();
+
 }
 
-
-//void GameObject::SetPosition(float x, float y)
-//{
-//	m_Transform.SetPosition(x, y, 0);
-//}
 
 void GameObject::AddComponent(BaseComponent* ToAdd)
 {
@@ -80,31 +93,13 @@ void GameObject::AddComponent(BaseComponent* ToAdd)
 
 void GameObject::RemoveComponent(BaseComponent* ToRemove)
 {
-	//RECONS, deleting a component can break dependency of other comps if: InterLinked.
-	//TODONE swap with erase,remove.
-	//RECONS swap to smart pointers.
 
 	m_pComponents.erase(std::remove(m_pComponents.begin(), m_pComponents.end(), ToRemove), m_pComponents.end());
 
-	//for (auto i = m_pComponents.begin(); i != m_pComponents.end(); i++)
-	//{
-	//	if (*i == ToRemove)
-	//	{
-	//		i.operator*()->m_pParent = nullptr;
-	//		m_pComponents.erase(i);
-	//		delete *i;
-	//		break;
-	//	}
-	//}
-
 }
-//FEEDBACK
-//TODO static assert is aangeraden.
-// ook zit meschien? met de raar geval dat er shit messed up geraakt door de parent/child tree?? 
+
 void MiniLord::GameObject::SetParentGameObject(GameObject* newParent, bool worldPosStays)
 {
-
-
 	//transform logic
 	if (newParent == nullptr)
 		GetTransform().SetPosition(GetTransform().GetWorldPosition());
@@ -115,7 +110,6 @@ void MiniLord::GameObject::SetParentGameObject(GameObject* newParent, bool world
 		GetTransform().SetDirty();
 	}
 	//end transform logic.
-
 
 	//Parent logic
 	std::unique_ptr<GameObject> child = nullptr;
@@ -138,8 +132,6 @@ void MiniLord::GameObject::SetParentGameObject(GameObject* newParent, bool world
 		}
 	}
 	//End parent logic.
-
-
 }
 
 

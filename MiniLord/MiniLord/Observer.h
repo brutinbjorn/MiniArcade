@@ -10,7 +10,9 @@ namespace MiniLord
 		Msg_UNKOWN = -1,
 		Msg_DESTROYER_FIRED = 0,
 		Msg_PLAYER_LIFE_CHANGED = 1,
-		Msg_SCORE_CHANGED = 2
+		Msg_SCORE_CHANGED = 2,
+		Msg_CHANGE_SCENE = 3,
+		Msg_RELOAD_SCENE = 4
 	};
 	
 }

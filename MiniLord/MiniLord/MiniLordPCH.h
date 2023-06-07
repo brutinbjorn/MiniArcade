@@ -35,7 +35,9 @@
 #define USE_BOX2D
 
 #ifdef USE_BOX2D
-#include "b2_api.h"
+#include "box2d.h"
+//#define B2_SHARED
+//#include "b2_api.h"
 #endif
 
 #define USE_SDLMIXER2

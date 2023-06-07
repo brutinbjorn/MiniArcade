@@ -12,7 +12,7 @@ namespace MiniLord
 		void AddGameObject(const std::shared_ptr<GameObject>& object);
 
 		//place the game objects you want to add to the scene here.
-		virtual void Initialize() {};
+		void Initialize() {};
 
 		//initailizes the gameobjects.
 		void PostInitialize();
@@ -32,7 +32,7 @@ namespace MiniLord
 
 		std::string GetName() { return m_Name; };
 
-		virtual ~Scene();
+		~Scene() = default;
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;
 		Scene& operator=(const Scene& other) = delete;
