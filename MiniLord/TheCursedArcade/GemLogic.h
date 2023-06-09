@@ -28,9 +28,9 @@ namespace MiniLord
 		void LateUpdate(const float) override{};
 		void Render() const override{};
 
-		Subject m_subject;
-	public:
 		void OverlapEventBegin(GameObject* OtherObject) override;
+		bool ColliderEventBegin(GameObject* otherObject, glm::fvec2 otherMovement) override;
+		Subject m_subject;
 	};
 	
 }

@@ -17,14 +17,16 @@ void MiniLord::OverlapManager::RemoveOverlapComp(OverlapComp* toRemove)
 void MiniLord::OverlapManager::CheckForOverlaps()
 {
 	for (auto overlap : m_overlapComponents)
-		overlap->SetOverlap(false);
+		overlap->SetOverlapState(false);
 
 	for(auto currentOverlapTocheck: m_overlapComponents)
 	{
-		if(!currentOverlapTocheck->IsOverlapping())
+		if(!currentOverlapTocheck->GetOverlapState() && currentOverlapTocheck->GetIsOverlapper())
 			for (int i = 0; i < m_overlapComponents.size(); ++i)
 			{
-				if(m_overlapComponents[i] != currentOverlapTocheck)// not the same one
+
+				auto otherOverLap = m_overlapComponents[i];
+				if(otherOverLap != currentOverlapTocheck && otherOverLap->GetIsOverlapper())// not the same one
 				{
 					SDL_Rect currentRect = currentOverlapTocheck->GetOverlapSquareInWorld();
 					SDL_Rect otherRect = m_overlapComponents[i]->GetOverlapSquareInWorld();
@@ -33,21 +35,44 @@ void MiniLord::OverlapManager::CheckForOverlaps()
 
 					if(CheckOverlapSquares(currentRect,otherRect))
 					{
-						currentOverlapTocheck->SetOverlap(true);
+						currentOverlapTocheck->SetOverlapState(true);
 						currentOverlapTocheck->OnOverlapEvent(m_overlapComponents[i]);
-						m_overlapComponents[i]->SetOverlap(true);
+						m_overlapComponents[i]->SetOverlapState(true);
 						m_overlapComponents[i]->OnOverlapEvent(currentOverlapTocheck);
 
 						
 						std::cout << "overlap between cube 1 at: " << currentRect.x << ":" << currentRect.y << "size of: " << currentRect.w <<":" << currentRect.h << std::endl;
 						std::cout << "overlap between cube 2 at: " << otherRect.x << ":" << otherRect.y << "size of: " << otherRect.w << ":" << otherRect.h << std::endl;
 					}
-
-					
 				}
 			}
 	}
 
+}
+
+bool MiniLord::OverlapManager::CheckIfOverLapIsGonneHappen(OverlapComp* collider, glm::fvec2 directionAndSpeed)
+{
+	if (!collider->GetIsCollider())
+		return false;
+
+	for (int i = 0; i < m_overlapComponents.size(); ++i)
+	{
+		auto other = m_overlapComponents[i];
+		if(other->GetIsCollider() && other != collider)
+		{
+			auto movingSqr = collider->GetOverlapSquareInWorld();
+			movingSqr.x += static_cast<int>(directionAndSpeed.x);
+			movingSqr.y += static_cast<int>(directionAndSpeed.y);
+
+			if (CheckOverlapSquares(movingSqr, other->GetOverlapSquareInWorld()))
+			{
+
+				return true;
+
+			}
+		}
+	}
+	return false;
 }
 
 bool MiniLord::OverlapManager::CheckOverlapSquares(SDL_Rect left, SDL_Rect right)

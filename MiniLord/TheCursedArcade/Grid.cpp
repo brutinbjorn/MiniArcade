@@ -229,22 +229,23 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 	int maxWidth = 0;
 	if (jAr.is_array())
 	{
-		int depth = 0;
+		int depthID = 0;
 		for (nlohmann::json::iterator row = jAr.begin(); row != jAr.end(); ++row)
 		{
+			
+			int widthID = 0;
+			m_height = static_cast<int>(jAr.size());
 			if (row->is_array())
 			{
-				//maxHeight
-				int width = 0;
-				maxWidth = static_cast<int>(row->size());
+				m_width = maxWidth = static_cast<int>(row->size());
 				for (nlohmann::json::iterator Line = row->begin(); Line != row->end(); ++Line)
 				{
 
 					//GameObject
 					auto CellToAdd = std::make_shared<GameObject>();
 					auto cellPosition = glm::fvec2{
-						TopleftWithCellOffset.x + static_cast<float>(width) * sizeOfCells.x,
-						TopleftWithCellOffset.y + static_cast<float>(depth) * sizeOfCells.y };
+						TopleftWithCellOffset.x + static_cast<float>(widthID) * sizeOfCells.x,
+						TopleftWithCellOffset.y + static_cast<float>(depthID) * sizeOfCells.y };
 
 					CellToAdd->GetTransform().SetPosition(cellPosition.x, cellPosition.y, 0);
 					//End GameObject
@@ -258,24 +259,34 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 
 					//CellLogicComp
 					char currentDirection = CellDirections::Cell_All;
-					currentDirection -= (depth == 0) * Cell_Up;
-					currentDirection -= (width == 0) * Cell_Left;
-					currentDirection -= (depth == maxDepth - 1) * Cell_Down;
-					currentDirection -= (width == maxWidth - 1) * Cell_Right;
+					currentDirection -= (depthID == 0) * Cell_Up;
+					currentDirection -= (widthID == 0) * Cell_Left;
+					currentDirection -= (depthID == maxDepth - 1) * Cell_Down;
+					currentDirection -= (widthID == maxWidth - 1) * Cell_Right;
 							
-					auto cellLogic = new CellLogic(5, currentDirection,newSquare);
+					auto cellLogic = new CellLogic(5, currentDirection,newSquare,depthID * m_width + widthID,widthID,depthID);
 
 
 
 					// add the lanes for movement on the cell.
-					auto horizontal = SDL_Rect(-5, -(5 + rect.h / 2), +5, 5 + rect.h / 2);
+					auto horizontal = SDL_Rect(
+						-m_spacingForLanes,
+						-(m_spacingForLanes + rect.h / 2),
+						+m_spacingForLanes * 2, 
+						2 * 5 + rect.h );
+
 					auto horizontalLane = new SquareComponent(horizontal, SDL_Color{ 255,0 , 0,255 });
 					cellLogic->SetHorizontalLane(horizontalLane);
 					CellToAdd->AddComponent(horizontalLane);
 					m_pHorizontalLanes.push_back(horizontalLane);
 
-					auto vertical = SDL_Rect(-5, -(5 + rect.h / 2), +5, 5 + rect.h / 2);
-					auto verticalLane = new SquareComponent(vertical, SDL_Color{ 255,0 , 0,255 });
+					auto vertical = SDL_Rect(
+						-(m_spacingForLanes + rect.w /2),
+						-m_spacingForLanes,
+						2 * m_spacingForLanes + rect.w,
+						m_spacingForLanes * 2);
+
+					auto verticalLane = new SquareComponent(vertical, SDL_Color{ 0,0 , 255,255 });
 					cellLogic->SetVerticalLane(verticalLane);
 					CellToAdd->AddComponent(verticalLane);
 					m_pHorizontalLanes.push_back(verticalLane);
@@ -301,39 +312,33 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 							ObjectConstructorCursedArc::DiggerGem(gem);
 							gem->GetTransform().SetPosition(cellPosition.x, cellPosition.y, 0);
 
-							m_Gems.push_back(gem.get());
+							m_pGems.push_back(gem.get());
 							gem->SetParentGameObject(CellToAdd.get(), true);
 							CellObjectsToReturn.push_back(gem);
 						}
 						if (val & 0b10000)
 						{
 							auto Bag = std::make_shared<GameObject>();
-							ObjectConstructorCursedArc::DiggerGoldBag(Bag);
+							ObjectConstructorCursedArc::DiggerGoldBag(Bag,this,glm::ivec2(widthID,depthID), sizeOfCells);
 
 							Bag->GetTransform().SetPosition(cellPosition.x, cellPosition.y, 0);
-							m_Bags.push_back(Bag.get());
+							m_pBags.push_back(Bag.get());
 							CellObjectsToReturn.push_back(Bag);
-							cellLogic->SetDirections(Cell_None);
+							//cellLogic->SetDirections(Cell_None);
 						}
 					}
 					cellLogic->SetCellSize(sizeOfCells);
 
-
 					CellToAdd->AddComponent(cellLogic);
 					CellToAdd->SetParentGameObject(GetGameObject(), true);
 					CellObjectsToReturn.push_back(CellToAdd);
-					m_pcells.push_back(CellToAdd.get());
-					width++;
+					m_pCells.push_back(CellToAdd.get());
+					widthID++;
 				}
 			}
-			depth++;
+			depthID++;
 		}
 	}
-
-	std::vector<std::shared_ptr<GameObject>> Lanes;
-	glm::ivec2 ExtraSizesOfLanes{ 4,4 };
-
-
 
 	return CellObjectsToReturn;
 }
@@ -341,17 +346,32 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 
 ::GameObject* Grid::GetCellAtPosition(glm::fvec2 possiblePosition)
 {
-	for (int i = 0; i < m_pcells.size(); ++i)
+	for (int i = 0; i < m_pCells.size(); ++i)
 	{
-		if (m_pcells[i]->GetComponent<SquareComponent>()->IsPointOverlapping(possiblePosition))
-			return m_pcells[i];
+		if (m_pCells[i]->GetComponent<SquareComponent>()->IsPointOverlapping(possiblePosition))
+			return m_pCells[i];
 	}
 	return nullptr;
 }
 
-char Grid::GetPossibleDirections(glm::fvec2 )
+
+
+GameObject* Grid::GetCellFromArray(int depth, int width)
 {
-	return 0;
+	int row = depth * m_width;
+	int ID = row + width;
+	if(ID >= m_pCells.size())
+		return nullptr;
+
+	return m_pCells[ID];
+}
+
+GameObject* Grid::GetCellFromArray(int index)
+{
+	if (index >= m_pCells.size())
+		return nullptr;
+
+	return m_pCells[index];
 }
 
 

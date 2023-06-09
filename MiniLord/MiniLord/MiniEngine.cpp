@@ -57,7 +57,7 @@ void MiniEngine::Initialize()
 
 	Renderer::GetInstance().Init(m_Window);
 
-	srand(0);
+	std::srand(static_cast<unsigned int>(std::time(nullptr)));
 #endif
 
 #ifdef USE_SDLMIXER2

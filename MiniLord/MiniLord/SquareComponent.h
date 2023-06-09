@@ -30,12 +30,12 @@
 
 		SDL_Rect GetRectangle() { return m_Rect; };
 		SDL_Rect GetSquareInWorld();
-		glm::ivec2 GetOffset() { return m_offset; };
+		//glm::ivec2 GetOffset() { return m_offset; };
 
 	private:
 		SDL_Rect m_Rect = SDL_Rect{}; 
 		SDL_Color m_color = SDL_Color{};
-		glm::ivec2 m_offset = { 0,0 };
+		//glm::ivec2 m_offset = { 0,0 };
 
 		bool m_IsRendered = true;
 		bool m_RenderFullRect = false;

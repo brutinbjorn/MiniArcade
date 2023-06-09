@@ -25,6 +25,8 @@ namespace MiniLord
 		//void SetPosition(glm::vec3 pos);
 		void SetSize(int x, int y);
 		void SetOffset(int x, int y);
+		glm::ivec2 GetOffset() const {return m_offset; }
+
 		void SetRotation(double rot) { m_Rotation = rot; };
 		void SetTexture(const std::string& filename, bool QuarryTexture = true);
 		void SetTexture(Texture2D* texture2D, bool QuarryTexture = true);
@@ -32,11 +34,13 @@ namespace MiniLord
 
 		glm::fvec2 GetTextureSize() const;
 
-
+		void SetVisible(bool isVisible) { m_IsVisible = isVisible; }
 	protected:
 		Texture2D* m_pTexture = nullptr;
 		SDL_Rect* m_pSrcRect = nullptr;
 		//Transform m_transform;
+
+		bool m_IsVisible = true;
 
 		bool m_IsSizeSet = false;
 		bool m_IsBoundToOtherComp = false;

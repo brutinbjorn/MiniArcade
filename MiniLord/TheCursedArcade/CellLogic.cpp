@@ -6,21 +6,22 @@
 #include "SquareComponent.h"
 
 
-MiniLord::CellLogic::CellLogic(float sizeOfCenter, char possibleDirections, SquareComponent* square) :
-	m_RectComp(square), m_PossibleDirections(possibleDirections), m_sizeOfCenter(sizeOfCenter)
+using namespace MiniLord;
+CellLogic::CellLogic(float sizeOfCenter, char possibleDirections, SquareComponent* square, int index,int width, int height)
+	:m_RectComp(square), m_PossibleDirections(possibleDirections), m_sizeOfCenter(sizeOfCenter),
+	m_cellIndex(index),m_Width(width),m_Height(height),m_cellDepthWidth(width,height)
 {
 
 }
 
-
-void MiniLord::CellLogic::Initialize()
+void CellLogic::Initialize()
 {
 	if (m_RectComp)
-		m_RectComp->RenderFullSquare(!m_IsDiggedOut);
+		m_RectComp->RenderFullSquare(m_IsDiggedOut);
 
 }
 
-void MiniLord::CellLogic::Render() const
+void CellLogic::Render() const
 {
 	//SDL_Rect centerTest = SDL_Rect(-5, -5, 5, 5);
 	//Renderer::GetInstance().RenderRect(&centerTest);
@@ -31,7 +32,7 @@ void MiniLord::CellLogic::Render() const
 	//}
 }
 
-bool MiniLord::CellLogic::CheckIfOverlappingCenter(glm::fvec2 point)
+bool CellLogic::CheckIfOverlappingCenter(glm::fvec2 point)
 {
 	auto worldPos = GetGameObject()->GetTransform().GetWorldPosition();
 	glm::fvec2 worldPos2D = { worldPos.x, worldPos.y };
@@ -40,13 +41,13 @@ bool MiniLord::CellLogic::CheckIfOverlappingCenter(glm::fvec2 point)
 	return true;
 }
 
-bool MiniLord::CellLogic::CheckIfInCell(glm::fvec2 )
+bool CellLogic::CheckIfInCell(glm::fvec2 )
 {
 //	if()
 	return false;
 }
 
-void MiniLord::CellLogic::SetDiggedOut(bool setDiggedState)
+void CellLogic::SetDiggedOut(bool setDiggedState)
 {
 	m_IsDiggedOut = setDiggedState;
 

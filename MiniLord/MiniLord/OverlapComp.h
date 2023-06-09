@@ -15,9 +15,10 @@ namespace MiniLord
 		OverlapComp& operator=(OverlapComp&& other) noexcept = delete;
 
 		void OnOverlapEvent(OverlapComp* other);
+		bool OnColliderEvent(OverlapComp* other,glm::fvec2 directionOtherMoves);
 
-		void SetOverlap(bool IsOverLapping) { m_IsOverLapping = IsOverLapping; };
-		bool IsOverlapping() const { return m_IsOverLapping; };
+		void SetOverlapState(bool IsOverLapping) { m_IsOverLapping = IsOverLapping; };
+		bool GetOverlapState() const { return m_IsOverLapping; };
 		SDL_Rect GetOverlapSquareInWorld() const;
 
 
@@ -26,10 +27,19 @@ namespace MiniLord
 		void Update(const float) override{};
 		void LateUpdate(const float) override{};
 		void Render() const override{};
+
+		bool GetIsOverlapper(){return m_GenerateOverLapEvent; }
+		void SetIsOverlapper(bool isOverlapper) { m_GenerateOverLapEvent = isOverlapper; }
+		bool GetIsCollider() const { return m_GenerateCollisionEvent; }
+		void SetIsCollider(bool isCollider) { m_GenerateCollisionEvent = isCollider; }
+
 	private:
 
 		bool m_IsOverLapping = false;
 		SDL_Rect m_Overlap;
+
+		bool m_GenerateOverLapEvent = true;
+		bool m_GenerateCollisionEvent = false;
 
 	};
 	

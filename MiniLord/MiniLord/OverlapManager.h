@@ -14,6 +14,7 @@ namespace MiniLord
 
 		void CheckForOverlaps();
 
+		bool CheckIfOverLapIsGonneHappen(OverlapComp* collider,glm::fvec2 directionAndSpeed);
 	private:
 		friend class Singleton<OverlapManager>;
 		OverlapManager() = default;

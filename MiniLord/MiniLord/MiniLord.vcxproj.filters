@@ -64,6 +64,9 @@
     <Filter Include="Source Files\Managers\Overlap">
       <UniqueIdentifier>{534d370e-7adc-46dd-9494-f4e990d0d137}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Managers\SimpleCollision">
+      <UniqueIdentifier>{7bc47f42-cc9f-4758-9025-dfb3478bad5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

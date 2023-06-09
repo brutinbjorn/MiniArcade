@@ -4,6 +4,9 @@
 #include "Scene.h"
 #include "ServiceLocator.h"
 #include "CellLogic.h"
+#include "OverlapComp.h"
+#include "OverlapManager.h"
+
 namespace MiniLord
 {
 	class SwitchSceneCommand: public Command
@@ -91,50 +94,56 @@ namespace MiniLord
 
 		void Execute() override
 		{
-
-
 			auto position = m_GameObjectToMove->GetTransform().GetWorldPosition();
 			auto cell = m_pGrid->GetCellAtPosition(glm::fvec2{position.x,position.y});
 
-			
+			float dt = TimeManager::GetInstance().GetDeltaTime();
+
+			if(auto colliderComp =m_GameObjectToMove->GetComponent<OverlapComp>())
+			{
+				if(OverlapManager::GetInstance().CheckIfOverLapIsGonneHappen(colliderComp,m_DirectionAndSpeed * dt))
+					return;	
+				
+			}
+
 			if(cell != nullptr)
 			{
-
 				CellLogic* cellLogic = cell->GetComponent<CellLogic>();
 				auto var = cellLogic->GetDirections();
 				auto Cellpos = cell->GetTransform().GetWorldPosition();
 
-				//auto distance = glm::distance(position, Cellpos);
-	//			if(distance <= m_PaddingForAxesSwitch)
+				auto& currentTransform = m_GameObjectToMove->GetTransform();
+				auto oldPos = currentTransform.GetLocalPosition();
+
+				if (cellLogic->GetHorizontalLane()->IsPointOverlapping(currentTransform.GetWorldPosition()))
 				{
-					auto& currentTransform = m_GameObjectToMove->GetTransform();
-					auto oldPos = currentTransform.GetLocalPosition();
-					if (var & Cell_Up && m_DirectionAndSpeed.y < 0)
+					if ((var & Cell_Up || Cellpos.y <= oldPos.y) && m_DirectionAndSpeed.y < 0)
 					{
 						currentTransform.SetPosition(Cellpos.x, oldPos.y, oldPos.z); // align
-						currentTransform.Translate(0, m_DirectionAndSpeed.y * TimeManager::GetInstance().GetDeltaTime(), 0);
+						currentTransform.Translate(0, m_DirectionAndSpeed.y * dt,0);
 					}
 
-					if (var & Cell_Down && m_DirectionAndSpeed.y > 0)
+					if ((var & Cell_Down || Cellpos.y >= oldPos.y) && m_DirectionAndSpeed.y > 0)
 					{
 						currentTransform.SetPosition(Cellpos.x, oldPos.y, oldPos.z); // align
-						currentTransform.Translate(0, m_DirectionAndSpeed.y * TimeManager::GetInstance().GetDeltaTime(), 0);
+						currentTransform.Translate(0, m_DirectionAndSpeed.y * dt,0);
 					}
-
-					if (var & Cell_Right && m_DirectionAndSpeed.x > 0)
-					{
-						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
-						currentTransform.Translate(m_DirectionAndSpeed.x * TimeManager::GetInstance().GetDeltaTime(),0,0);
-					}
-
-					if (var & Cell_Left && m_DirectionAndSpeed.x < 0)
-					{
-						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
-						currentTransform.Translate(m_DirectionAndSpeed.x * TimeManager::GetInstance().GetDeltaTime(), 0, 0);
-					}
-					
 				}
 
+				if (cellLogic->GetVerticalLane()->IsPointOverlapping(currentTransform.GetWorldPosition()))
+				{
+					if ((var & Cell_Right || Cellpos.x <= oldPos.x) && m_DirectionAndSpeed.x > 0)
+					{
+						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
+						currentTransform.Translate(m_DirectionAndSpeed.x * dt, 0,0);
+					}
+
+					if ((var & Cell_Left || Cellpos.x >= oldPos.x) && m_DirectionAndSpeed.x < 0)
+					{
+						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
+						currentTransform.Translate(m_DirectionAndSpeed.x * dt, 0,0);
+					}
+				}
 			}
 			else
 			{

@@ -2,6 +2,7 @@
 #include <BaseComponent.h>
 #include <PhysicsEvents.h>
 #include <Subject.h>
+#include "Grid.h"
 
 namespace MiniLord
 {
@@ -9,7 +10,7 @@ namespace MiniLord
 	class PlayerDiggerLogic : public BaseComponent, public Interface::PhysicsEvents
 	{
 	public:
-		PlayerDiggerLogic() = default;
+		PlayerDiggerLogic(Grid* grideToInfluence);
 		~PlayerDiggerLogic() override = default;
 		PlayerDiggerLogic(const PlayerDiggerLogic& other) = delete;
 		PlayerDiggerLogic(PlayerDiggerLogic&& other) noexcept = delete;
@@ -18,15 +19,17 @@ namespace MiniLord
 
 		void Initialize() override {};
 		void FixedUpdate(const float) override{};
-		void Update(const float) override{};
+		void Update(const float) override;
 		void LateUpdate(const float) override{};
 		void Render() const override{};
 
 		Subject& GetSubject(){ return m_subject;};
-
+		
+		void GotHit();
 		void OnCollisionEnter(CollisionComponent* other) override;
 	private:
 		Subject m_subject = Subject{};
+		Grid* m_pGrid;
 	};
 }
 

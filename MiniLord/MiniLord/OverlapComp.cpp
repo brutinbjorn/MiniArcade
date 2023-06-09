@@ -29,6 +29,18 @@ void MiniLord::OverlapComp::OnOverlapEvent(OverlapComp* other)
 	}
 }
 
+bool MiniLord::OverlapComp::OnColliderEvent(OverlapComp* other, glm::fvec2 directionOtherMoves)
+{
+	for (auto comp : other->GetGameObject()->GetComponents())
+	{
+		if (auto event = dynamic_cast<Interface::OverlapEvent*>(comp))
+		{
+			return event->ColliderEventBegin(GetGameObject(),directionOtherMoves);
+		}
+	}
+	return false;
+}
+
 SDL_Rect MiniLord::OverlapComp::GetOverlapSquareInWorld() const
 {
 

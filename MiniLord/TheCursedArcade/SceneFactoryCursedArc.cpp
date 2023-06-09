@@ -26,15 +26,15 @@ std::shared_ptr<Scene> SceneFactoryCursedArc::GameMenu()
 	
 	std::shared_ptr<Scene> MenuScene = std::make_shared<Scene>("MainMenu");
 
-	auto HeadText = ObjectConstructor::Text("The Cursed Arcade", "lingua.otf");
-	HeadText->GetTransform().SetPosition(static_cast<float>(windowsize.x / 2), 40, 0);
-	MenuScene->AddGameObject(HeadText);
+	//auto HeadText = ObjectConstructor::Text("The Cursed Arcade", "lingua.otf");
+	//HeadText->GetTransform().SetPosition(static_cast<float>(windowsize.x / 2), 40, 0);
+	//MenuScene->AddGameObject(HeadText);
 
 
-	SDL_Rect commonButtonSize = {-50,-20,100,40};
-	SwitchSceneCommand* SwapToSinglePlayerGame = new SwitchSceneCommand(nullptr,MenuScene.get());
-	auto GoToSinglePlayer = ObjectConstructor::Button(commonButtonSize,SwapToSinglePlayerGame);
-	MenuScene->AddGameObject(GoToSinglePlayer);
+	//SDL_Rect commonButtonSize = {-50,-20,100,40};
+	//SwitchSceneCommand* SwapToSinglePlayerGame = new SwitchSceneCommand(nullptr,MenuScene.get());
+	//auto GoToSinglePlayer = ObjectConstructor::Button(commonButtonSize,SwapToSinglePlayerGame);
+	//MenuScene->AddGameObject(GoToSinglePlayer);
 	return MenuScene;
 
 
@@ -122,13 +122,13 @@ std::shared_ptr<MiniLord::Scene> SceneFactoryCursedArc:: Digger()
 		Player->AddComponent(actorComp);
 
 		//Commands;
-		auto MoveUpOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(0.f,-100.f), GameField->GetComponent<Grid>(),10);
+		auto MoveUpOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(0.f,-200.f), GameField->GetComponent<Grid>(),10);
 		InputManager::GetInstance().AddOnKeyDownEvent(MoveUpOnGrid,SDLK_w, XBoxController::ControllerButton::DPadUp);
-		auto MoveDownOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(0.f, 100.f), GameField->GetComponent<Grid>(),10);
+		auto MoveDownOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(0.f, 200.f), GameField->GetComponent<Grid>(),10);
 		InputManager::GetInstance().AddOnKeyDownEvent(MoveDownOnGrid, SDLK_s, XBoxController::ControllerButton::DPadDown);
-		auto MoveLeftOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(-100.f, 0.f), GameField->GetComponent<Grid>(),10);
+		auto MoveLeftOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(-200.f, 0.f), GameField->GetComponent<Grid>(),10);
 		InputManager::GetInstance().AddOnKeyDownEvent(MoveLeftOnGrid, SDLK_a, XBoxController::ControllerButton::DPadLeft);
-		auto MoveRightOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(100.f, 0.f), GameField->GetComponent<Grid>(),10);
+		auto MoveRightOnGrid = new GridLockedMoveCommand(Player.get(), glm::fvec2(200.f, 0.f), GameField->GetComponent<Grid>(),10);
 		InputManager::GetInstance().AddOnKeyDownEvent(MoveRightOnGrid, SDLK_d,XBoxController::ControllerButton::DPadRight);
 
 		//playerRenderer
@@ -143,11 +143,12 @@ std::shared_ptr<MiniLord::Scene> SceneFactoryCursedArc:: Digger()
 		Player->GetTransform().SetPosition(startPos.x,startPos.y,0);
 
 		//overlap event
-		auto overlapComp = new OverlapComp(SDL_Rect(-16, -16, 32, 32));
+		auto overlapComp = new OverlapComp(SDL_Rect(-14, -14, 28, 28));
+		overlapComp->SetIsCollider(true);
 		Player->AddComponent(overlapComp);
 
 		//PlayerComponent
-		auto PlayerLogic = new PlayerDiggerLogic();
+		auto PlayerLogic = new PlayerDiggerLogic(gridManager);
 		Player->AddComponent(PlayerLogic);
 	}
 

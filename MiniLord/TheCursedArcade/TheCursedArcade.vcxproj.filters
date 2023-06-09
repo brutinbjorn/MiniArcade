@@ -60,6 +60,12 @@
     <ClCompile Include="BagLogic.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="States.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BagState.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CursedEngine.h">
@@ -99,6 +105,12 @@
       <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="BagLogic.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="States.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BagState.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

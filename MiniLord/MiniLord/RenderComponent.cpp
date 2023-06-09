@@ -20,7 +20,7 @@ void RenderComponent::Render() const
 {
 	SDL_Rect testRect;
 
-	if (m_pTexture)
+	if (m_pTexture && m_IsVisible)
 	{
 		//printf("rendering");
 		//const Transform = Transform();
