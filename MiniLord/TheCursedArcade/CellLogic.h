@@ -45,6 +45,7 @@ namespace MiniLord
 		int GetWidthIndex() { return m_Width; };
 		int GetDepthIndex() { return m_Height; }
 		glm::ivec2 GetWidthDepth(){ return m_cellDepthWidth; }
+		void SetWidthDepth(glm::ivec2 newCell) { m_cellDepthWidth = newCell; }
 
 		bool IsDiggedOut() { return m_IsDiggedOut; }
 		void SetDiggedOut(bool setDiggedState);

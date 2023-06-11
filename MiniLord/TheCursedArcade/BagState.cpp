@@ -3,10 +3,13 @@
 
 #include <random>
 
+#include "ActorComponent.h"
 #include "BagLogic.h"
 #include "CellLogic.h"
 #include "RenderComponent.h"
 #include "TimeManager.h"
+#include "OverlapComp.h"
+#include "OverlapManager.h"
 
 
 using namespace MiniLord;
@@ -15,8 +18,9 @@ BagState* BurriedState::Update(GameObject* obj)
 {
 	auto bag = obj->GetComponent<BagLogic>();
 	glm::ivec2 startpos = bag->GetPositionOnGrid();
-	auto cellUnder = bag->GetGrid()->GetCellFromArray(startpos.x + 1,startpos.y);
+	auto cellUnder = bag->GetGrid()->GetCellFromArray(startpos.y+1,startpos.x);
 
+	if(cellUnder)
 	if(auto val = cellUnder->GetComponent<CellLogic>())
 	{
 		if (val->IsDiggedOut())
@@ -71,15 +75,23 @@ void FallingState::OnEnter(GameObject* obj)
 	{
 		bag->SetIsFalling(true);
 		bag->SetIsInmovable(true);
-		m_lastPos = bag->GetPositionOnGrid();
 
-		if (auto grid = bag->GetGrid())
+		if (auto currentCell = bag->GetGrid()->GetCellAtPosition(obj->GetTransform().GetWorldPosition())->GetComponent<CellLogic>())
 		{
-			if (auto cell = grid->GetCellAtPosition(obj->GetTransform().GetWorldPosition()))
+			m_lastPos = currentCell->GetWidthDepth();
+			if (auto grid = bag->GetGrid())
 			{
-				auto getPos = cell->GetTransform().GetLocalPosition();
-				obj->GetTransform().SetPosition(getPos);
+				if (auto cell = grid->GetCellAtPosition(obj->GetTransform().GetWorldPosition()))
+				{
+					auto getPos = cell->GetTransform().GetWorldPosition();
+					obj->GetTransform().SetPosition(getPos);
+				}
 			}
+
+		}
+		else
+		{
+			std::cout << "help" << std::endl;
 		}
 	}
 }
@@ -88,7 +100,7 @@ BagState* FallingState::Update(GameObject* obj)
 {
 	if(auto bag = obj->GetComponent<BagLogic>())
 	{
-		auto pos = obj->GetTransform().GetWorldPosition(); // Get position
+		auto pos = obj->GetTransform().GetLocalPosition(); // Get position
 
 		auto grid = bag->GetGrid();
 		if(!grid)
@@ -97,9 +109,13 @@ BagState* FallingState::Update(GameObject* obj)
 		auto* CellObj = grid->GetCellAtPosition({pos.x,pos.y}); // get the current cell the Bag is over.
 
 		if(CellObj == nullptr)
-			throw std::runtime_error("falling state: no cell was found");
-
-		if(auto cellLogic = CellObj->GetComponent<CellLogic>()) // get the logic of the cell
+		{
+			return nullptr;
+			//throw std::runtime_error("falling state: no cell was found");
+		}
+			
+		// the current cell the bag is over
+		if(auto cellLogic = CellObj->GetComponent<CellLogic>()) 
 		{
 
 			auto width = cellLogic->GetWidthIndex();
@@ -107,32 +123,48 @@ BagState* FallingState::Update(GameObject* obj)
 
 			if(m_lastPos.x != width || otherY != m_lastPos.y)// if cell is not the same, add to count and update.
 			{
-				m_CellsPassed++;
+				m_CellsPassed++; 
 				m_lastPos = cellLogic->GetWidthDepth();
+				bag->SetPositionOnGrid({ m_lastPos.y,m_lastPos.x }); //set new width/depth
 
 				//check if what next cell is.
 				if(auto nextCell= grid->GetCellFromArray(m_lastPos.y + 1, m_lastPos.x))
 				{
-					if(m_CellsPassed  <= 1)
+					if(auto nextCellLogic = nextCell->GetComponent<CellLogic>())
 					{
-						auto cellcenter = CellObj->GetTransform().GetWorldPosition();
-						obj->GetTransform().SetPosition(cellcenter);
-						return new RestState();
+						if(m_CellsPassed  <= 1 && !nextCellLogic->IsDiggedOut())
+						{
+							auto cellcenter = CellObj->GetTransform().GetWorldPosition();
+							obj->GetTransform().SetPosition(cellcenter);
+							return new RestState();
+						}
+						if( m_CellsPassed >= 2 && !nextCellLogic->IsDiggedOut())
+						{
+							return new GoldState();
+						}
 					}
-					else if( m_CellsPassed > 2)
-					{
-						return new GoldState();
-					}
+
 				}
 				else
 				{// no next cell found, hit the bottom?
+
+					if (m_CellsPassed >= 2)
+					{
+						return new GoldState();
+					}
 					auto cellcenter = CellObj->GetTransform().GetWorldPosition();
 					obj->GetTransform().SetPosition(cellcenter);
 					return new RestState();
 				}
 			}
 		}
-		obj->GetTransform().Translate(0,bag->GetSpeed() * TimeManager::GetInstance().GetDeltaTime(), 0);
+
+		//else keep falling.
+		if(auto comp =obj->GetComponent<ActorComponent>())
+		{
+			auto velocity = glm::fvec2{ 0,bag->GetSpeed() } ;
+			comp->AddVelocity(velocity);
+		}
 
 	}
 	return nullptr;
@@ -155,7 +187,7 @@ BagState* RestState::Update(GameObject* obj)
 
 	if(auto mygrid = baglogic->GetGrid())
 	{
-		if (auto currentCell = mygrid->GetCellAtPosition(obj->GetTransform().GetLocalPosition()))
+		if (auto currentCell = mygrid->GetCellAtPosition(obj->GetTransform().GetWorldPosition()))
 		{
 			if(auto cellLogic = currentCell->GetComponent<CellLogic>())
 			{
@@ -178,15 +210,15 @@ void GoldState::OnEnter(GameObject* obj)
 	{
 		if(auto grid = bag->GetGrid())
 		{
-			auto pos = obj->GetTransform().GetLocalPosition();
+			auto pos = obj->GetTransform().GetWorldPosition();
 			auto currentCel = grid->GetCellAtPosition(pos);
-			obj->GetTransform().SetPosition(currentCel->GetTransform().GetLocalPosition());
+			obj->GetTransform().SetPosition(currentCel->GetTransform().GetWorldPosition());
 		}
 
 		bag->SetIsFalling(false);
 		bag->SetIsInmovable(true);
 		bag->SwapToGoldSprite();
-
+		obj->GetComponent<OverlapComp>()->SetIsCollider(false);
 	}
 
 

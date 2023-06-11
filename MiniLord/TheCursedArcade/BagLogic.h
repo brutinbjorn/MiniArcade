@@ -42,6 +42,7 @@ namespace MiniLord
 		float GetSpeed() { return m_speed; }
 
 		void SwapToGoldSprite(bool useGoldSprite = true);
+		bool GetIsGold() { return m_isGoldNow; };
 
 		void OverlapEventBegin(GameObject* OtherObject) override;
 		bool ColliderEventBegin(GameObject* otherObject, glm::fvec2 otherMovement) override;

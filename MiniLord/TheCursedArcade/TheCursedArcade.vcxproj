@@ -181,13 +181,14 @@
   <ItemGroup>
     <ClCompile Include="BagLogic.cpp" />
     <ClCompile Include="BagState.cpp" />
+    <ClCompile Include="BulletLogic.cpp" />
     <ClCompile Include="CellLogic.cpp" />
     <ClCompile Include="CursedEngine.cpp" />
     <ClCompile Include="DiggerManager.cpp" />
     <ClCompile Include="GemLogic.cpp" />
     <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="Lanes.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NobbinLogic.cpp" />
     <ClCompile Include="ObjectConstructorCursedArc.cpp" />
     <ClCompile Include="PlayerDiggerLogic.cpp" />
     <ClCompile Include="SceneFactoryCursedArc.cpp" />
@@ -196,6 +197,7 @@
   <ItemGroup>
     <ClInclude Include="BagLogic.h" />
     <ClInclude Include="BagState.h" />
+    <ClInclude Include="BulletLogic.h" />
     <ClInclude Include="CellLogic.h" />
     <ClInclude Include="CursedArcadePCH.h" />
     <ClInclude Include="CursedCommands.h" />
@@ -203,7 +205,7 @@
     <ClInclude Include="DiggerManager.h" />
     <ClInclude Include="GemLogic.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="Lanes.h" />
+    <ClInclude Include="NobbinLogic.h" />
     <ClInclude Include="ObjectConstructorCursedArc.h" />
     <ClInclude Include="PlayerDiggerLogic.h" />
     <ClInclude Include="resource.h" />

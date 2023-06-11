@@ -48,15 +48,8 @@ namespace MiniLord
 
 		void SetParentGameObject(GameObject* newParent,bool worldPositionStays);
 
-		GameObject* GetParentGameObject() const { return m_pParentGameObject; };
+		GameObject* GetParentGameObject() { return m_pParentGameObject; };
 		std::vector<std::unique_ptr<GameObject>>& GetChildren() { return m_pChildObjects; };
-		//void SetParentObject(GameObject* newParent, bool keepWorldPosition);
-		//void AddChildObject(GameObject* newChildObject, bool keepWorldPosition);
-		//void RemoveChildObject(GameObject* childObject);
-
-		//REDUNDENT send function, cleanup, change or remove.
-		//bool Send(BaseComponent* sender, const std::string& msg);
-		//bool Recieve(BaseComponent* sender, const std::string& msg);
 
 	private:
 

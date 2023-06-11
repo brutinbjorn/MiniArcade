@@ -1,11 +1,13 @@
 #pragma once
 #include "BaseComponent.h"
+#include "Observer.h"
 
 
 //digger grid size = 15 op 9
 
 namespace MiniLord
 {
+	class CellLogic;
 	class SquareComponent;
 
 
@@ -27,18 +29,18 @@ namespace MiniLord
 		void LateUpdate(const float) override {};
 		void Render() const override {};
 
-		//old broken version
-		//void GenerateCells();
-		//std::vector<std::shared_ptr<GameObject>> CreateAndGetCells();
-		//std::vector<std::shared_ptr<GameObject>> CreateAndGetCustomCells(glm::fvec2 sizeOfCells);
-		//std::vector<std::shared_ptr<GameObject>> CreateAndGetCustomCellsDigger(glm::fvec2 sizeOfCells,const std::string& jsonPath);
-		std::vector<std::shared_ptr<GameObject>> [[nodiscard]] CreateCellsAndLanesFromJSONFile(glm::fvec2 sizeOfCells);
+
+		std::vector<std::shared_ptr<GameObject>> [[nodiscard]] CreateCellsAndLanesFromJSONFile(const std::string& lvlName, glm::fvec2 sizeOfCells,Interface::Observer* obs);
 
 
 		GameObject* GetCellAtPosition(glm::fvec2 possiblePosition);
-	
-		const glm::fvec2& GetPlayerStartPosition() { return m_PlayerStartPos; };
-		const glm::fvec2& GetEnemySpawnPosition() { return m_EnemySpawnSpot; };
+
+		bool IsPlayer1StartSpotSet() const { return m_pl1StartPosSet; };
+		const glm::fvec2& GetPlayerStartPosition() const { return m_PlayerStartPos; };
+		bool IsPlayer2StartSpotSet() const { return m_pl2StartPosSet; };
+		const glm::fvec2& GetPlayerTwoStartPosition() const { return m_PlayerTwoStartPos; }
+		bool IsEnemySpawnSet() const { return m_SpawnSet; }
+		const glm::fvec2& GetEnemySpawnPosition() const { return m_EnemySpawnSpot; };
 
 		int GetWidth() { return m_width; };
 		int getHeight() { return m_height; }
@@ -46,7 +48,10 @@ namespace MiniLord
 		GameObject* GetCellFromArray(int depth, int width);
 		GameObject* GetCellFromArray(int index);
 
+		std::vector<GameObject*> GetNeighboursOfCell(CellLogic* cell);
+
 		glm::fvec2 GetCellSize() { return m_CellSize; };
+		void ResetGameField();
 	private:
 
 		int m_width = 0, m_height = 0;
@@ -62,9 +67,16 @@ namespace MiniLord
 		std::vector<SquareComponent*> m_pHorizontalLanes;
 		std::vector<SquareComponent*> m_pVerticalLanes;
 
+		std::vector<std::weak_ptr<GameObject>> m_stuffMade{};
+
 		int m_spacingForLanes = 4;
 
-		glm::fvec2 m_PlayerStartPos;
+		bool m_pl1StartPosSet = false;
+		glm::fvec2 m_PlayerStartPos {};
+		bool m_pl2StartPosSet = false; 
+		glm::fvec2 m_PlayerTwoStartPos {};
+
+		bool m_SpawnSet = false;
 		glm::fvec2 m_EnemySpawnSpot;
 
 		glm::fvec2 m_CellSize;

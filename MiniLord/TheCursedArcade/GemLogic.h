@@ -22,7 +22,7 @@ namespace MiniLord
 
 		void AddToObserver(Interface::Observer* ob) { m_subject.AddObserver(ob); };
 		void RemoveFromObserver(Interface::Observer* ob) { m_subject.RemoveObserver(ob); }
-		void Initialize() override{};
+		void Initialize() override;
 		void FixedUpdate(const float) override{};
 		void Update(const float) override{}; 
 		void LateUpdate(const float) override{};

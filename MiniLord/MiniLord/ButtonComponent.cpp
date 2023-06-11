@@ -4,16 +4,14 @@
 #include "InputManager.h"
 #include "Renderer.h"
 
-MiniLord::ButtonComponent::ButtonComponent(SquareComponent* square, Command* Command)
-	:m_pCommand(Command), m_pSquareComp(square)
+MiniLord::ButtonComponent::ButtonComponent(SquareComponent* square, std::unique_ptr<Command>  Command)
+	:m_pCommand(std::move(Command)), m_pSquareComp(square)
 {
 }
 
-MiniLord::ButtonComponent::~ButtonComponent()
-{
-	if(m_pCommand)
-	delete m_pCommand;
-}
+
+
+
 
 
 void MiniLord::ButtonComponent::Update(const float)

@@ -20,6 +20,7 @@ namespace MiniLord
 
 		void Destroy();
 
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
@@ -27,6 +28,8 @@ namespace MiniLord
 
 		std::shared_ptr<Scene> m_ToAdd;
 		std::shared_ptr<Scene> m_ActiveScene;
+
+		bool m_WasInit = false;
 	};
 }
 

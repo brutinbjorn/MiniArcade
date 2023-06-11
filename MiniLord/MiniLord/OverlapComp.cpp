@@ -31,11 +31,11 @@ void MiniLord::OverlapComp::OnOverlapEvent(OverlapComp* other)
 
 bool MiniLord::OverlapComp::OnColliderEvent(OverlapComp* other, glm::fvec2 directionOtherMoves)
 {
-	for (auto comp : other->GetGameObject()->GetComponents())
+	for (auto comp : GetGameObject()->GetComponents())
 	{
 		if (auto event = dynamic_cast<Interface::OverlapEvent*>(comp))
 		{
-			return event->ColliderEventBegin(GetGameObject(),directionOtherMoves);
+			return event->ColliderEventBegin(other->GetGameObject(), directionOtherMoves);
 		}
 	}
 	return false;

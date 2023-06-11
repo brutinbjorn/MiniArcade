@@ -17,7 +17,7 @@ CellLogic::CellLogic(float sizeOfCenter, char possibleDirections, SquareComponen
 void CellLogic::Initialize()
 {
 	if (m_RectComp)
-		m_RectComp->RenderFullSquare(m_IsDiggedOut);
+		m_RectComp->RenderFullSquare(!m_IsDiggedOut);
 
 }
 
@@ -52,6 +52,6 @@ void CellLogic::SetDiggedOut(bool setDiggedState)
 	m_IsDiggedOut = setDiggedState;
 
 	if (m_RectComp)
-		m_RectComp->RenderFullSquare(m_IsDiggedOut);
+		m_RectComp->RenderFullSquare(!m_IsDiggedOut);
 
 }

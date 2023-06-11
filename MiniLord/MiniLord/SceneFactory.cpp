@@ -275,20 +275,5 @@ std::shared_ptr<Scene> SceneFactory::GuiSceneTest(const std::string& name)
 
 }
 
-std::shared_ptr<Scene> SceneFactory::ButtonScene(const std::string& name)
-{
-	auto newScene = std::make_shared<Scene>(name);
-
-	Command* TestChangeColor = new TestPrintCommand("The command triggerd");
-	SDL_Rect testSize = SDL_Rect{-100,-50,200,100};
-	std::shared_ptr<GameObject> TestButton = ObjectConstructor::Button(testSize, TestChangeColor);
-	newScene->AddGameObject(TestButton);
-
-	TestButton->GetTransform().SetPosition(100,300,0);
-	
-
-	return newScene;
-
-}
 
 

@@ -105,7 +105,7 @@ void MiniLord::Transform::SetDirty() // moet de children zijn
 	if (auto parent = GetGameObject())
 	{
 		auto& children = parent->GetChildren();
-		for (int i = 0; i < children.size(); ++i)
+		for (uint32_t i = 0; i < children.size(); ++i)
 		{
 			children[i]->GetTransform().SetDirty();
 		}

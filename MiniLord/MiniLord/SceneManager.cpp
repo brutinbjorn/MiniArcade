@@ -76,14 +76,19 @@ void SceneManager::AddScene(std::shared_ptr<Scene> newScene)
 {
 	m_Scenes.push_back(newScene);
 	//m_ActiveScene = newScene;
+	if (m_WasInit)
+		newScene->PostInitialize();
+
 }
 
 void SceneManager::PostInitialize()
 {
+
 	for (const auto& scene : m_Scenes)
 	{
 		scene->PostInitialize();
 	}
+	m_WasInit = true;
 }
 
 

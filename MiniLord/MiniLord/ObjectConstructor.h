@@ -11,7 +11,7 @@ namespace MiniLord
 
 		std::shared_ptr<GameObject> Text(const std::string& Text, const std::string& fontLocation, const int size = 20, const SDL_Color& color = {255,255,255,255});
 
-		std::shared_ptr<GameObject> Button(const SDL_Rect& rect, Command* Command);
+		std::shared_ptr<GameObject> Button(const SDL_Rect& rect, std::unique_ptr<Command> Command, const std::string& fontLocation, const std::string& textOnButton, SDL_Color textColor);
 		 
 
 

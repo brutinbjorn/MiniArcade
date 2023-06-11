@@ -42,9 +42,13 @@ namespace MiniLord
 	protected:
 		bool m_IsActive = true;
 		bool m_RunCleanUp = false;
+		bool m_IsInitialized = false;
+
 		std::string m_Name;
 		std::vector <std::shared_ptr<GameObject>> m_Objects{};
 		std::vector <std::shared_ptr<GameObject>> m_ObjectsToDelete{};
+		std::vector <std::shared_ptr<GameObject>> m_objectsToAddPostLaunch{};
+
 		static unsigned int m_IdCounter;
 	};
 }

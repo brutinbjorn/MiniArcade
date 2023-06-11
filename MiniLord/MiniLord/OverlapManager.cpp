@@ -22,7 +22,7 @@ void MiniLord::OverlapManager::CheckForOverlaps()
 	for(auto currentOverlapTocheck: m_overlapComponents)
 	{
 		if(!currentOverlapTocheck->GetOverlapState() && currentOverlapTocheck->GetIsOverlapper())
-			for (int i = 0; i < m_overlapComponents.size(); ++i)
+			for (uint32_t i = 0; i < m_overlapComponents.size(); ++i)
 			{
 
 				auto otherOverLap = m_overlapComponents[i];
@@ -55,7 +55,7 @@ bool MiniLord::OverlapManager::CheckIfOverLapIsGonneHappen(OverlapComp* collider
 	if (!collider->GetIsCollider())
 		return false;
 
-	for (int i = 0; i < m_overlapComponents.size(); ++i)
+	for (uint32_t i = 0; i < m_overlapComponents.size(); ++i)
 	{
 		auto other = m_overlapComponents[i];
 		if(other->GetIsCollider() && other != collider)
@@ -67,7 +67,8 @@ bool MiniLord::OverlapManager::CheckIfOverLapIsGonneHappen(OverlapComp* collider
 			if (CheckOverlapSquares(movingSqr, other->GetOverlapSquareInWorld()))
 			{
 
-				return true;
+
+				return other->OnColliderEvent(collider, directionAndSpeed);
 
 			}
 		}

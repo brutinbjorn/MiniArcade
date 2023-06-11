@@ -13,15 +13,24 @@ Scene::Scene(const std::string& name)
 
 void Scene::AddGameObject(const std::shared_ptr<GameObject>&object)
 {
-	m_Objects.push_back(object);
+	if (m_IsInitialized == false)
+		m_Objects.push_back(object);
+	else
+		m_objectsToAddPostLaunch.push_back(object);
+
+//	object->Initialize();
 }
 
 void Scene::PostInitialize()
 {
-	for (auto& object : m_Objects)
+	int i = 0;
+	for (auto object : m_Objects)
 	{
-		object->Initialize();
+		if(object->GetParentGameObject() == nullptr)
+			object->Initialize();
+		i++;
 	}
+	m_IsInitialized = true;
 }
 
 void Scene::FixedUpdate(const float ft)
@@ -51,17 +60,26 @@ void Scene::LateUpdate(const float lt)
 
 	if (m_RunCleanUp)
 	{
-		for (int i = 0; i < int(m_Objects.size()); ++i)
-		{
-			if (m_Objects[i]->IsMarkedForDeletion())
-			{
-				m_Objects[i].swap(m_Objects.back());
-				m_Objects.pop_back();
-			}
-		}
+		m_Objects.erase(std::remove_if(m_Objects.begin(), m_Objects.end(),
+			[](const std::shared_ptr<GameObject>& obj) { return obj->IsMarkedForDeletion(); }),
+			m_Objects.end());
+
+		for (auto& object : m_Objects)
+			object->SetParentGameObject(nullptr, true);
+
 		m_RunCleanUp = false;
 	}
-		
+
+	if(!m_objectsToAddPostLaunch.empty())
+	{
+		for (uint32_t i = 0; i < m_objectsToAddPostLaunch.size(); ++i)
+		{
+			m_Objects.emplace_back(m_objectsToAddPostLaunch[i]);
+			m_objectsToAddPostLaunch[i]->Initialize();
+		}
+		m_objectsToAddPostLaunch.clear();
+	}
+
 		// TODO Replace with erase,remove;
 		//for (int i = 0; i < int(m_Objects.size()); ++i)
 		//{

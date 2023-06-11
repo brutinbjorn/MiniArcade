@@ -6,7 +6,9 @@
 #include "CellLogic.h"
 #include "OverlapComp.h"
 #include "OverlapManager.h"
-
+#include "PlayerDiggerLogic.h"
+#include "SceneFactoryCursedArc.h"
+#include "NobbinLogic.h"
 namespace MiniLord
 {
 	class SwitchSceneCommand: public Command
@@ -43,6 +45,27 @@ namespace MiniLord
 		std::string m_sceneToLoadName = "";
 		std::string m_sceneToCloseName = "";
 	};
+
+
+	class LoadDiggerScene : public Command
+	{
+	public:
+		LoadDiggerScene(int gameMode,Scene* menuToClose):m_Gamemode(gameMode),m_Menu(menuToClose){}
+
+		void Execute() override
+		{
+			if(m_Menu)
+				m_Menu->SetActive(false);
+			SceneManager::GetInstance().AddScene(SceneFactoryCursedArc::Digger(m_Gamemode));
+		}
+	private:
+		Scene* m_Menu=nullptr;
+		int m_Gamemode = 0;
+
+	};
+
+
+
 
 
 	class PlaySoundEffect : public Command
@@ -85,6 +108,18 @@ namespace MiniLord
 		glm::fvec2 m_DirectionAndSpeed;
 	};
 
+	class DiggerFireBullet : public Command
+	{
+	public:
+		DiggerFireBullet(PlayerDiggerLogic* player) : m_player(player){}
+
+		void Execute() override { m_player->FireProjectile(); };
+	private:
+		PlayerDiggerLogic* m_player;
+
+	};
+
+
 	class GridLockedMoveCommand : public Command
 	{
 	public:
@@ -97,14 +132,6 @@ namespace MiniLord
 			auto position = m_GameObjectToMove->GetTransform().GetWorldPosition();
 			auto cell = m_pGrid->GetCellAtPosition(glm::fvec2{position.x,position.y});
 
-			float dt = TimeManager::GetInstance().GetDeltaTime();
-
-			if(auto colliderComp =m_GameObjectToMove->GetComponent<OverlapComp>())
-			{
-				if(OverlapManager::GetInstance().CheckIfOverLapIsGonneHappen(colliderComp,m_DirectionAndSpeed * dt))
-					return;	
-				
-			}
 
 			if(cell != nullptr)
 			{
@@ -115,33 +142,59 @@ namespace MiniLord
 				auto& currentTransform = m_GameObjectToMove->GetTransform();
 				auto oldPos = currentTransform.GetLocalPosition();
 
+				auto* actorComp = m_GameObjectToMove->GetComponent<ActorComponent>();
+				if (actorComp == nullptr)
+					std::cout << "no actor comp in ojbect to move" << std::endl;
+
+				if (auto plLogic = m_GameObjectToMove->GetComponent<PlayerDiggerLogic>())
+					plLogic->SavePlayerDirection(m_DirectionAndSpeed);
+
+				if(auto NobbingPLayer = m_GameObjectToMove->GetComponent<NobbinLogic>())
+				{
+					auto dt = TimeManager::GetInstance().GetDeltaTime();
+					auto futureCell = m_pGrid->GetCellAtPosition(glm::fvec2{ position.x + m_DirectionAndSpeed.x * dt,position.y *m_DirectionAndSpeed.y });
+					if( auto futureLogic = futureCell->GetComponent<CellLogic>())
+					{
+						if (!futureLogic->IsDiggedOut())
+							return;
+					}
+				}
+
 				if (cellLogic->GetHorizontalLane()->IsPointOverlapping(currentTransform.GetWorldPosition()))
 				{
 					if ((var & Cell_Up || Cellpos.y <= oldPos.y) && m_DirectionAndSpeed.y < 0)
 					{
 						currentTransform.SetPosition(Cellpos.x, oldPos.y, oldPos.z); // align
-						currentTransform.Translate(0, m_DirectionAndSpeed.y * dt,0);
+						//currentTransform.Translate(0, m_DirectionAndSpeed.y * dt,0);
+						glm::fvec2 dir{ 0,m_DirectionAndSpeed.y };
+						actorComp->AddVelocity(dir);
+
 					}
 
 					if ((var & Cell_Down || Cellpos.y >= oldPos.y) && m_DirectionAndSpeed.y > 0)
 					{
 						currentTransform.SetPosition(Cellpos.x, oldPos.y, oldPos.z); // align
-						currentTransform.Translate(0, m_DirectionAndSpeed.y * dt,0);
+						glm::fvec2 dir{ 0,m_DirectionAndSpeed.y };
+						actorComp->AddVelocity(dir);
 					}
 				}
 
 				if (cellLogic->GetVerticalLane()->IsPointOverlapping(currentTransform.GetWorldPosition()))
 				{
-					if ((var & Cell_Right || Cellpos.x <= oldPos.x) && m_DirectionAndSpeed.x > 0)
+					if ((var & Cell_Right || Cellpos.x >= oldPos.x) && m_DirectionAndSpeed.x > 0)
 					{
 						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
-						currentTransform.Translate(m_DirectionAndSpeed.x * dt, 0,0);
+						//currentTransform.Translate(m_DirectionAndSpeed.x * dt, 0,0);
+						glm::fvec2 dir{ m_DirectionAndSpeed.x ,0};
+						actorComp->AddVelocity(dir);
 					}
 
-					if ((var & Cell_Left || Cellpos.x >= oldPos.x) && m_DirectionAndSpeed.x < 0)
+					if ((var & Cell_Left || Cellpos.x <= oldPos.x) && m_DirectionAndSpeed.x < 0)
 					{
 						currentTransform.SetPosition(oldPos.x, Cellpos.y, oldPos.z); // align
-						currentTransform.Translate(m_DirectionAndSpeed.x * dt, 0,0);
+						//currentTransform.Translate(m_DirectionAndSpeed.x * dt, 0,0);
+						glm::fvec2 dir{ m_DirectionAndSpeed.x ,0 };
+						actorComp->AddVelocity(dir);
 					}
 				}
 			}

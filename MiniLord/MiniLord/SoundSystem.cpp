@@ -61,20 +61,7 @@ void SDLSoundSystem::PlaySoundEffect( int id, float volume)
 //TODO loaden zou op second thread moeten gebeuren
 void SDLSoundSystem::LoadSound( int& id, const std::string& source)
 {
-	//TODO load should not happen here, but in the thread;
-	//std::string fullpath = "../Data/sounds/";
-	//fullpath.append(source);
-	//Mix_Music* music = Mix_LoadMUS(fullpath.c_str());
 
-	//if (music != nullptr)
-	//{
-	//	//m_currentAvailableSongID++;
-	//	id = static_cast<int>(m_Songs.size());
-	//	m_Songs[id] = music;
-	//	std::cout << "music loaded at: " << id << std::endl;
-	//}
-	//else
-	//	std::cout << "no music found at: " << fullpath << " error: " << Mix_GetError << std::endl;
 	m_MutexSoundsQueueChanging.lock();
 	id = static_cast<int>(m_SoundsPaths.size());
 	m_MutexSoundsQueueChanging.unlock();

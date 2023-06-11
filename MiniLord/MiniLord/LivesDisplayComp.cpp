@@ -40,6 +40,7 @@ void MiniLord::LivesDisplayComp::Update(const float)
 				//auto comp = m_heartsToRender.
 				auto comp = m_heartsToRender.back();
 				GetGameObject()->RemoveComponent(comp);
+				delete comp;
 				m_heartsToRender.pop_back();
 				//delete comp;
 			}
@@ -49,22 +50,10 @@ void MiniLord::LivesDisplayComp::Update(const float)
 }
 
 
-//void MiniLord::LivesDisplayComp::OnNotify(ObserverMessage msg)
-//{
-//	if(msg == ObserverMessage::Msg_PLAYER_LOST_LIFE)
-//	{
-//		
-//		m_NmberOfHeartsToDraw =- 1;
-//		m_IsHealthDirty = true;
-//	}
-//}
-//
-//void MiniLord::LivesDisplayComp::OnNotifyDestruction(ObserverMessage msg)
-//{
-//	m_IsHealthDirty = true;
-//	m_NmberOfHeartsToDraw = 0;
-//
-//}
+void MiniLord::LivesDisplayComp::DirectSetLives(int lives)
+{
+	m_NmberOfHeartsToDraw = lives;
+}
 
 void MiniLord::LivesDisplayComp::OnNotify(ObserverMessage msg, void* argPointer, int argSize)
 {

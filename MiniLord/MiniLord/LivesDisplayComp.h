@@ -27,8 +27,10 @@ namespace MiniLord
 		void Update(const float) override;
 		void LateUpdate(const float) override {};
 		void Render() const override {};
-		//observer
 
+		void DirectSetLives(int liver);
+
+		//observer
 		//void OnNotify(ObserverMessage msg) override;
 		void OnNotify(ObserverMessage msg, void* argPointer = nullptr, int ArgLength = 0) override;
 		void OnNotifyDestruction(ObserverMessage msg, void* argPointer = nullptr, int argLength = 0) override;

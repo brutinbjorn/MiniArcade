@@ -28,196 +28,17 @@ void Grid::Initialize()
 	//GenerateCells();
 }
 
-//void Grid::GenerateCells()
-//{
-//	glm::fvec2 cellSize(m_SizeOfTheGrid.x/m_width,m_SizeOfTheGrid.y/m_height);
-//
-//	auto rect = SDL_Rect(
-//		0, 
-//		0,
-//		static_cast<int>(cellSize.x), 
-//		static_cast<int>(cellSize.y));
-//
-//	auto val = GetGameObject()->GetTransform().GetWorldPosition();
-//	glm::fvec2 position = glm::fvec2{ val.x, val.y}; //center
-//
-//	for (int widthIndex = 0; widthIndex < m_width; ++widthIndex)
-//	{
-//		for (int heightIndex = 0; heightIndex < m_height; ++heightIndex)
-//		{
-//			//create the cell gameobject.
-//			auto scene = SceneManager::GetInstance().GetScene(m_CurrentSceneName);
-//			auto newCell = std::make_shared<GameObject>();
-//			scene->AddGameObject(newCell);
-//
-//			newCell->GetTransform().SetPosition(
-//				position.x + static_cast<float>(widthIndex) * cellSize.x,
-//				position.y + static_cast<float>(heightIndex) * cellSize.y,
-//				0);
-//			//newCell->GetTransform().SetPosition(static_cast<float>(widthIndex/ m_width),static_cast<float>(heightIndex/ m_height),0);
-//
-//			//color for testing.
-//			int r =  static_cast<int>( (255 * widthIndex / m_width) );
-//			int b =  static_cast<int>( (255 * heightIndex / m_height) );
-//			SDL_Color color = SDL_Color{ static_cast<unsigned char>(r),0 , static_cast<unsigned char>(b),60 };
-//			auto newSquare = new SquareComponent(rect, color);
-//
-//			newCell->AddComponent(newSquare);
-//			newCell->SetParentGameObject(GetGameObject(), true);
-//			m_pcells.push_back(newCell.get());
-//		}
-//	}
-//}
-//std::vector<std::shared_ptr<GameObject>> Grid::CreateAndGetCells()
-//{
-//	std::vector<std::shared_ptr<GameObject>> cells;
-//
-//	glm::fvec2 cellSize = glm::fvec2(m_SizeOfTheGrid.x / m_width, m_SizeOfTheGrid.y / m_height);
-//
-//	auto val = GetGameObject()->GetTransform().GetWorldPosition();
-//	glm::fvec2 position = glm::fvec2{ val.x, val.y }; //center
-//
-//	auto rect = SDL_Rect(0,0,
-//		static_cast<int>(cellSize.x),
-//		static_cast<int>(cellSize.y));
-//
-//	for (int witdhIndex = 0; witdhIndex < m_width; ++witdhIndex)
-//	{
-//		for (int heightIndex = 0; heightIndex < m_height; ++heightIndex)
-//		{
-//			auto newCell = std::make_shared<GameObject>();
-//			newCell->GetTransform().SetPosition(
-//				position.x + static_cast<float>(witdhIndex) * cellSize.x,
-//				position.y + static_cast<float>(heightIndex) * cellSize.y, 0);
-//
-//			int red = (255 * witdhIndex / m_width);
-//			int blue = (255 * heightIndex / m_height);
-//
-//			SDL_Color color = SDL_Color{ static_cast<unsigned char>(red),0 , static_cast<unsigned char>(blue),60 };
-//			auto newSquare = new SquareComponent(rect, color);
-//
-//			newCell->AddComponent(newSquare);
-//			//newCell->SetParentGameObject(GetGameObject(), true);
-//			m_pcells.push_back(newCell.get());
-//			cells.push_back(newCell);
-//
-//		}
-//	}
-//
-//	return cells;
-//}
-//
-//std::vector<std::shared_ptr<GameObject>> Grid::CreateAndGetCustomCells(glm::fvec2 sizeOfCells)
-//{
-//	std::vector<std::shared_ptr<GameObject>> cells;
-//
-//	glm::fvec2 offsetToTopLeft = { sizeOfCells.x * m_width / 2,sizeOfCells.y * m_height / 2 };
-//	auto centerPosition = GetGameObject()->GetTransform().GetWorldPosition();
-//	glm::fvec2 TopLeftNoCellOffset = glm::fvec2(centerPosition.x - offsetToTopLeft.x, centerPosition.y - offsetToTopLeft.y);
-//
-//	auto rect = SDL_Rect(0, 0,
-//		static_cast<int>(sizeOfCells.x),
-//		static_cast<int>(sizeOfCells.y));
-//
-//	for (int witdhIndex = 0; witdhIndex < m_width; ++witdhIndex)
-//	{
-//		for (int heightIndex = 0; heightIndex < m_height; ++heightIndex)
-//		{
-//			auto newCell = std::make_shared<GameObject>();
-//			newCell->GetTransform().SetPosition(
-//				TopLeftNoCellOffset.x + static_cast<float>(witdhIndex) * sizeOfCells.x,
-//				TopLeftNoCellOffset.y + static_cast<float>(heightIndex) * sizeOfCells.y, 0);
-//
-//			int red = (255 * witdhIndex / m_width);
-//			int blue = (255 * heightIndex / m_height);
-//
-//
-//			SDL_Color color = SDL_Color{ static_cast<unsigned char>(red),0 , static_cast<unsigned char>(blue),60 };
-//			auto newSquare = new SquareComponent(rect, color);
-//
-//			newCell->AddComponent(newSquare);
-//			//newCell->SetParentGameObject(GetGameObject(), true);
-//			m_pcells.push_back(newCell.get());
-//			cells.push_back(newCell);
-//
-//		}
-//	}
-//	return cells;
-//
-//}
-//
-//std::vector<std::shared_ptr<GameObject>> Grid::CreateAndGetCustomCellsDigger(glm::fvec2 sizeOfCells,
-//	const std::string&)
-//{
-//	std::vector<std::shared_ptr<GameObject>> cells;
-//
-//	glm::fvec2 offsetToTopLeft = {0,0 };
-//	auto centerPosition = GetGameObject()->GetTransform().GetWorldPosition();
-//	glm::fvec2 TopLeftNoCellOffset = glm::fvec2(centerPosition.x - offsetToTopLeft.x, centerPosition.y - offsetToTopLeft.y);
-//
-//
-//	auto rect = SDL_Rect(static_cast<int>(-sizeOfCells.x/2), static_cast<int>( -sizeOfCells.y / 2), //AddCellOffset
-//		static_cast<int>(sizeOfCells.x),
-//		static_cast<int>(sizeOfCells.y));
-//
-//	glm::fvec2 TopleftWithCellOffset{ TopLeftNoCellOffset.x + rect.x,TopLeftNoCellOffset.y + rect.y };
-//
-//
-//	for (int witdhIndex = 0; witdhIndex < m_width; ++witdhIndex)
-//	{
-//		for (int heightIndex = 0; heightIndex < m_height; ++heightIndex)
-//		{
-//			auto newCell = std::make_shared<GameObject>();
-//			newCell->GetTransform().SetPosition(
-//				TopLeftNoCellOffset.x + static_cast<float>(witdhIndex) * sizeOfCells.x,
-//				TopLeftNoCellOffset.y + static_cast<float>(heightIndex) * sizeOfCells.y, 0);
-//
-//			int red = (255 * witdhIndex / m_width);
-//			int blue = (255 * heightIndex / m_height);
-//
-//			SDL_Color color = SDL_Color{ static_cast<unsigned char>(red),0 , static_cast<unsigned char>(blue),60 };
-//			auto newSquare = new SquareComponent(rect, color);
-//
-//			newCell->AddComponent(newSquare);
-//			//newCell->SetParentGameObject(GetGameObject(), true);
-//			
-//			char currentDirection = CellDirections::Cell_All;
-//			currentDirection -= (heightIndex == 0) * Cell_Up;
-//			currentDirection -= (witdhIndex == 0) * Cell_Left;
-//			currentDirection -= (heightIndex == m_height - 1) * Cell_Down;
-//			currentDirection -= (witdhIndex == m_width - 1) * Cell_Right;
-//
-//			auto cellLogic = new CellLogic(5,currentDirection);
-//			cellLogic->SetCellSize(sizeOfCells);
-//
-//			newCell->AddComponent(cellLogic);
-//
-//			m_pcells.push_back(newCell.get());
-//
-//			newCell->SetParentGameObject(GetGameObject(), true);
-//			cells.push_back(newCell);
-//		}
-//	}
-//	return cells;
-//}
-
-std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(glm::fvec2 sizeOfCells)
+std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(const std::string& levelName,glm::fvec2 sizeOfCells,Interface::Observer* obs)
 {
-	std::vector<std::shared_ptr<GameObject>> CellObjectsToReturn;
+	std::vector<std::shared_ptr<GameObject>> CellObjectsToReturn{};
 	auto json = JsonManager::GetInstance().LoadJsonDoc(m_jsonFile);
 	nlohmann::json jSizeOb = json["SizeOfGrid"];
-	nlohmann::json jAr = json["Level01"];
+	nlohmann::json jAr = json[levelName];
 
-//	auto witdh = jSizeOb.value();
-
-	//"x": 15,
-	//"y" : 10
-
-
-
+	m_pCells.clear();
+	m_CellSize = sizeOfCells;
 	auto centerPosition = GetGameObject()->GetTransform().GetWorldPosition();
 	glm::fvec2 TopLeftNoCellOffset = glm::fvec2(centerPosition.x - (sizeOfCells.x * 15 / 2), centerPosition.y - (sizeOfCells.y * 10 / 2));
-
 
 
 	auto rect = SDL_Rect(static_cast<int>(-sizeOfCells.x / 2), static_cast<int>(-sizeOfCells.y / 2), //AddCellOffset
@@ -235,6 +56,7 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 			
 			int widthID = 0;
 			m_height = static_cast<int>(jAr.size());
+
 			if (row->is_array())
 			{
 				m_width = maxWidth = static_cast<int>(row->size());
@@ -278,7 +100,7 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 					auto horizontalLane = new SquareComponent(horizontal, SDL_Color{ 255,0 , 0,255 });
 					cellLogic->SetHorizontalLane(horizontalLane);
 					CellToAdd->AddComponent(horizontalLane);
-					m_pHorizontalLanes.push_back(horizontalLane);
+
 
 					auto vertical = SDL_Rect(
 						-(m_spacingForLanes + rect.w /2),
@@ -289,50 +111,62 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 					auto verticalLane = new SquareComponent(vertical, SDL_Color{ 0,0 , 255,255 });
 					cellLogic->SetVerticalLane(verticalLane);
 					CellToAdd->AddComponent(verticalLane);
-					m_pHorizontalLanes.push_back(verticalLane);
 
 
+					cellLogic->SetCellSize(sizeOfCells);
+					CellToAdd->AddComponent(cellLogic);
+					CellToAdd->SetParentGameObject(GetGameObject(), true);
+					CellObjectsToReturn.emplace_back(CellToAdd);
+
+					m_pCells.push_back(CellToAdd.get());
 
 					if (Line.value().is_number())
 					{
 						auto val = Line.value().get<int>();
 
 						if (val & 0b001) // BASIC DIGGOUT CHECK
-							cellLogic->SetDiggedOut(false);
+							cellLogic->SetDiggedOut(true);
 
 						if (val & 0b010) // Get player position
+						{
+							m_pl1StartPosSet = true;
 							m_PlayerStartPos = cellPosition;
+						}
 
 						if (val & 0b100) // Get Enemy spawn point.
+						{
+							m_SpawnSet = true;
 							m_EnemySpawnSpot = cellPosition;
+						}
+
 
 						if (val & 0b1000)
 						{
 							auto gem = std::make_shared<GameObject>();
-							ObjectConstructorCursedArc::DiggerGem(gem);
+							ObjectConstructorCursedArc::DiggerGem(gem,obs);
 							gem->GetTransform().SetPosition(cellPosition.x, cellPosition.y, 0);
 
 							m_pGems.push_back(gem.get());
-							gem->SetParentGameObject(CellToAdd.get(), true);
-							CellObjectsToReturn.push_back(gem);
+							//gem->SetParentGameObject(CellToAdd.get(), true);
+							CellObjectsToReturn.emplace_back(gem);
 						}
 						if (val & 0b10000)
 						{
 							auto Bag = std::make_shared<GameObject>();
-							ObjectConstructorCursedArc::DiggerGoldBag(Bag,this,glm::ivec2(widthID,depthID), sizeOfCells);
+							ObjectConstructorCursedArc::DiggerGoldBag(Bag,this,glm::ivec2(widthID,depthID), sizeOfCells,obs);
 
 							Bag->GetTransform().SetPosition(cellPosition.x, cellPosition.y, 0);
+							//Bag->SetParentGameObject(GetGameObject(), true);
 							m_pBags.push_back(Bag.get());
-							CellObjectsToReturn.push_back(Bag);
+							CellObjectsToReturn.emplace_back(Bag);
 							//cellLogic->SetDirections(Cell_None);
 						}
+						if(val & 0b100000)
+						{
+							m_pl2StartPosSet = true;
+							m_PlayerTwoStartPos = cellPosition;
+						}
 					}
-					cellLogic->SetCellSize(sizeOfCells);
-
-					CellToAdd->AddComponent(cellLogic);
-					CellToAdd->SetParentGameObject(GetGameObject(), true);
-					CellObjectsToReturn.push_back(CellToAdd);
-					m_pCells.push_back(CellToAdd.get());
 					widthID++;
 				}
 			}
@@ -340,13 +174,16 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 		}
 	}
 
+	for(uint32_t i = 0; i < CellObjectsToReturn.size(); i++)
+		m_stuffMade.push_back(CellObjectsToReturn[i]);
+
 	return CellObjectsToReturn;
 }
 
 
 ::GameObject* Grid::GetCellAtPosition(glm::fvec2 possiblePosition)
 {
-	for (int i = 0; i < m_pCells.size(); ++i)
+	for (uint32_t i = 0; i < m_pCells.size(); ++i)
 	{
 		if (m_pCells[i]->GetComponent<SquareComponent>()->IsPointOverlapping(possiblePosition))
 			return m_pCells[i];
@@ -358,8 +195,13 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(g
 
 GameObject* Grid::GetCellFromArray(int depth, int width)
 {
-	int row = depth * m_width;
-	int ID = row + width;
+	if (depth >= m_height || depth < 0)
+		return nullptr;
+	if (width >= m_width || width < 0)
+		return nullptr;
+
+	uint32_t row = depth * m_width;
+	uint32_t ID = row + width;
 	if(ID >= m_pCells.size())
 		return nullptr;
 
@@ -368,10 +210,46 @@ GameObject* Grid::GetCellFromArray(int depth, int width)
 
 GameObject* Grid::GetCellFromArray(int index)
 {
-	if (index >= m_pCells.size())
+	if (static_cast<uint32_t>(index) >= m_pCells.size())
 		return nullptr;
 
 	return m_pCells[index];
+}
+
+std::vector<GameObject*> Grid::GetNeighboursOfCell(CellLogic* cell)
+{
+	std::vector<GameObject*> result {};
+
+	auto currentDepth = cell->GetDepthIndex();
+	auto currentWidth = cell->GetWidthIndex();
+
+	if (auto cellUp = GetCellFromArray(currentDepth - 1, currentWidth))
+		result.push_back(cellUp);
+
+	if (auto cellDown = GetCellFromArray(currentDepth + 1, currentWidth))
+		result.push_back(cellDown);
+
+	if (auto cellLeft = GetCellFromArray(currentDepth, currentWidth - 1))
+		result.push_back(cellLeft);
+
+	if (auto cellRight = GetCellFromArray(currentDepth, currentWidth + 1))
+		result.push_back(cellRight);
+
+	return result;
+}
+
+void Grid::ResetGameField()
+{
+	for (uint32_t i = 0; i < m_stuffMade.size(); i++)
+	{
+		if (m_stuffMade[i].expired() == false)
+			m_stuffMade[i].lock()->SetMarkForDeletion(true);
+	}
+	//m_stuffMade.clear();
+
+	m_pl1StartPosSet = false;
+	m_pl2StartPosSet = false;
+	
 }
 
 

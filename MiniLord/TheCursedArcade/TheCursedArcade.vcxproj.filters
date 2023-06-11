@@ -45,9 +45,6 @@
     <ClCompile Include="ObjectConstructorCursedArc.cpp">
       <Filter>Source Files\ObjConstructor</Filter>
     </ClCompile>
-    <ClCompile Include="Lanes.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="GemLogic.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -65,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="BagState.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="NobbinLogic.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletLogic.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +95,6 @@
     <ClInclude Include="ObjectConstructorCursedArc.h">
       <Filter>Source Files\ObjConstructor</Filter>
     </ClInclude>
-    <ClInclude Include="Lanes.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="GemLogic.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
@@ -112,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="BagState.h">
       <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="NobbinLogic.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletLogic.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

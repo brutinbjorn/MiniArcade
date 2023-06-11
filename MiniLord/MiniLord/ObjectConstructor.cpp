@@ -10,7 +10,7 @@
 #include "TextComponent.h"
 #include "SquareComponent.h"
 #include "FPSRenderComponent.h"
-
+#include "Command.h"
 
 using namespace MiniLord;
 std::shared_ptr<GameObject> MiniLord::ObjectConstructor::RenderObject(const std::string & TexturePath, float Xpos, float Ypos)
@@ -43,16 +43,32 @@ std::shared_ptr<GameObject> ObjectConstructor::Text(const std::string& text,
 
 
 //TODO Finish button.
-std::shared_ptr<GameObject> ObjectConstructor::Button(const SDL_Rect& rect, Command* command)
+std::shared_ptr<GameObject> ObjectConstructor::Button(const SDL_Rect & rect, std::unique_ptr<Command> command, const std::string& fontLocation ,const std::string& textOnButton, SDL_Color textColor )
 {
-	auto ButtonObject = std::make_shared<GameObject>();
+
+	auto button = std::make_shared<GameObject>();//= Text(textOnButton, fontLocation, 20, textColor);
+
 	auto SquareComp = new SquareComponent(rect);
-	ButtonObject->AddComponent(SquareComp);
+	button->AddComponent(SquareComp);
+
+	auto ButtonComp = new ButtonComponent(SquareComp,std::move(command));
+	button->AddComponent(ButtonComp);
 
 
-	auto ButtonComp = new ButtonComponent(SquareComp,command);
-	ButtonObject->AddComponent(ButtonComp);
-	return ButtonObject;
+	//return button;
+
+	//auto TextObject = std::make_shared<GameObject>();
+	auto RenderComp = new RenderComponent;
+
+	button->AddComponent(RenderComp);
+	auto font = ResourceManager::GetInstance().LoadFont(fontLocation, 20);
+	auto TextComp = new TextComponent(textOnButton, font, RenderComp);
+	TextComp->SetColor(textColor);
+	button->AddComponent(TextComp);
+
+	return button;
+
+
 
 }
 

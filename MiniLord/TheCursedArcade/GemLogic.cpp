@@ -6,6 +6,11 @@
 
 using namespace MiniLord;
 
+void GemLogic::Initialize()
+{
+	m_subject.Notify(ObserverMessage::Msg_Gem_Added, nullptr, 0);
+}
+
 void GemLogic::OverlapEventBegin(GameObject* otherCollider)
 {
 
@@ -14,7 +19,7 @@ void GemLogic::OverlapEventBegin(GameObject* otherCollider)
 	{
 		//add score
 		int var = 25;
-		m_subject.Notify(ObserverMessage::Msg_SCORE_CHANGED, &var, sizeof(int));
+		m_subject.Notify(ObserverMessage::Msg_Gem_Collected, &var, sizeof(int));
 		GetGameObject()->SetMarkForDeletion(true);
 	}
 

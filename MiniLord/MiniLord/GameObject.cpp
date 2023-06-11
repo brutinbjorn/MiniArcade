@@ -9,14 +9,17 @@ MiniLord::GameObject::GameObject()
 }
 GameObject::~GameObject()
 {
+	for(uint32_t i = 0;i <m_pChildObjects.size(); i++)
+	{
+		//m_pChildObjects[i]->SetParentGameObject(nu)
+		m_pChildObjects[i].release();
+	}
+
 	for (uint32_t i = 0; i < m_pComponents.size(); ++i)
 	{
 		delete m_pComponents[i];
 	}
-	for (int i = 0; i < m_pChildObjects.size(); ++i)
-	{
-		m_pChildObjects[i].release();
-	};
+
 }
 
 void GameObject::Initialize() const
@@ -25,8 +28,12 @@ void GameObject::Initialize() const
 	{
 		m_pComponents[i]->Initialize();
 	}
+	int icheck =0;
 	for (auto& child : m_pChildObjects)
+	{
+		icheck++;
 		child->Initialize();
+	}
 }
 
 void GameObject::FixedUpdate(const float ft)
@@ -65,7 +72,7 @@ void GameObject::Render() const
 	for (uint32_t i = 0; i < m_pComponents.size(); i++)
 		m_pComponents[i]->Render();
 
-	for (int i = 0; i < m_pChildObjects.size(); i++)
+	for (uint32_t i = 0; i < m_pChildObjects.size(); i++)
 		m_pChildObjects[i]->Render();
 	
 }
@@ -113,24 +120,27 @@ void MiniLord::GameObject::SetParentGameObject(GameObject* newParent, bool world
 
 	//Parent logic
 	std::unique_ptr<GameObject> child = nullptr;
-	if(m_pParentGameObject != nullptr)
+	if (m_pParentGameObject != nullptr)
 	{
-		for(auto it = m_pParentGameObject->m_pChildObjects.begin(); it != m_pParentGameObject->m_pChildObjects.end(); ++it)
-			if(it->get() == this)
-			{
-				child = std::move(*it);
-				m_pParentGameObject->m_pChildObjects.erase(it);
-			}
-	}
-	else
-	{
-		m_pParentGameObject = newParent;
-		if(m_pParentGameObject != nullptr){
-			if (child == nullptr)
-				child = std::unique_ptr<GameObject>(this);
-			m_pParentGameObject->m_pChildObjects.emplace_back(std::move(child));
+		auto it = std::find_if(m_pParentGameObject->m_pChildObjects.begin(), m_pParentGameObject->m_pChildObjects.end(),
+			[this](const std::unique_ptr<GameObject>& obj) { return obj.get() == this; });
+
+		if (it != m_pParentGameObject->m_pChildObjects.end())
+		{;
+			it->release();
+			child = std::move(*it);
+			m_pParentGameObject->m_pChildObjects.erase(it);
 		}
 	}
+
+	m_pParentGameObject = newParent;
+	if(m_pParentGameObject != nullptr)
+	{
+		if (child == nullptr)
+			child = std::unique_ptr<GameObject>(this);
+		m_pParentGameObject->m_pChildObjects.push_back(std::move(child));
+	}
+	
 	//End parent logic.
 }
 

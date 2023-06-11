@@ -12,7 +12,14 @@ namespace MiniLord
 		Msg_PLAYER_LIFE_CHANGED = 1,
 		Msg_SCORE_CHANGED = 2,
 		Msg_CHANGE_SCENE = 3,
-		Msg_RELOAD_SCENE = 4
+		Msg_RELOAD_SCENE = 4,
+		Msg_Bag_Added = 5,
+		Msg_Gem_Added = 6,
+		Msg_Gem_Collected = 7,
+		Msg_Bag_Collected = 8,
+		Msg_Nobbin_Hit = 9,
+
+		Msg_bag_Destroyed = 10,
 	};
 	
 }

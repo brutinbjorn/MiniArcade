@@ -11,8 +11,8 @@ namespace MiniLord
 	    public BaseComponent
 	{
 	public:
-		ButtonComponent(SquareComponent* ButtonSquare,Command* Command);
-		~ButtonComponent() override;
+		ButtonComponent(SquareComponent* ButtonSquare, std::unique_ptr<Command> Command);
+		~ButtonComponent() override = default;
 		ButtonComponent(const ButtonComponent& other) = delete;
 		ButtonComponent(ButtonComponent&& other) noexcept = delete;
 		ButtonComponent& operator=(const ButtonComponent& other) = delete;
@@ -31,7 +31,7 @@ namespace MiniLord
 	protected:
 
 	private:
-		Command* m_pCommand = nullptr;
+		std::unique_ptr<Command> m_pCommand = nullptr;
 		SquareComponent* m_pSquareComp = nullptr;
 
 #if _DEBUG
