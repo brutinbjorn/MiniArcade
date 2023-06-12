@@ -6,5 +6,5 @@ namespace SceneFactoryCursedArc
 
 	std::shared_ptr<MiniLord::Scene> Digger(int gameMode = 0);
 
-
+	std::shared_ptr<MiniLord::Scene> GameOverMenu(int finalscore);
 }

@@ -6,6 +6,7 @@
 #include "LivesDisplayComp.h"
 #include "ScoreComponent.h"
 #include "ObjectConstructorCursedArc.h"
+#include "SceneFactoryCursedArc.h"
 
 //MiniLord::DiggerManager::DiggerManager(GameObject* ScoreObject,GameObject* LiveBar)
 //	:m_ScoreObject(ScoreObject),m_LivesObject(LiveBar)
@@ -17,7 +18,7 @@ MiniLord::DiggerManager::DiggerManager(GameObject* scoreHealthObject, GameObject
 {
 }
 
-void MiniLord::DiggerManager::OnNotify(ObserverMessage msg, void* argPointer, int arglenght)
+void MiniLord::DiggerManager::OnNotify(ObserverMessage msg, void* argPointer, int )
 {
 	int val;
 	bool scoreChanged = false;
@@ -57,6 +58,7 @@ void MiniLord::DiggerManager::OnNotify(ObserverMessage msg, void* argPointer, in
 	case ObserverMessage::Msg_Nobbin_Hit:
 		m_Currentscore += 250;
 		m_nobbinsMIA++;
+		NobbinHit = true;
 		scoreChanged = true;
 		break;
 
@@ -68,29 +70,52 @@ void MiniLord::DiggerManager::OnNotify(ObserverMessage msg, void* argPointer, in
 	}
 
 	// check i
-	if(m_ScoreObject && scoreChanged)
+	if(scoreChanged)
 	{
-		auto scoreComp = m_ScoreObject->GetComponent<TextComponent>();
-		if (scoreComp)
-			scoreComp->SetText("score:  " + std::to_string(m_Currentscore));
-		else
-			std::cout << "No score comp found by manager" << std::endl;
+		if(m_ScoreObject)
+		{
+			auto scoreComp = m_ScoreObject->GetComponent<TextComponent>();
+			if (scoreComp)
+				scoreComp->SetText("score:  " + std::to_string(m_Currentscore));
+			else
+				std::cout << "No score comp found by manager" << std::endl;
+		if (m_currentGameMode == 2 &&  NobbinHit)
+			RespawnEnemyPlayer();
+		}
+		
 	}
 	
 	else if(m_ScoreObject == nullptr) std::cout << "No score Object" << std::endl;
 
-	if (m_LivesObject && LivesChanged)
+
+	if(LivesChanged)
 	{
-		auto lives = m_ScoreObject->GetComponent<LivesDisplayComp>();
-		if (lives)
-			lives->DirectSetLives(m_lives);
-		else
-			std::cout << "No score comp found by manager" << std::endl;
+		ResetPlayerPositions();
+		if (m_LivesObject)
+		{
+			auto lives = m_LivesObject->GetComponent<LivesDisplayComp>();
+			if (lives)
+				lives->DirectSetLives(m_lives);
+			else
+				std::cout << "No score comp found by manager" << std::endl;
+		}
+
+		if(m_lives <= 0)
+		{
+			SceneManager::GetInstance().AddScene(SceneFactoryCursedArc::GameOverMenu(m_Currentscore));
+			m_currentScene->SetActive(false);
+		}
 	}
+
+
+
 	else if (m_ScoreObject == nullptr) std::cout << "No score Object" << std::endl;
 
 	if (m_nobbinsMIA >= m_maxNobbins)
 		NextShouldBeLoaded = true;
+
+
+
 
 	if (m_BagsInScene <= 0)
 		NextShouldBeLoaded = true;
@@ -109,6 +134,7 @@ void MiniLord::DiggerManager::LoadNextLevel()
 {
 	m_grid->ResetGameField();
 	m_currentLevel++;
+	m_maxNobbins++;
 	std::string level = m_levelnames[m_currentLevel % m_levelnames.size()];
 	auto objs = m_grid->CreateCellsAndLanesFromJSONFile(level,m_sizeOfObject,this);
 
@@ -158,6 +184,19 @@ void MiniLord::DiggerManager::LoadNextLevel()
 	};
 
 
+}
+
+void MiniLord::DiggerManager::ResetPlayerPositions()
+{
+	if(m_Player)
+	{
+		m_Player->GetTransform().SetPosition(m_playerRespawnSpot.x,m_playerRespawnSpot.y,0);
+	}
+
+	if(m_playerTwo && m_currentGameMode == 1)
+	{
+		m_playerTwo->GetTransform().SetPosition(m_playerTwoRespawnSpot.x, m_playerRespawnSpot.y, 0);
+	}
 }
 
 void MiniLord::DiggerManager::Update(const float dt)
@@ -214,8 +253,6 @@ void MiniLord::DiggerManager::RespawnEnemyPlayer()
 {
 	m_playerTwo->GetTransform().SetPosition(m_EnemySpawnSpot.x, m_EnemySpawnSpot.y,0);
 }
-
-
 
 
 

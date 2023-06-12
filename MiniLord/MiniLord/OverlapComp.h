@@ -20,7 +20,7 @@ namespace MiniLord
 		void SetOverlapState(bool IsOverLapping) { m_IsOverLapping = IsOverLapping; };
 		bool GetOverlapState() const { return m_IsOverLapping; };
 		SDL_Rect GetOverlapSquareInWorld() const;
-
+		SDL_Rect GetOverLapSquare() { return m_Overlap; };
 
 		void Initialize() override{};
 		void FixedUpdate(const float) override{};

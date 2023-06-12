@@ -87,7 +87,20 @@ void MiniLord::NobbinLogic::Update(const float)
 			if (currentcelllogic ==nullptr){std::cout << "nobbin: found cell but no logic"; return;}
 			m_currentCell = currentcelllogic;
 
-			auto neighbours = m_grid->GetNeighboursOfCell(currentcelllogic);
+			
+			std::vector<GameObject*> neighbours;
+			if (auto val = m_grid->GetCellAtPosition({ currentpos.x - 30, currentpos.y }))
+				neighbours.push_back(val);
+			if (auto val = m_grid->GetCellAtPosition({ currentpos.x + 30, currentpos.y }))
+				neighbours.push_back(val);
+			if (auto val = m_grid->GetCellAtPosition({ currentpos.x , currentpos.y - 30 }))
+				neighbours.push_back(val);
+			if (auto val = m_grid->GetCellAtPosition({ currentpos.x , currentpos.y +30 }))
+				neighbours.push_back(val);
+
+
+
+
 			if (neighbours.size() <= 0){std::cout << "nobbin: no open cells found" << std::endl;return;}
 
 

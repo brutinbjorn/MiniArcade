@@ -26,7 +26,8 @@ namespace MiniLord
 		void SetPlayerTwoRespawn(glm::fvec2 startpos) { m_playerTwoRespawnSpot = startpos; }
 
 		void LoadNextLevel();
-		
+
+		void ResetPlayerPositions();
 	private:
 
 

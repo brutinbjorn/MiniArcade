@@ -185,8 +185,9 @@ std::vector<std::shared_ptr<GameObject>> Grid::CreateCellsAndLanesFromJSONFile(c
 {
 	for (uint32_t i = 0; i < m_pCells.size(); ++i)
 	{
-		if (m_pCells[i]->GetComponent<SquareComponent>()->IsPointOverlapping(possiblePosition))
-			return m_pCells[i];
+		if(auto rect = m_pCells[i]->GetComponent<CellLogic>()->GetMainSquareToCheck())
+			if(rect->IsPointOverlapping({ possiblePosition.x,possiblePosition.y}))
+				return m_pCells[i];
 	}
 	return nullptr;
 }

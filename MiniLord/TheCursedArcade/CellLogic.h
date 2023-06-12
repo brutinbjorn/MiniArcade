@@ -50,6 +50,8 @@ namespace MiniLord
 		bool IsDiggedOut() { return m_IsDiggedOut; }
 		void SetDiggedOut(bool setDiggedState);
 
+		SquareComponent* GetMainSquareToCheck() { return m_RectComp; }
+
 		void SetCellSize(glm::fvec2 size) { m_SizeOfCell = size; }
 
 		void SetHorizontalLane(SquareComponent* horizontalLane) { m_HorizontalLane = horizontalLane; }

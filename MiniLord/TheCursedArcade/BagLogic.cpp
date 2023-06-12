@@ -82,7 +82,7 @@ void BagLogic::OverlapEventBegin(GameObject* other)
 
 		if (auto enemy = other->GetComponent<NobbinLogic>())
 		{
-			m_subject.Notify(ObserverMessage::Msg_Bag_Collected);
+			m_subject.Notify(ObserverMessage::Msg_bag_Destroyed);
 		}
 
 		auto comp = GetGameObject()->GetComponent<OverlapComp>();

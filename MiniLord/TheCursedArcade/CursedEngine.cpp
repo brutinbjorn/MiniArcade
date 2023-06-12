@@ -11,6 +11,8 @@ void MiniLord::CursedEngine::LoadGame()
 	auto& scenesManager = SceneManager::GetInstance();
 	ServiceLocator::RegisterSoundSystem(new SDLSoundSystem());
 
+	//int music;
+	//erviceLocator::GetSoundSystem().LoadSound(music, "LevelMusic1.mp3");
 
 	auto mainMenu = SceneFactoryCursedArc::GameMenu();
 	scenesManager.AddScene(mainMenu);

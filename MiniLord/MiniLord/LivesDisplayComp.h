@@ -8,9 +8,10 @@ namespace MiniLord
 	class LivesDisplayComp  final: public BaseComponent, public Interface::Observer
 	{
 	public:
-		LivesDisplayComp(const std::string& filePath,int startLives,glm::fvec2 spacing = {10,0}):
+		LivesDisplayComp(const std::string& filePath, int startLives, glm::fvec2 spacing = { 10,0 }, glm::fvec2 size = { 10,10 }) :
 		m_FilePath(filePath),
 		m_Spacing(spacing),
+		m_size(size),
 		m_NmberOfHeartsToDraw(startLives)
 		{}
 
@@ -38,7 +39,9 @@ namespace MiniLord
 		std::vector<RenderComponent*> m_heartsToRender{};
 		const std::string m_FilePath;
 		glm::fvec2 m_Spacing {10.f,0};
+		glm::fvec2 m_size{10,10};
 		int m_NmberOfHeartsToDraw = 0;
+
 		bool m_IsHealthDirty = false;
 
 	};

@@ -43,8 +43,7 @@ bool SquareComponent::IsPointOverlapping(glm::fvec2 pointPos)
 	actualRect.x = m_Rect.x + static_cast<int>(GetGameObject()->GetTransform().GetWorldPosition().x) ;
 	actualRect.y = m_Rect.y + static_cast<int>(GetGameObject()->GetTransform().GetWorldPosition().y) ;
 
-	if (actualRect.x < pointPos.x && actualRect.x + actualRect.w > pointPos.x &&
-		actualRect.y < pointPos.y && actualRect.y + actualRect.h > pointPos.y)
+	if (actualRect.x < pointPos.x && actualRect.x + actualRect.w > pointPos.x && actualRect.y < pointPos.y && actualRect.y + actualRect.h > pointPos.y)
 		return true;
 	return false;
 

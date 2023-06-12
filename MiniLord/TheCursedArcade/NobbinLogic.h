@@ -13,7 +13,7 @@ namespace MiniLord
 	class Grid;
 
 	class NobbinLogic :
-		public BaseComponent, Interface::OverlapEvent
+		public BaseComponent, public Interface::OverlapEvent
 	{
 	public:
 		NobbinLogic(Grid* theGameGrid, RenderComponent* mainbodsprite, RenderComponent* HobbinSprite, ActorComponent* actor, float speed = 100.f, bool IsPLayerControlled = false);

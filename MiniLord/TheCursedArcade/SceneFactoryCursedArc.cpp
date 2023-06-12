@@ -61,9 +61,9 @@ std::shared_ptr<Scene> SceneFactoryCursedArc::GameMenu()
 
 std::shared_ptr<Scene> SceneFactoryCursedArc::Digger( int gameMode)
 {
-	//int bgSoundID;
-	//ServiceLocator::GetSoundSystem().LoadSound(bgSoundID,"LevelMusic1.mp3");
-	//ServiceLocator::GetSoundSystem().PlaySound(bgSoundID, 0.2f);
+	int bgSoundID = 0;
+	ServiceLocator::GetSoundSystem().LoadSound(bgSoundID,"LevelMusic1.mp3");
+	ServiceLocator::GetSoundSystem().PlaySound(bgSoundID, 0.5f);
 
 	//globals.
 	glm::fvec2 windowsize = Renderer::GetInstance().GetWindowSize();
@@ -90,7 +90,8 @@ std::shared_ptr<Scene> SceneFactoryCursedArc::Digger( int gameMode)
 
 	// Lives
 	auto LivesObject = std::make_shared<GameObject>();
-	auto lives = new LivesDisplayComp("Digger/Digger_Player_Front.png", 3);
+	auto lives = new LivesDisplayComp("Digger/Digger_Player_Front.png", 3,{20,0},{40,40});
+	LivesObject->GetTransform().SetPosition(10, 40, 0);
 	LivesObject->AddComponent(lives);
 	MainGame->AddGameObject(LivesObject);
 
@@ -110,7 +111,6 @@ std::shared_ptr<Scene> SceneFactoryCursedArc::Digger( int gameMode)
 	diggerManager->SetPlayer(Player.get());
 	diggerManager->SetPlayerRespawn(gridManager->GetPlayerStartPosition());
 	//end player
-
 
 	if(gameMode == 1)
 	{
@@ -140,6 +140,26 @@ std::shared_ptr<Scene> SceneFactoryCursedArc::Digger( int gameMode)
 	//end test Enemy
 
 	diggerManager->LoadNextLevel();
+
+	return MainGame;
+}
+
+std::shared_ptr<MiniLord::Scene> SceneFactoryCursedArc::GameOverMenu(int finalscore)
+{
+	glm::fvec2 windowsize = Renderer::GetInstance().GetWindowSize();
+	auto MainGame = std::make_shared<Scene>("GameOver");
+
+
+	auto gameover = ObjectConstructor::Text("GAME OVER", "Lingua.otf", 40, SDL_Color{ 255,0,0,255 });
+
+
+	gameover->GetTransform().SetPosition(windowsize.x / 2 - 100, windowsize.y / 2 - 100,0);
+	MainGame->AddGameObject(gameover);
+
+	auto FinalScore = ObjectConstructor::Text("Final Score" + std::to_string(finalscore),"Lingua.otf" ,30, SDL_Color{ 255,0,0,255 });
+	FinalScore->GetTransform().SetPosition(windowsize.x / 2 - 100, windowsize.y /2,0);
+
+	MainGame->AddGameObject(FinalScore);
 
 	return MainGame;
 }

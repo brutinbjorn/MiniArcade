@@ -6,6 +6,7 @@
 #include "SoundSystem.h"
 #include "ObjectConstructorCursedArc.h"
 #include "Scene.h"
+#include "NobbinLogic.h"
 
 using namespace MiniLord;
 PlayerDiggerLogic::PlayerDiggerLogic(Grid* grideToInfluence, Scene* currentScene)
@@ -33,7 +34,7 @@ void PlayerDiggerLogic::Update(const float dt)
 
 void PlayerDiggerLogic::FireProjectile()
 {
-	if(m_BulletTimeDelta >= 0)
+	if(m_BulletTimeDelta <= 0)
 	{
 		m_BulletTimeDelta = m_BulletTime;
 		//SoundSystem::PlaySoundEffect()
@@ -62,5 +63,9 @@ bool PlayerDiggerLogic::ColliderEventBegin(GameObject* , glm::fvec2 )
 
 void PlayerDiggerLogic::OverlapEventBegin(GameObject* )
 {
+	//if(auto comp = other->GetComponent<NobbinLogic>())
+	//{
+	//	m_subject.Notify(ObserverMessage::Msg_Nobbin_Hit);
+	//}
 }
 

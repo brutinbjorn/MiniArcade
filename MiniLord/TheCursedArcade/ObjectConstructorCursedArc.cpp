@@ -112,7 +112,7 @@ void ObjectConstructorCursedArc::DiggerNobbin(std::shared_ptr<GameObject> newobj
 	//overlap
 	int Xsize = static_cast<int>(sizeOfObject.x);
 	int Ysize = static_cast<int>(sizeOfObject.y);
-	auto Overlap = new OverlapComp(SDL_Rect{ -Xsize / 2,-Ysize / 2,Xsize,Ysize });
+	auto Overlap = new OverlapComp(SDL_Rect{ -Xsize / 2 +4,-Ysize / 2 +4,Xsize -8,Ysize -8});
 	newobj->AddComponent(Overlap);
 	Overlap->SetIsOverlapper(true);
 	Overlap->SetIsCollider(true);
@@ -208,10 +208,10 @@ void ObjectConstructorCursedArc::PlayerNobbin(std::shared_ptr<GameObject> newObj
 	//overlap
 	int Xsize = static_cast<int>(sizeOfObject.x);
 	int Ysize = static_cast<int>(sizeOfObject.y);
-	auto Overlap = new OverlapComp(SDL_Rect{ -Xsize / 2,-Ysize / 2,Xsize,Ysize });
+	auto Overlap = new OverlapComp(SDL_Rect{ -Xsize / 2 + 4,-Ysize / 2 +4,Xsize -8,Ysize - 8 });
 	newObj->AddComponent(Overlap);
 	Overlap->SetIsOverlapper(true);
-	Overlap->SetIsCollider(true);
+	Overlap->SetIsCollider(false);
 
 	auto render = new RenderComponent();
 	render->SetTexture("Digger/Nobbin_Left.png");
@@ -231,7 +231,7 @@ void ObjectConstructorCursedArc::PlayerNobbin(std::shared_ptr<GameObject> newObj
 	auto enemyStartPos = grid->GetEnemySpawnPosition();
 	newObj->GetTransform().SetPosition(enemyStartPos.x, enemyStartPos.y, 0);
 
-	auto nobbinBrain = new NobbinLogic(grid, render, renderAlt, actorlog);;
+	auto nobbinBrain = new NobbinLogic(grid, render, renderAlt, actorlog,100,true);
 	nobbinBrain->Getsubject().AddObserver(obs);
 	newObj->AddComponent(nobbinBrain);
 

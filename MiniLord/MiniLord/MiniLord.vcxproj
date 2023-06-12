@@ -66,6 +66,7 @@
     <Import Project="Steamworks_32.props" />
     <Import Project="nlohmann_json.props" />
     <Import Project="Box2DDebug.props" />
+    <Import Project="Debug32PostBuild.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -76,6 +77,7 @@
     <Import Project="Steamworks_32.props" />
     <Import Project="nlohmann_json.props" />
     <Import Project="box2DRelease.props" />
+    <Import Project="Release32PostBuild.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -86,6 +88,7 @@
     <Import Project="Steamworks_64.props" />
     <Import Project="nlohmann_json.props" />
     <Import Project="Box2DDebug.props" />
+    <Import Project="..\TheCursedArcade\Debug64PostBuild.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -96,6 +99,7 @@
     <Import Project="Steamworks_64.props" />
     <Import Project="nlohmann_json.props" />
     <Import Project="box2DRelease.props" />
+    <Import Project="Release64PostBuild.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -431,9 +435,6 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="XBoxController.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="BjornsDiary.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MiniLord.rc" />

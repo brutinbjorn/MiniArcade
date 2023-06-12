@@ -67,7 +67,6 @@ namespace MiniLord
 
 
 
-
 	class PlaySoundEffect : public Command
 	{
 	public:
@@ -151,12 +150,16 @@ namespace MiniLord
 
 				if(auto NobbingPLayer = m_GameObjectToMove->GetComponent<NobbinLogic>())
 				{
+					auto overlapQuad = m_GameObjectToMove->GetComponent<OverlapComp>()->GetOverLapSquare();
 					auto dt = TimeManager::GetInstance().GetDeltaTime();
-					auto futureCell = m_pGrid->GetCellAtPosition(glm::fvec2{ position.x + m_DirectionAndSpeed.x * dt,position.y *m_DirectionAndSpeed.y });
-					if( auto futureLogic = futureCell->GetComponent<CellLogic>())
+
+					if(auto futureCell = m_pGrid->GetCellAtPosition(glm::fvec2{ position.x + m_DirectionAndSpeed.x * dt ,position.y + m_DirectionAndSpeed.y * dt }))
 					{
-						if (!futureLogic->IsDiggedOut())
-							return;
+						if( auto futureLogic = futureCell->GetComponent<CellLogic>())
+						{
+							if (!futureLogic->IsDiggedOut())
+								return ;
+						}
 					}
 				}
 

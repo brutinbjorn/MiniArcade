@@ -65,6 +65,8 @@
     <Import Project="..\MiniLord\sdl.props" />
     <Import Project="..\MiniLord\nlohmann_json.props" />
     <Import Project="..\MiniLord\Box2DDebug.props" />
+    <Import Project="..\MiniLord\Steamworks_32.props" />
+    <Import Project="..\MiniLord\Debug32PostBuild.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -74,6 +76,8 @@
     <Import Project="..\MiniLord\sdl.props" />
     <Import Project="..\MiniLord\nlohmann_json.props" />
     <Import Project="..\MiniLord\box2DRelease.props" />
+    <Import Project="..\MiniLord\Steamworks_32.props" />
+    <Import Project="..\MiniLord\Release32PostBuild.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -83,6 +87,8 @@
     <Import Project="..\MiniLord\sdl.props" />
     <Import Project="..\MiniLord\nlohmann_json.props" />
     <Import Project="..\MiniLord\Box2DDebug.props" />
+    <Import Project="..\MiniLord\Steamworks_64.props" />
+    <Import Project="Debug64PostBuild.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -92,6 +98,7 @@
     <Import Project="..\MiniLord\sdl.props" />
     <Import Project="..\MiniLord\nlohmann_json.props" />
     <Import Project="..\MiniLord\box2DRelease.props" />
+    <Import Project="..\MiniLord\Steamworks_64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -154,6 +161,7 @@
       <AdditionalDependencies>MiniLord.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

@@ -11,7 +11,7 @@ void MiniLord::LivesDisplayComp::Initialize()
 		auto Sprite = new RenderComponent();
 		Sprite->SetTexture(m_FilePath);
 		Sprite->SetOffset(static_cast<int>(m_Spacing.x) * i, static_cast<int>(m_Spacing.y) * i);
-		Sprite->SetSize(10, 10);
+		Sprite->SetSize(static_cast<int>(m_size.x), static_cast<int>(m_size.y));
 		GetGameObject()->AddComponent(Sprite);
 		m_heartsToRender.push_back(Sprite);
 	}
@@ -28,13 +28,16 @@ void MiniLord::LivesDisplayComp::Update(const float)
 				auto Sprite = new RenderComponent();
 				Sprite->SetTexture(m_FilePath);
 				Sprite->SetOffset(static_cast<int>(m_Spacing.x) * i, static_cast<int>(m_Spacing.y) * i);
-				Sprite->SetSize(10, 10);
+				Sprite->SetSize(static_cast<int>(m_size.x), static_cast<int>(m_size.y));
 				GetGameObject()->AddComponent(Sprite);
 				m_heartsToRender.push_back(Sprite);
 			}
 		}
 		else if(m_NmberOfHeartsToDraw < static_cast<int>(m_heartsToRender.size()))
 		{
+			if(m_NmberOfHeartsToDraw < 0)
+				m_NmberOfHeartsToDraw = 0;
+
 			for (int i = m_NmberOfHeartsToDraw; i < static_cast<int>(m_heartsToRender.size()); ++i)
 			{
 				//auto comp = m_heartsToRender.

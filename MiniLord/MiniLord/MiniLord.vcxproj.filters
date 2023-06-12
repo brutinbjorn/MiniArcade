@@ -514,9 +514,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="BjornsDiary.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="MiniLord.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
